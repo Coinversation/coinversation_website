@@ -1,5 +1,9 @@
 # coinversation
 
+## Node version
+
+v12.22.5
+
 ## how to run
 
 ```
