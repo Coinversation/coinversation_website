@@ -1,0 +1,73 @@
+@import url("@/styles/theme.less");
+.banner {
+  padding: 30px 0 60px;
+  .banner_inner {
+    text-align: center;
+    width: 80%;
+    max-width: 860px;
+    margin: 0 auto;
+    background: url("../img/banner_bg.png") no-repeat;
+    background-size: 100% 100%;
+    padding-bottom: 80px;
+    h2 {
+      color: #000000;
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 60px;
+      text-align: center;
+      padding: 50px 5% 14px 8%;
+      i {
+        color: @themeColor01;
+      }
+    }
+    p {
+      i {
+        display: inline-block;
+        height: 28px;
+        line-height: 28px;
+        font-size: 14px;
+        font-weight: bolder;
+        color: @themeColor01;
+        border: 1px dashed @themeColor01;
+        padding: 2px 30px 0;
+        border-radius: 16px;
+      }
+    }
+    h3 {
+      display: inline-block;
+      padding: 2px 60px 0;
+      height: 56px;
+      line-height: 56px;
+      border-radius: 20px;
+      background-color: @themeColor01;
+      color: @bgColor01;
+      margin-top: 30px;
+      font-weight: bold;
+      font-size: 20px;
+      img {
+        display: inline-block;
+        vertical-align: baseline;
+        padding-left: 6px;
+        width: 14px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 900px) {
+  .banner .banner_inner {
+    width: 100%;
+  }
+  .banner .banner_inner h2 {
+    font-size: 32px;
+    line-height: 44px;
+  }
+  .banner .banner_inner p i {
+    font-size: 12px;
+    padding: 2px 10px 0;
+  }
+  .banner .banner_inner h3 {
+    font-size: 16px;
+    line-height: 40px;
+    height: 40px;
+  }
+}

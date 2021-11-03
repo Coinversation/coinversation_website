@@ -1,0 +1,30 @@
+@import url("@/styles/theme.less");
+.partmers {
+  padding: 0 2% 100px;
+  max-width: 1300px;
+  margin: 0 auto;
+  h2 {
+    padding-top: 60px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    i {
+      color: @themeColor01;
+    }
+  }
+  .partmers_pool {
+    text-align: center;
+    padding-top: 40px;
+    img {
+      display: inline-block;
+      width: 216px;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+@media screen and (max-width: 460px) {
+  .partmers .partmers_pool img {
+    width: 40%;
+  }
+}

@@ -1,0 +1,54 @@
+@import url("@/styles/theme.less");
+.roadMap {
+  background: url("../img/roadMap_bg.png") no-repeat;
+  background-position: center bottom;
+  background-size: 120% 80%;
+  h2 {
+    padding-top: 60px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    i {
+      color: @themeColor01;
+    }
+  }
+  ul {
+    display: flex;
+    padding: 100px 2% 120px;
+    justify-content: space-between;
+    max-width: 1300px;
+    margin: 0 auto;
+    li {
+      width: 30%;
+      background-color: @bgColor01;
+      box-shadow: 6px -6px 0px 0px rgba(248, 221, 235, 0.23);
+      border-radius: 12px;
+      padding: 20px 1%;
+      h3 {
+        font-weight: bold;
+        font-size: 26px;
+        color: @themeColor01;
+      }
+      p {
+        margin-top: 10px;
+        color: #343133;
+        font-size: 14px;
+        line-height: 26px;
+        font-weight: bold;
+        width: 90%;
+        max-width: 1000px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 900px) {
+  .roadMap ul {
+    display: block;
+  }
+  .roadMap ul li {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 20px 4%;
+  }
+}

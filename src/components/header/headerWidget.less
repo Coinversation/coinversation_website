@@ -1,0 +1,173 @@
+@import url("@/styles/theme.less");
+.header {
+  padding: 12px 2%;
+  border-bottom: 1px solid #f5eaf0;
+  overflow: hidden;
+  clear: both;
+  .fl {
+    float: left;
+  }
+  .fr {
+    float: right;
+  }
+  .headerWidget {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .big {
+    a {
+      display: inline-block;
+      vertical-align: bottom;
+      font-size: 16px;
+      line-height: 44px;
+      font-weight: bold;
+      color: @text01;
+      margin-right: 3%;
+      position: relative;
+      transition: all 0.3s ease;
+      &.on {
+        color: @themeColor01;
+        i {
+          background-color: @themeColor01;
+        }
+      }
+      i {
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20%;
+        height: 2px;
+        border-radius: 1px;
+        transition: all 0.3s ease;
+        margin: 0 auto;
+      }
+      img {
+        display: block;
+        width: 200px;
+        height: 44px;
+        margin-right: 28px;
+      }
+    }
+    .fr {
+      float: right;
+      .buyLink {
+        margin-top: 2px;
+        margin-right: 0;
+        height: 40px;
+        line-height: 42px;
+        background: #ffffff;
+        border: 1px solid @themeColor01;
+        border-radius: 16px;
+        padding: 0 20px;
+        font-size: 14px;
+        font-weight: bolder;
+        color: @themeColor01;
+        transition: all 0.3s ease;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}
+.samll,
+.modal {
+  display: none;
+}
+@media screen and (max-width: 920px) {
+  .big {
+    display: none;
+  }
+  .samll,
+  .modal {
+    display: block;
+  }
+  .modal {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 96%;
+    padding: 12px 2% 40px;
+    background-color: #f9f7f8;
+    border-top: 1px solid #f5eaf0;
+    .menu {
+      a {
+        display: block;
+        text-align: center;
+        line-height: 40px;
+        &::after {
+          content: "";
+          display: block;
+          width: 10px;
+          height: 4px;
+          border-radius: 20px;
+          background-color: @bgColor01;
+          margin: 0 auto;
+          overflow: hidden;
+        }
+        &.on {
+          color: @themeColor01;
+          font-weight: bold;
+          &::after {
+            content: "";
+            background-color: @themeColor01;
+          }
+        }
+      }
+    }
+  }
+  .samll {
+    clear: both;
+    overflow: hidden;
+    position: relative;
+    z-index: 99;
+    .fl {
+      width: 20%;
+      img {
+        display: block;
+      }
+    }
+    .menu {
+      display: inline-block;
+      vertical-align: middle;
+      border-radius: 8px;
+      background-image: linear-gradient(
+        to right,
+        @themeColor01 0%,
+        @bgyellow 99%
+      );
+      cursor: pointer;
+      img {
+        display: block;
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+      }
+    }
+    .buyLink {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 0;
+      height: 40px;
+      background: #ffffff;
+      border: 1px solid @themeColor01;
+      border-radius: 16px;
+      padding: 0 20px;
+      font-size: 14px;
+      font-weight: bolder;
+      line-height: 40px;
+      color: @themeColor01;
+      transition: all 0.3s ease;
+      margin-right: 12px;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+@media screen and (max-width: 375px) {
+  .samll .buyLink {
+    display: none;
+  }
+}
