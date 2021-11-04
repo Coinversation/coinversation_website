@@ -2,7 +2,7 @@ import React from "react";
 import "./banner.less";
 export default function Banner() {
   return (
-    <div className="banner">
+    <div className="banner" id="Home">
       <div className="banner_inner">
         <div className="h1">
           <h1

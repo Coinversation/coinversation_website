@@ -2,7 +2,11 @@ import React from "react";
 import "./roadMap.less";
 export default function RoadMap() {
   return (
-    <div className="roadMap" id="RoadMap">
+    <div
+      className="roadMap   animate animate__animated"
+      id="RoadMap"
+      data-animate="animate__fadeInUp"
+    >
       <h2>
         Coinversation<i> Roadmap</i>
       </h2>

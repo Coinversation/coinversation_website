@@ -2,7 +2,7 @@ import React from "react";
 import "./partners.less";
 export default function Partmers() {
   return (
-    <div className="partners" id="Partmers">
+    <div className="partners" id="Partners">
       <h2>
         Strategic<i> Partners</i>
       </h2>

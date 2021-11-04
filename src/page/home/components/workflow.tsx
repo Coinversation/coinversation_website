@@ -5,8 +5,7 @@ export default function Workflow() {
     <div className="workflow" id="Workflow">
       <div className="partone">
         <div
-          className="partone_inner  animate animate__animated
-        "
+          className="partone_inner  animate animate__animated"
           data-animate="animate__fadeInUp"
         >
           <h2>Parachain</h2>

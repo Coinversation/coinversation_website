@@ -7,7 +7,6 @@ function HeaderWidget() {
   return (
     <div
       className="header"
-      id="Home"
       style={{
         backgroundColor: showModal ? "#f9f7f8" : "#fff",
         position: showModal ? "static" : "fixed",
