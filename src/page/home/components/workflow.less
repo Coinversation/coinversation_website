@@ -2,15 +2,14 @@
 .workflow {
   background-color: @themeColor01;
   .partone {
-    padding: 0 2%;
+    padding: 30px 2% 90px;
+    background: url("../img/workflow_bg.png") no-repeat;
+    background-position: right bottom;
+    color: @bgColor01;
     .partone_inner {
       max-width: 1300px;
       margin: 0 auto;
     }
-    padding-bottom: 60px;
-    background: url("../img/workflow_bg.png") no-repeat;
-    background-position: right bottom;
-    color: @bgColor01;
     h2 {
       padding-top: 50px;
       font-size: 36px;
@@ -54,5 +53,20 @@
     border-top-left-radius: 100px;
     padding-left: 12%;
     padding-top: 80px;
+  }
+}
+@media screen and (max-width: 750px) {
+  .workflow .partone {
+    padding: 0 5% 40px;
+  }
+  .workflow .partone h2 {
+    padding-top: 40px;
+    font-size: @font-h2-750-size-samll;
+  }
+
+  .workflow .partone .text {
+    font-size: @font-p-750-size;
+    line-height: @line-p-750-height;
+    width: 100%;
   }
 }

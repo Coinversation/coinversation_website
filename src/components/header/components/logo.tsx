@@ -3,7 +3,7 @@ import config from "../../../config/index";
 function Logo() {
   return (
     <a className="logo" href={config.preLink + "/"} title="0xcoinversation">
-      <img src={require("../img/logo.png")} alt="logo" />
+      <img src={require("../img/logo.svg")} alt="logo" />
     </a>
   );
 }

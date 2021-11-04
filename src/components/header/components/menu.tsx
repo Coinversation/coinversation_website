@@ -4,7 +4,7 @@ export default function Menu() {
   const LinkArray = [
     "Home",
     "About",
-    "Workflow",
+    // "Workflow",
     "Road Map",
     "Partmers",
     "Contact",
@@ -13,7 +13,7 @@ export default function Menu() {
     <>
       {LinkArray.map((v: string) => (
         <a
-          href={`#${v.replaceAll(" ", "")}`}
+          href={`#${(v || "").replaceAll(" ", "")}`}
           key={v}
           title={v}
           onClick={() => setOnKey(v)}

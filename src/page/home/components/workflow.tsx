@@ -5,9 +5,7 @@ export default function Workflow() {
     <div className="workflow" id="Workflow">
       <div className="partone">
         <div className="partone_inner">
-          <h2>
-            Para<i>chain</i>
-          </h2>
+          <h2>Parachain</h2>
           <p className="text">
             Coinversation will reserve 22.5% of the tokens for the Polkadot
             Parachain auction. This parachain will be used for the NFT and

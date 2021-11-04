@@ -8,7 +8,10 @@ function HeaderWidget() {
     <div
       className="header"
       id="Home"
-      style={{ backgroundColor: showModal ? "#f9f7f8" : "#fff" }}
+      style={{
+        backgroundColor: showModal ? "#f9f7f8" : "#fff",
+        position: showModal ? "static" : "fixed",
+      }}
     >
       <div className="headerWidget big">
         <Logo />
@@ -24,7 +27,12 @@ function HeaderWidget() {
           <Logo />
         </div>
         <div className="fr">
-          <a href="#sss" className="buyLink" target="_blank">
+          <a
+            href="https://www.kaco.finance/"
+            rel="noopener noreferrer"
+            className="buyLink"
+            target="_blank"
+          >
             Buy Token
           </a>
           <div className="menu">

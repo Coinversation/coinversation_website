@@ -19,18 +19,42 @@
     max-width: 1300px;
     margin: 0 auto;
     li {
-      width: 30%;
+      width: 28%;
       background-color: @bgColor01;
       box-shadow: 6px -6px 0px 0px rgba(248, 221, 235, 0.23);
       border-radius: 12px;
-      padding: 20px 1%;
+      padding: 40px 2%;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 30px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background-color: #f8ddeb;
+        border-radius: 50%;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        top: 38px;
+        right: 28px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: #e6007a;
+        opacity: 0.7;
+      }
       h3 {
         font-weight: bold;
         font-size: 26px;
         color: @themeColor01;
+        position: relative;
       }
       p {
-        margin-top: 10px;
+        position: relative;
+        margin-top: 20px;
         color: #343133;
         font-size: 14px;
         line-height: 26px;
@@ -50,5 +74,34 @@
     margin: 0 auto;
     margin-bottom: 20px;
     padding: 20px 4%;
+  }
+}
+@media screen and (max-width: 750px) {
+  .roadMap h2 {
+    font-size: @font-h2-750-size;
+  }
+
+  .roadMap ul {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .roadMap ul li {
+    margin-bottom: 10px;
+  }
+  .roadMap ul li::before {
+    content: "";
+    top: 10px;
+  }
+  .roadMap ul li::after {
+    content: "";
+    top: 18px;
+    opacity: 0.7;
+  }
+  .roadMap ul li h3 {
+    font-size: @font-h3-750-size;
+  }
+  .roadMap ul li p {
+    font-size: @font-p-750-size;
+    line-height: @line-p-750-height;
   }
 }

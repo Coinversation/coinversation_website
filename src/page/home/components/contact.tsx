@@ -6,7 +6,7 @@ export default function Contact() {
       <div className="contact_inner">
         <img
           className="contact_inner_logo"
-          src={require("../img/logo.png")}
+          src={require("../img/logo.svg")}
           alt="logo"
         />
         <p className="text">
@@ -27,7 +27,7 @@ export default function Contact() {
             <li>
               <a href="https://twitter.com/Coinversation_">
                 <img
-                  src={require("../img/icon_twiter.png")}
+                  src={require("../img/icon_twiter.svg")}
                   alt="icon_twiter"
                 />
               </a>
@@ -35,7 +35,7 @@ export default function Contact() {
             <li>
               <a href="https://t.me/coinversationofficial">
                 <img
-                  src={require("../img/icon_telegram.png")}
+                  src={require("../img/icon_telegram.svg")}
                   alt="icon_twiter"
                 />
               </a>
@@ -43,7 +43,7 @@ export default function Contact() {
             <li>
               <a href="https://github.com/Coinversation">
                 <img
-                  src={require("../img/icon_github.png")}
+                  src={require("../img/icon_github.svg")}
                   alt="icon_twiter"
                 />
               </a>
@@ -52,7 +52,7 @@ export default function Contact() {
             <li>
               <a href="https://coinversationofficial.medium.com/">
                 <img
-                  src={require("../img/icon_medium.png")}
+                  src={require("../img/icon_medium.svg")}
                   alt="icon_twiter"
                 />
               </a>

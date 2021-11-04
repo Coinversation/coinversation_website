@@ -17,14 +17,35 @@
     padding-top: 40px;
     img {
       display: inline-block;
+      vertical-align: middle;
       width: 216px;
       margin: 0;
       padding: 0;
+      &.png {
+        width: 150px;
+        padding: 0 20px;
+      }
     }
   }
 }
-@media screen and (max-width: 460px) {
-  .partmers .partmers_pool img {
-    width: 40%;
+@media screen and (max-width: 750px) {
+  .partmers h2 {
+    font-size: @font-h2-750-size;
+    padding-top: 20px;
   }
+  .partmers .partmers_pool {
+    padding-top: 30px;
+  }
+  .partmers .partmers_pool img {
+    width: 30%;
+  }
+  .partmers .partmers_pool img.png {
+    width: 18%;
+    padding: 0 6%;
+  }
+  .partmers {
+    padding-bottom: 30px;
+  }
+}
+@media screen and (max-width: 460px) {
 }

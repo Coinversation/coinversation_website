@@ -4,7 +4,11 @@ export default function About() {
   return (
     <div className="about" id="About">
       <div className="about_inner">
-        <h2>
+        <h2
+        // className="animate animate__animated"
+        // data-animate="animate__fadeInUp"
+        // data-animation-delay="2 .1s"
+        >
           About The<i> Coinversation</i>
         </h2>
         <p className="text">
@@ -18,7 +22,7 @@ export default function About() {
         </p>
         <ul className="first">
           <li>
-            <img src={require("../img/icon_DEX.png")} alt="logo" />
+            <img src={require("../img/icon_DEX.svg")} alt="logo" />
             <h3>DEX</h3>
             <p>
               Its core functions mainly include the AMM (automated market maker)
@@ -30,7 +34,7 @@ export default function About() {
             </p>
           </li>
           <li>
-            <img src={require("../img/icon_Cusd.png")} alt="logo" />
+            <img src={require("../img/icon_Cusd.svg")} alt="logo" />
             <h3>Synthetic Assets</h3>
             <p>
               It is not only a synthetic asset issuance platform, but also a
@@ -44,8 +48,8 @@ export default function About() {
         </ul>
         <ul className="seconed">
           <li>
-            <img src={require("../img/icon_nft.png")} alt="logo" />
-            <h3>About NFT</h3>
+            <img src={require("../img/icon_nft.svg")} alt="logo" />
+            <h3>NFT</h3>
             <h4>
               <i></i>NFT Fragmentation Protocol
             </h4>

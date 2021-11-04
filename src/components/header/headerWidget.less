@@ -1,9 +1,11 @@
 @import url("@/styles/theme.less");
 .header {
-  padding: 12px 2%;
+  width: 100%;
+  padding: 12px 0;
   border-bottom: 1px solid #f5eaf0;
   overflow: hidden;
   clear: both;
+  z-index: 9;
   .fl {
     float: left;
   }
@@ -15,6 +17,7 @@
     margin: 0 auto;
   }
   .big {
+    padding: 0 2%;
     a {
       display: inline-block;
       vertical-align: bottom;
@@ -25,6 +28,7 @@
       margin-right: 3%;
       position: relative;
       transition: all 0.3s ease;
+      font-family: "Poppins-SemiBold";
       &.on {
         color: @themeColor01;
         i {
@@ -38,7 +42,7 @@
         transform: translateX(-50%);
         width: 20%;
         height: 2px;
-        border-radius: 1px;
+        border-radius: 2px;
         transition: all 0.3s ease;
         margin: 0 auto;
       }
@@ -54,16 +58,17 @@
       .buyLink {
         margin-top: 2px;
         margin-right: 0;
-        height: 40px;
-        line-height: 42px;
+        height: 38px;
+        line-height: 38px;
         background: #ffffff;
-        border: 1px solid @themeColor01;
+        border: 2.3px solid @themeColor01;
         border-radius: 16px;
         padding: 0 20px;
         font-size: 14px;
         font-weight: bolder;
         color: @themeColor01;
         transition: all 0.3s ease;
+        font-family: "Poppins-SemiBold";
         &:hover {
           opacity: 0.8;
         }
@@ -84,11 +89,11 @@
     display: block;
   }
   .modal {
-    position: fixed;
+    position: absolute;
     top: 64px;
     left: 0;
-    width: 96%;
-    padding: 12px 2% 40px;
+    width: 100%;
+    padding: 12px 0;
     background-color: #f9f7f8;
     border-top: 1px solid #f5eaf0;
     .menu {
@@ -96,6 +101,7 @@
         display: block;
         text-align: center;
         line-height: 40px;
+        font-size: 14px;
         &::after {
           content: "";
           display: block;
@@ -124,9 +130,13 @@
     z-index: 99;
     .fl {
       width: 20%;
+      padding-left: 2%;
       img {
         display: block;
       }
+    }
+    .fr {
+      padding-right: 2%;
     }
     .menu {
       display: inline-block;
@@ -150,7 +160,6 @@
       vertical-align: middle;
       margin-right: 0;
       height: 40px;
-      background: #ffffff;
       border: 1px solid @themeColor01;
       border-radius: 16px;
       padding: 0 20px;
@@ -166,8 +175,35 @@
     }
   }
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 750px) {
+  .samll .fl {
+    width: 40%;
+    line-height: 30px;
+  }
+  .samll .fl img {
+    display: inline-block;
+    vertical-align: middle;
+    height: 28px;
+  }
   .samll .buyLink {
-    display: none;
+    font-size: 10px;
+  }
+  .samll .buyLink {
+    line-height: 28px;
+    height: 28px;
+    padding: 0 10px;
+    border-radius: 8px;
+  }
+  .samll .menu img {
+    height: 20px;
+    width: 20px;
+  }
+  .modal {
+    top: 48px;
+    width: 100%;
+  }
+  .modal .menu a {
+    line-height: 30px;
+    margin-bottom: 10px;
   }
 }

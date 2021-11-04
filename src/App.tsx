@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Route, Switch, withRouter } from "react-router";
 
 import { Routers } from "./routers";
-// import "./styles/animate.min.css";
+import "./styles/animate.min.css";
 import config from "./config/index";
 function App() {
   return (

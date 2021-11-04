@@ -1,31 +1,58 @@
 @import url("@/styles/theme.less");
 
+// @font-face {
+//   font-family: "SourceHanSansCN-Light";
+//   src: url("./styles/fonts/SourceHanSansCN-Light.otf");
+// }
+// @font-face {
+//   font-family: "SourceHanSansCN-Medium";
+//   src: url("./styles/fonts/SourceHanSansCN-Medium.otf");
+// }
+
+// @font-face {
+//   font-family: "SourceHanSansCN-Heavy";
+//   src: url("./styles/fonts/SourceHanSansCN-Heavy.otf");
+// }
+
+// @font-face {
+//   font-family: "SourceHanSansCN-Bold";
+//   src: url("./styles/fonts/SourceHanSansCN-Bold.otf");
+// }
 @font-face {
-  font-family: "SourceHanSansCN-Medium";
-  src: url("./styles/fonts/SourceHanSansCN-Medium.woff2") format("woff2"),
-    // url("./styles/fonts/SourceHanSansCN-Medium.woff") format("woff"),
-    url("./styles/fonts/SourceHanSansCN-Medium.ttf") format("truetype"),
-    url("./styles/fonts/SourceHanSansCN-Medium.eot") format("embedded-opentype");
-  // url("./styles/fonts/SourceHanSansCN-Medium.svg") format("svg");
+  font-family: "Poppins-Bold";
+  src: url("./styles/fonts/Poppins-Bold.ttf");
 }
 
-h1,
+@font-face {
+  font-family: "Poppins-Medium";
+  src: url("./styles/fonts/Poppins-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Poppins-SemiBold";
+  src: url("./styles/fonts/Poppins-SemiBold.ttf");
+}
+
+h1 {
+  font-weight: 800;
+  font-family: Poppins-Bold;
+}
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-weight: 400;
+  font-weight: 600;
   margin: 0;
   padding: 0;
-  font-family: SourceHanSansCN-Medium;
+  font-family: Poppins-SemiBold;
 }
 p,
 a {
   font-weight: 400;
   margin: 0;
   padding: 0;
-  font-family: SourceHanSansCN-Medium;
+  font-family: Poppins-Medium;
 }
 
 body,

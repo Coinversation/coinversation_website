@@ -38,12 +38,13 @@
       border: 1px solid #f8ddeb;
       border-radius: 24px;
       background-color: @bgColor01;
-      margin-bottom: 20px;
-      padding: 20px 20px 40px;
+      margin-bottom: 36px;
+      padding: 40px;
 
       img {
         display: block;
-        width: 90px;
+        width: 70px;
+        margin-left: 10px;
       }
       h3 {
         font-size: 20px;
@@ -54,12 +55,12 @@
         padding-top: 10px;
       }
       h4 {
-        font-size: 14px;
+        font-size: 15px;
         line-height: 30px;
         font-weight: bolder;
         color: #000;
         padding-left: 10px;
-        padding-top: 10px;
+        padding-top: 20px;
         i {
           display: inline-block;
           vertical-align: middle;
@@ -73,8 +74,8 @@
       p {
         font-size: 14px;
         line-height: 26px;
-        font-weight: bold;
-        color: #5a5458;
+        // font-weight: bold;
+        color: @font-p-750-color;
         padding-left: 10px;
       }
     }
@@ -102,5 +103,49 @@
   .about .about_inner .first,
   .about .about_inner .seconed {
     float: none;
+  }
+}
+@media screen and (max-width: 750px) {
+  .about {
+    padding-top: 60px;
+  }
+  .about .about_inner h2 {
+    font-size: @font-h2-750-size-samll;
+  }
+  .about .about_inner .text {
+    font-size: @font-p-750-size;
+    text-align: left;
+    line-height: @line-p-750-height;
+    margin-top: 20px;
+  }
+  .about .about_inner ul li {
+    text-align: left;
+    padding: 20px;
+  }
+  .about .about_inner ul li img {
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+    width: 40px;
+    padding-bottom: 10px;
+    // padding-left: 20px;
+  }
+  .about .about_inner li h3 {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    font-weight: bolder;
+    font-size: @font-h3-750-size;
+    line-height: 30px;
+  }
+  .about .about_inner li h4 {
+    font-size: @font-h4-750-size-samll;
+    padding-left: 0;
+  }
+  .about .about_inner li p {
+    font-size: @font-p-750-size;
+    line-height: @line-p-750-height;
+    text-align: left;
+    padding-left: 0;
   }
 }
