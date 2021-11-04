@@ -1,12 +1,12 @@
 import React from "react";
-import "./partmers.less";
+import "./partners.less";
 export default function Partmers() {
   return (
-    <div className="partmers" id="Partmers">
+    <div className="partners" id="Partmers">
       <h2>
         Strategic<i> Partners</i>
       </h2>
-      <div className="partmers_pool">
+      <div className="partners_pool">
         <img src={require("../img/partmers01.svg")} alt="partmers01" />
         <img src={require("../img/partmers02.svg")} alt="partmers02" />
         <img src={require("../img/partmers03.svg")} alt="partmers03" />

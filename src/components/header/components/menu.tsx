@@ -6,7 +6,7 @@ export default function Menu() {
     "About",
     // "Workflow",
     "Road Map",
-    "Partmers",
+    "Partners",
     "Contact",
   ];
   return (

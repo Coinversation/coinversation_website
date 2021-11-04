@@ -5,7 +5,7 @@ import Banner from "./components/banner";
 import Workflow from "./components/workflow";
 import Contact from "./components/contact";
 import RoadMap from "./components/roadMap";
-import Partmers from "./components/partmers";
+import Partners from "./components/partners";
 import "./homeIndex.less";
 export default class HomeIndex extends React.Component {
   componentDidMount() {
@@ -31,7 +31,7 @@ export default class HomeIndex extends React.Component {
         <About />
         <Workflow />
         <RoadMap />
-        <Partmers />
+        <Partners />
         <Contact />
       </div>
     );
