@@ -4,7 +4,11 @@ export default function Workflow() {
   return (
     <div className="workflow" id="Workflow">
       <div className="partone">
-        <div className="partone_inner">
+        <div
+          className="partone_inner  animate animate__animated
+        "
+          data-animate="animate__fadeInUp"
+        >
           <h2>Parachain</h2>
           <p className="text">
             Coinversation will reserve 22.5% of the tokens for the Polkadot

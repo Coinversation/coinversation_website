@@ -3,7 +3,11 @@ import "./about.less";
 export default function About() {
   return (
     <div className="about" id="About">
-      <div className="about_inner">
+      <div
+        className="about_inner animate animate__animated"
+        data-animate="animate__fadeInIn"
+        data-animation-delay="2 .1s"
+      >
         <h2
         // className="animate animate__animated"
         // data-animate="animate__fadeInUp"

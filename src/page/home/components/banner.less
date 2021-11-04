@@ -4,6 +4,31 @@
   .h1 {
     padding: 50px 5% 14px 8%;
   }
+  ul {
+    padding-top: 30px;
+    li {
+      display: inline-block;
+      a {
+        display: block;
+        position: relative;
+        padding: 8px 20px;
+        border: 1px solid #f8ddeb;
+        transform: all 0.3s ease;
+        border-radius: 12px;
+        margin: 0 10px;
+        transition: border 0.9s ease, top 0.3s ease;
+        top: 10px;
+        &:hover {
+          top: 0;
+          border: 1px solid @themeColor01;
+        }
+        img {
+          display: block;
+          width: 20px;
+        }
+      }
+    }
+  }
   .banner_inner {
     text-align: center;
     width: 80%;
@@ -41,11 +66,17 @@
       height: 56px;
       line-height: 56px;
       border-radius: 20px;
+      margin-top: 30px;
       background-color: @themeColor01;
       color: @bgColor01;
-      margin-top: 30px;
       font-weight: bold;
       font-size: 20px;
+      transition: all 0.3s ease;
+      &:hover {
+        opacity: 0.8;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
       img {
         display: inline-block;
         vertical-align: baseline;
@@ -76,6 +107,7 @@
 @media screen and (max-width: 750px) {
   .banner {
     padding-bottom: 30px;
+    padding-top: 60px;
   }
   .banner .banner_inner {
     width: 100%;
@@ -102,6 +134,14 @@
     border-radius: 8px;
     img {
       width: 10px;
+    }
+  }
+  .banner .banner_inner li a {
+    padding: 4px 14px;
+    border-radius: 6px;
+    background-color: #fff;
+    img {
+      width: 15px;
     }
   }
 }

@@ -17,9 +17,9 @@ function HeaderWidget() {
         <Logo />
         <Menu />
         <div className="fr">
-          <a href="#sss" className="buyLink" target="_blank">
+          {/* <a href="#sss" className="buyLink" target="_blank">
             Buy Token
-          </a>
+          </a> */}
         </div>
       </div>
       <div className="samll">
@@ -27,17 +27,20 @@ function HeaderWidget() {
           <Logo />
         </div>
         <div className="fr">
-          <a
+          {/* <a
             href="https://www.kaco.finance/"
             rel="noopener noreferrer"
             className="buyLink"
             target="_blank"
           >
             Buy Token
-          </a>
+          </a> */}
           <div className="menu">
             <img
-              onClick={() => setShowModal(!showModal)}
+              onClick={() => {
+                window.scrollTo(0, 0);
+                setShowModal(!showModal);
+              }}
               src={require("./img/menu.png")}
               alt="logo"
             />

@@ -23,7 +23,33 @@ export default function Banner() {
         >
           <i>Platform Based on Polkadot</i>
         </p>
-        <a
+        <ul>
+          <li>
+            <a href="https://twitter.com/Coinversation_">
+              <img src={require("../img/icon_twiter.svg")} alt="icon_twiter" />
+            </a>
+          </li>
+          <li>
+            <a href="https://t.me/coinversationofficial">
+              <img
+                src={require("../img/icon_telegram.svg")}
+                alt="icon_twiter"
+              />
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/Coinversation">
+              <img src={require("../img/icon_github.svg")} alt="icon_twiter" />
+            </a>
+          </li>
+
+          <li>
+            <a href="https://coinversationofficial.medium.com/">
+              <img src={require("../img/icon_medium.svg")} alt="icon_twiter" />
+            </a>
+          </li>
+        </ul>
+        {/* <a
           href="https://github.com/Coinversation/white-paper"
           target="_blank"
           rel="noopener noreferrer"
@@ -33,7 +59,7 @@ export default function Banner() {
             White Paper
             <img src={require("../img/icon_arror.svg")} alt="logo" />
           </h3>
-        </a>
+        </a> */}
       </div>
     </div>
   );
