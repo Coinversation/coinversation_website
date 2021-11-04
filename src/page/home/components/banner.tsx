@@ -10,7 +10,7 @@ export default function Banner() {
           // data-animate="animate__fadeInUp"
           // data-animation-delay="1.1s"
           >
-            <i> Financial Derivatives &</i>
+            <i> Financial Derivatives & </i>
             NFT Protocol Platform
             {/* <i>A Synthetic Asset Issuance Protocol & </i>
             Decentralised Contract Trading */}

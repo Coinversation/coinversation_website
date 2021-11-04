@@ -10,7 +10,7 @@ export default function RoadMap() {
         <li>
           <h3>2020 Q4~2021Q4</h3>
           <p>
-            Ragmentation protocol, DEX, and synthetic assets have all been
+            Fragmentation protocol, DEX, and synthetic assets have all been
             developed
           </p>
         </li>
