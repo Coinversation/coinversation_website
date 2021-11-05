@@ -40,7 +40,7 @@ function HeaderWidget() {
                 window.scrollTo(0, 0);
                 setShowModal(!showModal);
               }}
-              src={require("./img/menu.png")}
+              src={require("./img/menu.svg")}
               alt="logo"
             />
           </div>
