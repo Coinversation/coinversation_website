@@ -18,21 +18,28 @@ export default function Workflow() {
           </p>
         </div>
       </div>
-      {/* <div className="parttwo">
-        <h2>System Workflow</h2>
-        <p className="text">
-          The initial collateral includes CTO and DOT, and the collateralization
-          ratio is 800% and 500% respectively. In the future, the collateral and
-          collateralization ratio can be adjusted through community governance.
-          When users stake collaterals and forge synthetic assets, corresponding
-          debts are generated. When the user wants to unlock the collateral, he
-          must repay the debt, that is, destroy the previously generated
-          synthetic assets.
-        </p>
+      <div className="parttwo" id="Workflow">
+        <div className="parttwo_inner">
+          <h2>
+            System <i>Workflow</i>
+          </h2>
+          <p className="text">
+            Based on the stablecoin protocol of interest-bearing assets built on
+            the Polkadot, using $DOT and $CTO issued by Coinversation to
+            generate interest-bearing tokens, CUSD is synthesized through smart
+            contracts and oracles. Users can mint CUSD by collateralizing tokens
+            that can generate interest, such as CTO and DOT. Bridging USDT,
+            USDC, and BUSD to the Coinversation to form the largest stable
+            currency exchange platform in the Polkadot ecosystem. We will open
+            the API to facilitate all parachains to access our stable currency
+            exchange system and facilitate all chains users can seamlessly use
+            Polkadot's cross-chain protocol.
+          </p>
+          <div className="parttwo_bg">
+            <img src={require("../img/workflow_bg_two.svg")} alt="logo" />
+          </div>
+        </div>
       </div>
-      <div className="parttwo_bg">
-        <img src={require("../img/workflow_bg_two.png")} alt="logo" />
-      </div> */}
     </div>
   );
 }

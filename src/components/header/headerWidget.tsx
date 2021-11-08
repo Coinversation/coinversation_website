@@ -8,6 +8,7 @@ interface IState {
   onKey: string;
   Home: number;
   About: number;
+  Workflow: number;
   Parachain: number;
   RoadMap: number;
   Partners: number;
@@ -17,6 +18,7 @@ const LinkArray: string[] = [
   "Home",
   "About",
   "Parachain",
+  "Workflow",
   "Road Map",
   "Partners",
   // "Contact",
@@ -29,6 +31,7 @@ export default class HeaderWidget extends React.Component<IProps, IState> {
       onKey: "Home",
       Home: 0,
       About: 0,
+      Workflow: 0,
       Parachain: 0,
       RoadMap: 0,
       Partners: 0,
@@ -39,17 +42,18 @@ export default class HeaderWidget extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
-    this.doScroll();
     // 获取元素距离顶部的高度
     const Home = this.getScrollTop("Home") || 0;
     const About = this.getScrollTop("About") || 0;
     const Parachain = this.getScrollTop("Parachain") || 0;
+    const Workflow = this.getScrollTop("Workflow") || 0;
     const RoadMap = this.getScrollTop("RoadMap") || 0;
     const Partners = this.getScrollTop("Partners") || 0;
     const Contact = this.getScrollTop("Contact") || 0;
     this.setState({
       About,
       Parachain,
+      Workflow,
       RoadMap,
       Partners,
       Contact,
@@ -72,34 +76,35 @@ export default class HeaderWidget extends React.Component<IProps, IState> {
         });
       } else if (
         _scrollTop > Parachain &&
-        _scrollTop < RoadMap &&
+        _scrollTop < Workflow &&
         onKey !== "Parachain"
       ) {
         this.setState({
           onKey: "Parachain",
         });
       } else if (
+        _scrollTop > Workflow &&
+        _scrollTop < RoadMap &&
+        onKey !== "Workflow"
+      ) {
+        this.setState({
+          onKey: "Workflow",
+        });
+      } else if (
         _scrollTop > RoadMap &&
-        _scrollTop < Partners &&
+        _scrollTop < Partners + 400 &&
         onKey !== "RoadMap"
       ) {
         this.setState({
           onKey: "RoadMap",
         });
-      } else if (
-        _scrollTop > Partners &&
-        _scrollTop < Contact &&
-        onKey !== "Partners"
-      ) {
+      } else if (_scrollTop > Partners && onKey !== "Partners") {
         this.setState({
           onKey: "Partners",
         });
-      } else if (_scrollTop > Contact && onKey !== "Contact") {
-        this.setState({
-          onKey: "Contact",
-        });
       }
     });
+    this.doScroll();
   }
   getScrollTop(idStr: string) {
     const _idStr = document.getElementById(idStr);
@@ -118,25 +123,25 @@ export default class HeaderWidget extends React.Component<IProps, IState> {
     }
   };
   changeOnKey(_key: string) {
+    const { showModal } = this.state;
     switch (_key.replaceAll(" ", "")) {
       case "Home":
         window.scrollTo(0, this.state.Home + 2 || 0);
         break;
       case "About":
-        window.scrollTo(0, this.state.About + 2 || 0);
+        window.scrollTo(0, this.state.About + (showModal ? -220 : 2) || 0);
         break;
       case "Parachain":
-        window.scrollTo(0, this.state.Parachain + 2 || 0);
+        window.scrollTo(0, this.state.Parachain + 80 || 0);
+        break;
+      case "Workflow":
+        window.scrollTo(0, this.state.Workflow + (showModal ? 40 : 120) || 0);
         break;
       case "RoadMap":
-        console.log(this.state.RoadMap);
-        window.scrollTo(0, this.state.RoadMap + 2 || 0);
+        window.scrollTo(0, this.state.RoadMap + (showModal ? 0 : 530) || 0);
         break;
       case "Partners":
-        window.scrollTo(0, this.state.Partners + 2 || 0);
-        break;
-      case "Contact":
-        window.scrollTo(0, this.state.Contact + 2 || 0);
+        window.scrollTo(0, this.state.Partners + 700 || 0);
         break;
     }
   }
