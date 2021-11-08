@@ -7,33 +7,16 @@ import Contact from "./components/contact";
 import RoadMap from "./components/roadMap";
 import Partners from "./components/partners";
 import "./homeIndex.less";
-export default class HomeIndex extends React.Component {
-  componentDidMount() {
-    this.doScroll();
-    window.addEventListener("scroll", this.doScroll);
-  }
-  doScroll = () => {
-    const animates: NodeListOf<Element> = document.querySelectorAll(".animate");
-    for (const dom of animates as any) {
-      const top = dom.offsetTop;
-      const scrollTop = window.scrollY;
-      const innerHeight = window.innerHeight;
-      if (scrollTop + innerHeight - innerHeight / 10 > top) {
-        dom.className = dom.className.replace("animate", dom.dataset.animate);
-      }
-    }
-  };
-  render() {
-    return (
-      <div className="homeIndex">
-        <HeaderWidget />
-        <Banner />
-        <About />
-        <Workflow />
-        <RoadMap />
-        <Partners />
-        <Contact />
-      </div>
-    );
-  }
+export default function HomeIndex() {
+  return (
+    <div className="homeIndex">
+      <HeaderWidget />
+      <Banner />
+      <About />
+      <Workflow />
+      <RoadMap />
+      <Partners />
+      <Contact />
+    </div>
+  );
 }

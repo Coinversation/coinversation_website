@@ -1,11 +1,22 @@
 @import url("@/styles/theme.less");
 .header {
+  position: fixed;
   width: 100%;
   padding: 12px 0;
-  border-bottom: 1px solid #f5eaf0;
   overflow: hidden;
   clear: both;
   z-index: 9;
+  background-color: #fff;
+  &::after {
+    content: "";
+    position: fixed;
+    top: 24px+44px;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background-color: #f5eaf0;
+    z-index: 10;
+  }
   .fl {
     float: left;
   }
@@ -18,7 +29,8 @@
   }
   .big {
     padding: 0 2%;
-    a {
+    a,
+    & div {
       display: inline-block;
       vertical-align: bottom;
       font-size: 16px;
@@ -29,6 +41,7 @@
       position: relative;
       transition: all 0.3s ease;
       font-family: "Poppins-SemiBold";
+      cursor: pointer;
       &.on,
       &:hover {
         color: @themeColor01;
@@ -59,10 +72,9 @@
       .buyLink {
         margin-top: 2px;
         margin-right: 0;
-        height: 38px;
-        line-height: 38px;
-        background: #ffffff;
-        border: 2.3px solid @themeColor01;
+        height: 40px;
+        line-height: 40px;
+        background: #f8ddeb;
         border-radius: 16px;
         padding: 0 20px;
         font-size: 14px;
@@ -81,7 +93,7 @@
 .modal {
   display: none;
 }
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1060px) {
   .big {
     display: none;
   }
@@ -90,15 +102,16 @@
     display: block;
   }
   .modal {
-    position: absolute;
-    top: 64px;
+    position: fixed;
+    top: 66px;
     left: 0;
     width: 100%;
     padding: 12px 0;
-    background-color: #f9f7f8;
-    border-top: 1px solid #f5eaf0;
+    background-color: #fff;
+    z-index: 9;
+    box-shadow: 0 2px 4px 0 rgba(65, 65, 65, 0.1);
     .menu {
-      a {
+      div {
         display: block;
         text-align: center;
         line-height: 40px;
@@ -140,8 +153,7 @@
       padding-right: 2%;
     }
     .menu {
-      display: inline-block;
-      vertical-align: middle;
+      float: left;
       border-radius: 8px;
       cursor: pointer;
       width: 54px;
@@ -153,11 +165,12 @@
       }
     }
     .buyLink {
-      display: inline-block;
-      vertical-align: middle;
+      float: left;
+
       margin-right: 0;
       height: 40px;
-      border: 1px solid @themeColor01;
+      // border: 1px solid #f8ddeb;
+      background-color: #f8ddeb;
       border-radius: 16px;
       padding: 0 20px;
       font-size: 14px;
@@ -173,6 +186,10 @@
   }
 }
 @media screen and (max-width: 750px) {
+  .header::after {
+    content: "";
+    top: 24px+30px;
+  }
   .samll .fl {
     width: 40%;
     line-height: 30px;
@@ -193,10 +210,10 @@
   }
   .samll .menu {
     width: 38px;
-    height: 33px;
+    height: 30px;
   }
   .modal {
-    top: 48px;
+    top: 54px;
     width: 100%;
   }
   .modal .menu a {

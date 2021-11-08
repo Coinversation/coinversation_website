@@ -1,27 +1,22 @@
-import React, { useState } from "react";
-export default function Menu() {
-  const [onKey, setOnKey] = useState("Home");
-  const LinkArray = [
-    "Home",
-    "About",
-    // "Workflow",
-    "Road Map",
-    "Partners",
-    "Contact",
-  ];
+import React from "react";
+export default function Menu(props: {
+  LinkArray: string[];
+  onKey: string;
+  changeOnKey: any;
+}) {
+  const { LinkArray, onKey, changeOnKey } = props;
   return (
     <>
       {LinkArray.map((v: string) => (
-        <a
-          href={`#${(v || "").replaceAll(" ", "")}`}
+        <div
           key={v}
           title={v}
-          onClick={() => setOnKey(v)}
-          className={v === onKey ? "on" : ""}
+          className={v.replaceAll(" ", "") === onKey ? "on" : ""}
+          onClick={() => changeOnKey(v)}
         >
           {v}
           <i></i>
-        </a>
+        </div>
       ))}
     </>
   );

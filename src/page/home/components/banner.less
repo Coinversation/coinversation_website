@@ -1,9 +1,9 @@
 @import url("@/styles/theme.less");
 .banner {
-  padding: 100px 0 60px;
-  .h1 {
-    padding: 50px 5% 14px 8%;
-  }
+  width: 100%;
+  clear: both;
+  overflow: hidden;
+  text-align: center;
   ul {
     padding-top: 30px;
     li {
@@ -15,11 +15,10 @@
         border: 1px solid #f8ddeb;
         transform: all 0.3s ease;
         border-radius: 12px;
-        margin: 0 10px;
-        transition: border 0.9s ease, top 0.3s ease;
-        top: 10px;
+        margin: 0 5px;
+        transition: all 0.3s ease;
         &:hover {
-          top: 0;
+          transform: translateY(-8px);
           border: 1px solid @themeColor01;
         }
         img {
@@ -30,20 +29,24 @@
     }
   }
   .banner_inner {
+    display: inline-block;
     text-align: center;
     width: 80%;
     max-width: 860px;
-    margin: 0 auto;
     background: url("../img/banner_bg.png") no-repeat;
     background-size: 100%;
     background-position: center;
-    padding-bottom: 80px;
+    padding-bottom: 120px;
+    padding-top: 120px;
+    margin-top: 44px+24px;
     h1 {
       color: #000000;
       font-size: 48px;
       font-weight: 900;
       line-height: 60px;
       text-align: center;
+      margin: 0;
+      padding: 40px 5% 24px 8%;
       i {
         color: @themeColor01;
       }
@@ -107,7 +110,7 @@
 }
 @media screen and (max-width: 750px) {
   .banner {
-    padding-top: 60px;
+    padding-top: 0;
     padding-bottom: 0;
   }
   .banner .banner_inner {
@@ -115,12 +118,13 @@
     padding-bottom: 80px;
     background: url("../img/banner_bg_750.png") no-repeat;
     background-size: 85%;
-    background-position: center ;
+    background-position: center;
+    margin-top: 20px;
   }
   .banner .banner_inner h1 {
     font-size: @font-h2-750-size;
     line-height: 28px;
-    padding: 20px 8px 10px;
+    padding: 20px 8px 20px;
   }
   .banner .banner_inner p {
     height: 30px;

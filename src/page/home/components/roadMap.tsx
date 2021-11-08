@@ -4,10 +4,9 @@ export default function RoadMap() {
   return (
     <div
       className="roadMap   animate animate__animated"
-      id="RoadMap"
       data-animate="animate__fadeInUp"
     >
-      <h2>
+      <h2 id="RoadMap">
         Coinversation<i> Roadmap</i>
       </h2>
       <ul>

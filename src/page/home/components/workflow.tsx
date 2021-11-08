@@ -1,9 +1,10 @@
 import React from "react";
 import "./workflow.less";
+
 export default function Workflow() {
   return (
-    <div className="workflow" id="Workflow">
-      <div className="partone">
+    <div className="workflow">
+      <div className="partone" id="Parachain">
         <div
           className="partone_inner  animate animate__animated"
           data-animate="animate__fadeInUp"
