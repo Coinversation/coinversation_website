@@ -14,6 +14,7 @@ export default function Partmers() {
         <img src={require("../img/partmers05.svg")} alt="partmers05" />
         <img src={require("../img/partmers06.svg")} alt="partmers01" />
         <img src={require("../img/partmers07.svg")} alt="partmers02" />
+        <img src={require("../img/partmers0701.svg")} alt="partmers02" />
         <img src={require("../img/partmers08.svg")} alt="partmers03" />
         <img src={require("../img/partmers09.svg")} alt="partmers04" />
         <img src={require("../img/partmers10.svg")} alt="partmers05" />
