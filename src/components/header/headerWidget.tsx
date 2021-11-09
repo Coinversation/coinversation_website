@@ -179,7 +179,7 @@ export default class HeaderWidget extends React.Component<IProps, IState> {
               className="buyLink"
               target="_blank"
             >
-              Launch DApp
+              DApp
             </a>
             <div className="menu">
               <img
