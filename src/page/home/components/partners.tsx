@@ -33,6 +33,7 @@ export default function Partmers() {
           src={require("../img/partmers21.png")}
           alt="partmers01"
         />
+        <img src={require("../img/partmers22.svg")} alt="partmers22" />
       </div>
     </div>
   );
