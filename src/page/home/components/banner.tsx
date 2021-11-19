@@ -23,7 +23,7 @@ export default function Banner() {
         >
           <i>Platform Based on Polkadot</i>
         </p>
-        <ul>
+        {/* <ul>
           <li>
             <a href="https://twitter.com/Coinversation_">
               <img src={require("../img/icon_twiter.svg")} alt="icon_twiter" />
@@ -48,18 +48,18 @@ export default function Banner() {
               <img src={require("../img/icon_medium.svg")} alt="icon_twiter" />
             </a>
           </li>
-        </ul>
-        {/* <a
-          href="https://github.com/Coinversation/white-paper"
+        </ul> */}
+        <a
+          href="https://www.mexc.com/zh-CN/exchange/CTO_USDT"
           target="_blank"
           rel="noopener noreferrer"
           title="Coinversation"
         >
           <h3>
-            White Paper
+            Buy Token
             <img src={require("../img/icon_arror.svg")} alt="logo" />
           </h3>
-        </a> */}
+        </a>
       </div>
     </div>
   );
