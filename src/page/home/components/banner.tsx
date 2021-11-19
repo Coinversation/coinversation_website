@@ -50,7 +50,7 @@ export default function Banner() {
           </li>
         </ul> */}
         <a
-          href="https://www.mexc.com/zh-CN/exchange/CTO_USDT"
+          href="https://www.mexc.com/exchange/CTO_USDT"
           target="_blank"
           rel="noopener noreferrer"
           title="Coinversation"
