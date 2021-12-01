@@ -1,4 +1,5 @@
 import React from "react";
+import "./process.less";
 const Process = () => {
   return (
     <div className="process">
@@ -23,24 +24,27 @@ const Process = () => {
           <p>Expected reward per DOT</p>
         </li>
       </ul>
-      <h4>
-        6808 / <i>10,000 Address</i>
-      </h4>
-      <div className="line">
-        <i></i>
-        <em></em>
-        <h5>89%</h5>
+      <div className="process_inner">
+        <div className="line">
+          <h4>
+            6808 / <i>10,000 Address</i>
+          </h4>
+          <div className="line_bg">
+            <i></i>
+          </div>
+          <h5>89%</h5>
+        </div>
+        <p className="text">
+          The number of CTO awards increases with the number of pledges made by
+          DOT. For every 1,000 DOT, the number of CTO awards increases by
+          10,000, and so on
+        </p>
+        <img
+          className="icon_bg_err"
+          src={require("./img/icon_bg_err.svg")}
+          alt=""
+        />
       </div>
-      <p>
-        The number of CTO awards increases with the number of pledges made by
-        DOT. For every 1,000 DOT, the number of CTO awards increases by 10,000,
-        and so on
-      </p>
-      <img
-        className="icon_bg_err"
-        src={require("./img/icon_bg_err.svg")}
-        alt=""
-      />
     </div>
   );
 };

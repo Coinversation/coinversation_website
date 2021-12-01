@@ -1,0 +1,71 @@
+@import url("@/styles/theme.less");
+.listOfWinners {
+  padding: 30px 5%;
+  border-radius: @border-radius-big-size;
+  background-color: @bgColor01;
+  overflow: hidden;
+  h2 {
+    font-size: 24px;
+    font-family: Bold;
+    padding: 0 10px;
+  }
+  ul {
+    margin-top: 20px;
+    li {
+      background-color: #f9f7f8;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      padding: 10px 20px;
+      h3,
+      h4,
+      p {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      h3 {
+        font-size: 20px;
+        color: @themeColor01;
+        font-family: Bold;
+        width: 10%;
+      }
+      h4 {
+        color: #a18d9a;
+        font-size: 14px;
+        width: 20%;
+      }
+      p {
+        color: #a18d9a;
+        font-size: 16px;
+        word-break: break-all;
+        line-height: 20px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 930px) {
+  .listOfWinners {
+    ul {
+      li {
+        h3 {
+          width: auto;
+          padding-right: 10px;
+        }
+        h4 {
+          width: 60%;
+        }
+        p {
+          display: block;
+          color: @text01;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 750px) {
+  .listOfWinners ul li h4 {
+    width: 80%;
+  }
+  .listOfWinners ul li p {
+    font-size: 10px;
+  }
+}

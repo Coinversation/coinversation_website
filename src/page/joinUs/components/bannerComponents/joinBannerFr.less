@@ -25,7 +25,7 @@
     font-size: 80px;
     line-height: 80px;
     color: @themeColor01;
-    font-weight: Poppins-Bold;
+    font-weight: Bold;
     text-shadow: 3px 4px 0px rgba(194, 170, 182, 0.3);
     i {
       font-size: 24px;
@@ -63,7 +63,7 @@
       }
       p {
         font-size: 16px;
-        font-family: Poppins-Medium;
+        font-family: Medium;
         color: #fff;
       }
     }
@@ -72,16 +72,13 @@
     li {
       background-color: @bgColor01;
       border-radius: 10px;
-      padding: 0 30px;
-      height: 48px;
+      padding: 10px 30px;
       line-height: 48px;
       // box-shadow: 5px 9px 12px 3px rgba(194, 170, 182, 0.1);
       margin-bottom: 12px;
       img,
       & h4,
       & p {
-        display: inline-block;
-        vertical-align: middle;
         font-family: "Poppins-SemiBold";
         font-size: 16px;
       }
@@ -90,9 +87,20 @@
         height: 20px;
         border-radius: 50%;
         margin-right: 10px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .fr {
+        display: inline-block;
+        vertical-align: middle;
+        h4,
+        p {
+          display: inline-block;
+          vertical-align: middle;
+        }
       }
       .address {
-        width: 300px;
+        width: 250px;
       }
       .dot {
         width: 100px;
@@ -102,6 +110,103 @@
       }
       &:first-child {
         opacity: 1;
+      }
+    }
+  }
+}
+@media screen and (max-width: 940px) {
+  .join_bannerFr {
+    width: 50%;
+    .reward_rules {
+      // top: 10px;
+      right: 10px;
+    }
+    h2 {
+      font-size: 50px;
+      line-height: 50px;
+    }
+    .now_address {
+      width: 80%;
+      // margin-top: 10px;
+      padding: 30px 20px 40px;
+      .fr {
+        width: 80%;
+        h4 {
+          font-size: 16px;
+        }
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+    ul {
+      li {
+        .fr {
+          width: 90%;
+          .address {
+            width: 70%;
+            overflow: hidden;
+            margin-right: 8px;
+          }
+          .dot {
+            width: 20%;
+          }
+          p {
+            display: block;
+            line-height: 20px;
+            width: 100%;
+            padding-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 750px) {
+  .join_bannerFr {
+    width: 100%;
+    .reward_rules {
+      font-size: 12px;
+      height: 30px;
+      line-height: 30px;
+      top: 10px;
+    }
+    h2 {
+      font-size: 30px;
+      line-height: 40px;
+      margin-top: 0px;
+      i {
+        padding-left: 4px;
+      }
+    }
+    .now_address {
+      margin-top: 10px;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+      .fr {
+        h4 {
+          font-size: 12px;
+          line-height: 20px;
+        }
+        p {
+          font-size: 10px;
+          line-height: 20px;
+        }
+      }
+    }
+    ul {
+      padding: 0 4%;
+      li {
+        padding: 0 5%;
+        img {
+          width: 10px;
+          height: 10px;
+        }
+        p {
+          font-size: 12px;
+        }
       }
     }
   }

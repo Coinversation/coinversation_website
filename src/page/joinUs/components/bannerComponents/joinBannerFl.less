@@ -6,17 +6,46 @@
   background-color: #fff;
   padding: 20px 60px 20px;
   box-shadow: 5px 9px 12px 3px rgba(194, 170, 182, 0.1);
-  border-radius: 20px;
-  margin-right: 70px;
+  border-radius: @border-radius-big-size;
+  margin-right: 10%;
+  height: 530px;
+  min-width: 20%;
   h3 {
     color: #e6007a;
     font-size: 48px;
-    font-family: "Poppins-Bold";
+    font-family: Bold;
     line-height: 80px;
     padding-top: 30px;
   }
   p {
     color: #a18d9a;
     font-size: 14px;
+  }
+}
+@media screen and (max-width: 1060px) {
+  .join_bannerFl {
+    margin-right: 3%;
+  }
+}
+@media screen and (max-width: 940px) {
+  .join_bannerFl {
+    padding: 20px 40px 20px;
+  }
+}
+@media screen and (max-width: 750px) {
+  .join_bannerFl {
+    display: block;
+    float: none;
+    width: 85%;
+    margin: 0 auto;
+    padding: 10px 5%;
+    height: auto;
+    h3 {
+      font-size: 32px;
+      line-height: 36px;
+    }
+    p {
+      font-size: 12px;
+    }
   }
 }

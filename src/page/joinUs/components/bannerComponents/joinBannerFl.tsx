@@ -27,7 +27,7 @@ const JoinBannerFl = (props: { account: string }) => {
         />
       </p>
 
-      {account ? <NoAccount /> : <Account />}
+      {account ? <Account /> : <NoAccount />}
     </div>
   );
 };

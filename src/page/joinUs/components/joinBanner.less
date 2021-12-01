@@ -2,11 +2,18 @@
 .join_banner {
   background: linear-gradient(135deg, #f9eff4, #ffffff);
   box-shadow: 0px 10px 12px 3px rgba(194, 170, 182, 0.1);
-  border-radius: 20px;
+  border-radius: @border-radius-big-size;
   .join_banner_inner {
     box-shadow: 0px 0px 16px 1px #fff inset;
     background-color: rgba(249, 239, 244, 0.3);
-    border-radius: 20px;
+    border-radius: @border-radius-big-size;
     position: relative;
+  }
+}
+@media screen and (max-width: 750px) {
+  .join_banner {
+    .join_banner_inner {
+      padding-top: 10px;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import React from "react";
+import "./noAccount.less";
 const NoAccount = () => {
-  return <button>Connect Wallet</button>;
+  return <button className="noAccount_button">Connect Wallet</button>;
 };
 export default NoAccount;

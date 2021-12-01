@@ -25,15 +25,19 @@ const BannerFr = () => {
       <ul>
         <li>
           <img src={require("./img/icon_li.svg")} alt="" />
-          <h4 className="address">0x5671k....019364</h4>
-          <h4 className="dot">20DOT</h4>
-          <p>13:12:09 09/10</p>
+          <div className="fr">
+            <h4 className="address">0x5671k....019364</h4>
+            <h4 className="dot">20DOT</h4>
+            <p>13:12:09 09/10</p>
+          </div>
         </li>
         <li>
           <img src={require("./img/icon_li.svg")} alt="" />
-          <h4 className="address">0x5671k....019364</h4>
-          <h4 className="dot">20DOT</h4>
-          <p>13:12:09 09/10</p>
+          <div className="fr">
+            <h4 className="address">0x5671k....019364</h4>
+            <h4 className="dot">20DOT</h4>
+            <p>13:12:09 09/10</p>
+          </div>
         </li>
       </ul>
     </div>
