@@ -1,0 +1,108 @@
+@import url("@/styles/theme.less");
+.join_bannerFr {
+  display: inline-block;
+  vertical-align: top;
+  .reward_rules {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: #a18d9a;
+    font-size: 14px;
+    background-color: @bgColor01;
+    padding: 0 20px;
+    height: 36px;
+    line-height: 36px;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    &:hover {
+      color: @themeColor02;
+      box-shadow: 0 0 3px @themeColor05;
+    }
+  }
+  h2 {
+    padding-top: 60px;
+    padding-left: 14px;
+    font-size: 80px;
+    line-height: 80px;
+    color: @themeColor01;
+    font-weight: Poppins-Bold;
+    text-shadow: 3px 4px 0px rgba(194, 170, 182, 0.3);
+    i {
+      font-size: 24px;
+      padding-left: 30px;
+    }
+  }
+  h3 {
+    font-size: 20px;
+    color: @text01;
+    padding-left: 14px;
+  }
+  .now_address {
+    width: 360px;
+    background: #f9f7f8 url("./img/icon_btn_bg.svg") no-repeat;
+    background-size: 100% 100%;
+    padding: 50px 40px 60px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    img {
+      display: inline-block;
+      vertical-align: top;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .fr {
+      display: inline-block;
+      vertical-align: top;
+      width: 300px;
+      h4 {
+        font-size: 24px;
+        color: #fff;
+        line-height: 30px;
+      }
+      p {
+        font-size: 16px;
+        font-family: Poppins-Medium;
+        color: #fff;
+      }
+    }
+  }
+  ul {
+    li {
+      background-color: @bgColor01;
+      border-radius: 10px;
+      padding: 0 30px;
+      height: 48px;
+      line-height: 48px;
+      // box-shadow: 5px 9px 12px 3px rgba(194, 170, 182, 0.1);
+      margin-bottom: 12px;
+      img,
+      & h4,
+      & p {
+        display: inline-block;
+        vertical-align: middle;
+        font-family: "Poppins-SemiBold";
+        font-size: 16px;
+      }
+      img {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      .address {
+        width: 300px;
+      }
+      .dot {
+        width: 100px;
+      }
+      p {
+        color: #a18d9a;
+      }
+      &:first-child {
+        opacity: 1;
+      }
+    }
+  }
+}

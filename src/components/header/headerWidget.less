@@ -2,9 +2,8 @@
 .header {
   position: fixed;
   width: 100%;
-  padding: 12px 0;
-  overflow: hidden;
-  clear: both;
+  padding: 0;
+  height: @header-big-height;
   z-index: 9;
   background-color: #fff;
   &::after {
@@ -24,24 +23,25 @@
     float: right;
   }
   .headerWidget {
-    max-width: 1300px;
+    max-width: @page-big-width;
     margin: 0 auto;
   }
   .big {
     padding: 0 2%;
-    a,
-    & div {
+    & > a,
+    & > div {
       display: inline-block;
       vertical-align: bottom;
       font-size: 16px;
       line-height: 44px;
       font-weight: bold;
       color: @text01;
-      margin-right: 3%;
+      margin-right: 2%;
       position: relative;
       transition: all 0.3s ease;
       font-family: "Poppins-SemiBold";
       cursor: pointer;
+      padding: 12px 0 10px;
       &.on,
       &:hover {
         color: @themeColor01;
@@ -51,7 +51,7 @@
       }
       i {
         position: absolute;
-        bottom: -12px;
+        bottom: -2px;
         left: 50%;
         transform: translateX(-50%);
         width: 20%;
@@ -70,6 +70,7 @@
     .fr {
       float: right;
       .buyLink {
+        display: block;
         margin-top: 2px;
         margin-right: 0;
         height: 40px;
@@ -142,6 +143,7 @@
     overflow: hidden;
     position: relative;
     z-index: 99;
+    padding-top: 12px;
     .fl {
       width: 20%;
       padding-left: 2%;
@@ -156,8 +158,9 @@
       float: left;
       border-radius: 8px;
       cursor: pointer;
-      width: 54px;
-      height: 46px;
+      width: 44px;
+      height: 38px;
+      border: 1px solid @themeColor04;
       img {
         display: block;
         width: 100%;
@@ -188,7 +191,10 @@
 @media screen and (max-width: 750px) {
   .header::after {
     content: "";
-    top: 24px+30px;
+    top: @header-small-height;
+  }
+  .header {
+    height: @header-small-height;
   }
   .samll .fl {
     width: 40%;

@@ -1,5 +1,5 @@
 import React from "react";
-import { HomeIndex } from "../page";
+import { HomeIndex, JoinUs } from "../page";
 import config from "../config/index";
 export type RouterType = {
   path: string;
@@ -15,5 +15,12 @@ const HomeRouter: RouterType = {
   notExect: false,
 };
 
-const Routers: RouterType[] = [HomeRouter];
+const JoinUsRouter: RouterType = {
+  path: config.preLink + "/joinus",
+  component: JoinUs,
+  root: [],
+  notExect: false,
+};
+
+const Routers: RouterType[] = [HomeRouter, JoinUsRouter];
 export { Routers };

@@ -1,0 +1,22 @@
+@import url("@/styles/theme.less");
+.joinIndex {
+  position: relative;
+  background-color: #f9f7f8;
+  min-height: 100vh;
+  .joinIndex_inner {
+    background: linear-gradient(180deg, #f8ddeb, #f9f7f8);
+    padding: @header-big-height @page-big-side-width 0;
+
+    .joinIndex_inner_inner {
+      max-width: @page-big-width;
+      margin: 0 auto;
+    }
+  }
+}
+@media screen and (max-width: 750px) {
+  .joinIndex {
+    .joinIndex_inner {
+      padding: @header-small-height @page-small-border-side-width 0;
+    }
+  }
+}

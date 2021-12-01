@@ -2,7 +2,9 @@ import React from "react";
 import "./headerWidget.less";
 import Logo from "./components/logo";
 import Menu from "./components/menu";
-interface IProps {}
+interface IProps {
+  propsOnKey?: string;
+}
 interface IState {
   showModal: boolean;
   onKey: string;
@@ -58,53 +60,59 @@ export default class HeaderWidget extends React.Component<IProps, IState> {
       Partners,
       Contact,
     });
-    window.addEventListener("scroll", () => {
+    if (!this.props.propsOnKey) {
+      window.addEventListener("scroll", () => {
+        this.doScroll();
+        const _scrollTop = document.documentElement.scrollTop;
+        const { onKey } = this.state;
+        if (_scrollTop > Home && _scrollTop < About && onKey !== "Home") {
+          this.setState({
+            onKey: "Home",
+          });
+        } else if (
+          _scrollTop > About &&
+          _scrollTop < Parachain &&
+          onKey !== "About"
+        ) {
+          this.setState({
+            onKey: "About",
+          });
+        } else if (
+          _scrollTop > Parachain &&
+          _scrollTop < Workflow &&
+          onKey !== "Parachain"
+        ) {
+          this.setState({
+            onKey: "Parachain",
+          });
+        } else if (
+          _scrollTop > Workflow &&
+          _scrollTop < RoadMap &&
+          onKey !== "Workflow"
+        ) {
+          this.setState({
+            onKey: "Workflow",
+          });
+        } else if (
+          _scrollTop > RoadMap &&
+          _scrollTop < Partners + 400 &&
+          onKey !== "RoadMap"
+        ) {
+          this.setState({
+            onKey: "RoadMap",
+          });
+        } else if (_scrollTop > Partners && onKey !== "Partners") {
+          this.setState({
+            onKey: "Partners",
+          });
+        }
+      });
       this.doScroll();
-      const _scrollTop = document.documentElement.scrollTop;
-      const { onKey } = this.state;
-      if (_scrollTop > Home && _scrollTop < About && onKey !== "Home") {
-        this.setState({
-          onKey: "Home",
-        });
-      } else if (
-        _scrollTop > About &&
-        _scrollTop < Parachain &&
-        onKey !== "About"
-      ) {
-        this.setState({
-          onKey: "About",
-        });
-      } else if (
-        _scrollTop > Parachain &&
-        _scrollTop < Workflow &&
-        onKey !== "Parachain"
-      ) {
-        this.setState({
-          onKey: "Parachain",
-        });
-      } else if (
-        _scrollTop > Workflow &&
-        _scrollTop < RoadMap &&
-        onKey !== "Workflow"
-      ) {
-        this.setState({
-          onKey: "Workflow",
-        });
-      } else if (
-        _scrollTop > RoadMap &&
-        _scrollTop < Partners + 400 &&
-        onKey !== "RoadMap"
-      ) {
-        this.setState({
-          onKey: "RoadMap",
-        });
-      } else if (_scrollTop > Partners && onKey !== "Partners") {
-        this.setState({
-          onKey: "Partners",
-        });
-      }
-    });
-    this.doScroll();
+    } else {
+      this.setState({
+        onKey: this.props.propsOnKey,
+      });
+    }
   }
   getScrollTop(idStr: string) {
     const _idStr = document.getElementById(idStr);
@@ -123,26 +131,30 @@ export default class HeaderWidget extends React.Component<IProps, IState> {
     }
   };
   changeOnKey(_key: string) {
-    const { showModal } = this.state;
-    switch (_key.replaceAll(" ", "")) {
-      case "Home":
-        window.scrollTo(0, this.state.Home + 2 || 0);
-        break;
-      case "About":
-        window.scrollTo(0, this.state.About + (showModal ? -220 : 2) || 0);
-        break;
-      case "Parachain":
-        window.scrollTo(0, this.state.Parachain + 80 || 0);
-        break;
-      case "Workflow":
-        window.scrollTo(0, this.state.Workflow + (showModal ? 40 : 120) || 0);
-        break;
-      case "RoadMap":
-        window.scrollTo(0, this.state.RoadMap + (showModal ? 0 : 530) || 0);
-        break;
-      case "Partners":
-        window.scrollTo(0, this.state.Partners + 700 || 0);
-        break;
+    if (!this.props.propsOnKey) {
+      const { showModal } = this.state;
+      switch (_key.replaceAll(" ", "")) {
+        case "Home":
+          window.scrollTo(0, this.state.Home + 2 || 0);
+          break;
+        case "About":
+          window.scrollTo(0, this.state.About + (showModal ? -220 : 2) || 0);
+          break;
+        case "Parachain":
+          window.scrollTo(0, this.state.Parachain + 80 || 0);
+          break;
+        case "Workflow":
+          window.scrollTo(0, this.state.Workflow + (showModal ? 40 : 120) || 0);
+          break;
+        case "RoadMap":
+          window.scrollTo(0, this.state.RoadMap + (showModal ? 0 : 530) || 0);
+          break;
+        case "Partners":
+          window.scrollTo(0, this.state.Partners + 700 || 0);
+          break;
+      }
+    } else {
+      window.location.href = "/";
     }
   }
   render() {
