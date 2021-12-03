@@ -1,0 +1,14 @@
+{
+  "development": {
+    "chainEndpoint": "wss://rpc.plasmnet.io/",
+    "contractsEndpoint": "wss://rpc.plasmnet.io/"
+  },
+  "staging": {
+    "chainEndpoint": "wss://rpc.plasmnet.io/",
+    "contractsEndpoint": "wss://rpc.plasmnet.io/"
+  },
+  "production": {
+    "chainEndpoint": "wss://rpc.plasmnet.io/",
+    "contractsEndpoint": "wss://rpc.plasmnet.io/"
+  }
+}

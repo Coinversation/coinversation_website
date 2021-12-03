@@ -1,6 +1,21 @@
 @import url("@/styles/theme.less");
 .account {
   padding-top: 80px;
+  position: relative;
+  .textH4 {
+    color: #ad3d3d;
+    font-weight: bold;
+    font-size: 12px;
+    width: 200px;
+    word-break: break-all;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    i {
+      color: #f1842c;
+      font-style: normal;
+    }
+  }
   ul {
     li {
       text-align: center;
@@ -32,13 +47,25 @@
     font-weight: bold;
     font-size: 16px;
     font-family: Poppins-SemiBold;
+    &.disable {
+      opacity: 0.8;
+    }
   }
   .now_account {
     text-align: center;
     padding-bottom: 20px;
-    img,
+    .polkadot_icon {
+      display: inline-block;
+      vertical-align: middle;
+      // margin-right: 4px;
+      svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
     p,
-    h5 {
+    h5,
+    img {
       display: inline-block;
       vertical-align: middle;
       padding: 0 4px;

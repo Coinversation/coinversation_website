@@ -15,15 +15,13 @@
   "devDependencies": {
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
-    "@types/web3": "^1.2.2",
     "less": "^3.13.1",
     "less-loader": "^6.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-intl-universal": "^2.4.1",
     "solc": "0.5.15",
-    "typescript": "^3.9.2",
-    "web3": "^1.2.7",
-    "react-intl-universal": "^2.4.1"
+    "typescript": "^4.3.2"
   },
   "browserslist": {
     "production": [
@@ -39,7 +37,20 @@
   },
   "dependencies": {
     "@babel/core": "7.9.0",
+    "@polkadot/api": "6.0.5",
+    "@polkadot/api-contract": "^6.10.3",
+    "@polkadot/apps-config": "^0.98.1",
+    "@polkadot/extension-dapp": "0.40.3",
+    "@polkadot/react-api": "^0.39.1",
+    "@polkadot/react-components": "^0.39.1",
+    "@polkadot/react-hooks": "^0.39.1",
+    "@polkadot/react-identicon": "^0.79.1",
+    "@polkadot/react-signer": "^0.39.1",
+    "@polkadot/types": "6.0.5",
+    "@polkadot/types-known": "^6.10.3",
+    "@substrate/context": "^0.5.2",
     "@svgr/webpack": "4.3.3",
+    "@types/jest": "^27.0.3",
     "@types/react-router": "^5.1.16",
     "@types/react-router-dom": "^5.1.8",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
@@ -88,6 +99,7 @@
     "sass-loader": "8.0.2",
     "semver": "6.3.0",
     "style-loader": "0.23.1",
+    "styled-components": "^5.3.3",
     "terser-webpack-plugin": "2.3.8",
     "ts-pnp": "1.1.6",
     "url-loader": "2.3.0",
