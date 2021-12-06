@@ -18,7 +18,35 @@ export const getEnv = (envName: any) => {
   }
   return env;
 };
-
+export function sortName(name: string) {
+  return `${name.slice(0, 7)}...${name.slice(name.length - 4, name.length)}`;
+}
+export function getGrandPrizePool(addressNum: number) {
+  let num = 60000;
+  let max_add = 2000;
+  if (addressNum) {
+    if (addressNum < 2000) {
+    } else if (addressNum < 4000) {
+      num = num * 2;
+      max_add = 4000;
+    } else {
+      num = num * (addressNum / 2000);
+      max_add = 6000;
+    }
+  }
+  return [num, formatNumber(`${num}`), max_add];
+}
+function formatNumber(n: string) {
+  var b = parseInt(n).toString();
+  var len = b.length;
+  if (len <= 3) {
+    return b;
+  }
+  var r = len % 3;
+  return r > 0
+    ? b.slice(0, r) + "," + b.slice(r, len).match(/\d{3}/g).join(",")
+    : b.slice(r, len).match(/\d{3}/g).join(",");
+}
 export function providerConnected(
   provider: ProviderInterface
 ): Observable<boolean> {

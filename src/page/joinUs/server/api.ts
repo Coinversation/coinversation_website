@@ -199,7 +199,6 @@ export const getDerivedStaking = async (currentWallet) => {
   if (fund) {
     console.log(111);
     // @ts-ignore
-
     const trieIndex = fund.unwrap().trieIndex;
     const childKey = createChildKey(trieIndex);
     const keys = await api.rpc.childstate.getKeys(childKey, "0x");
@@ -208,11 +207,16 @@ export const getDerivedStaking = async (currentWallet) => {
       keys.map((k) => api.rpc.childstate.getStorage(childKey, k))
     );
     let total = 0;
+    let _Alltotal = 0;
     // @ts-ignore
-    const contributions = values.map((v, idx) => ({
-      from: ss58Keys[idx],
-      data: api.createType("(Balance, Vec<u8>)", v.unwrap()).toJSON(),
-    }));
+    console.log({ values });
+    const contributions = values.map((v, idx) => {
+      console.log(v.unwrap());
+      return {
+        from: ss58Keys[idx],
+        data: api.createType("(Balance, Vec<u8>)", v.unwrap()).toJSON(),
+      };
+    });
     // @ts-ignore
     let buffList: any[] = [];
     const addr = convertToKSM(currentWallet);
@@ -223,10 +227,12 @@ export const getDerivedStaking = async (currentWallet) => {
         if (val.from === ele.from) {
           ex = true;
           buffList[index].total += Number(val.data[0]) / 10000000000;
+          // _Alltotal += buffList[index].total;
         }
         return null;
       });
       if (!ex) {
+        _Alltotal += val.data[0];
         buffList.push({ from: val.from, total: val.data[0] / 10000000000 });
       }
       if (currentWallet && addr === val.from) {
@@ -234,10 +240,15 @@ export const getDerivedStaking = async (currentWallet) => {
       }
       return null;
     });
-    buffList = buffList.sort((a, b) => (a.total < b.total ? 1 : -1));
+
+    // buffList = buffList.sort((a, b) => (a.total < b.total ? 1 : -1));
+    console.log({ _Alltotal });
     return {
       count: len,
       list: buffList.slice(0, 2),
+      alltotal: Number(
+        `${parseFloat(`${_Alltotal / 10000000000}`).toFixed(2)}`
+      ),
       total: total / 10000000000, // DOT to Contribute
     };
     // 当前出块时间

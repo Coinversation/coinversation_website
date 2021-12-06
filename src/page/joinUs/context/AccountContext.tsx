@@ -53,6 +53,7 @@ export interface IParachainData {
   count: number;
   list: any[];
   total: number; // DOT to Contribute
+  alltotal: number;
 }
 
 export const ParachainData = createContext<IParachainData | null>(null);

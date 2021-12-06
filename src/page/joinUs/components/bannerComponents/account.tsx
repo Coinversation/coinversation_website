@@ -14,6 +14,7 @@ import {
   ParachainData,
 } from "../../context";
 import { getDerivedStaking } from "../../server/api";
+import { sortName } from "../../utils/utils";
 
 const Account = () => {
   const { api } = useContext(ApiRxContext);
@@ -34,10 +35,7 @@ const Account = () => {
           return {
             ...v,
             publickey,
-            sortAddress: `${v.address.slice(0, 7)}...${v.address.slice(
-              v.address.length - 4,
-              v.address.length
-            )}`,
+            sortAddress: sortName(v.address),
           };
         });
         if (localStorage.getItem("SELECTED_KSM_WALLET")) {
@@ -82,7 +80,7 @@ const Account = () => {
         <li>
           <img src={require("./img/icon_li.svg")} alt="icon_li" />
           <p>Estimated score</p>
-          <h4>3.8 CTO</h4>
+          <h4>{parachainData?.total} CTO</h4>
         </li>
       </ul>
       <button className={waiting || message ? "disable" : ""}>Put DOT</button>

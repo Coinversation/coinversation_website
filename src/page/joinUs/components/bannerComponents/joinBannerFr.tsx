@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import Identicon from "@polkadot/react-identicon";
 import "./joinBannerFr.less";
+import { ParachainData } from "../../context";
+import { sortName, getGrandPrizePool } from "../../utils/utils";
 const BannerFr = () => {
+  const parachainData = useContext(ParachainData);
   return (
     <div className="join_bannerFr">
       <a
@@ -12,33 +16,43 @@ const BannerFr = () => {
         Reward rules&gt;&gt;
       </a>
       <h2>
-        20,000<i>CTO</i>
+        {getGrandPrizePool(parachainData?.count)[1]}
+        <i>CTO</i>
       </h2>
       <h3>≈ $12938.28</h3>
-      <div className="now_address">
-        <img src={require("./img/icon_li.svg")} alt="" />
-        <div className="fr">
-          <h4>0x5671k....019364</h4>
-          <p>Expected to win the Grand Prize</p>
+      {parachainData?.list.length > 0 ? (
+        <div className="now_address">
+          <div className="polkadot_icon">
+            <Identicon
+              value={parachainData.list[0].from}
+              size={32}
+              theme={"polkadot"}
+              style={{ marginTop: 10 }}
+            />
+          </div>
+          <div className="fr">
+            <h4>{sortName(parachainData.list[0].from)}</h4>
+            <p>Expected to win the Grand Prize</p>
+          </div>
         </div>
-      </div>
+      ) : null}
       <ul>
-        <li>
-          <img src={require("./img/icon_li.svg")} alt="" />
-          <div className="fr">
-            <h4 className="address">0x5671k....019364</h4>
-            <h4 className="dot">20DOT</h4>
-            <p>13:12:09 09/10</p>
-          </div>
-        </li>
-        <li>
-          <img src={require("./img/icon_li.svg")} alt="" />
-          <div className="fr">
-            <h4 className="address">0x5671k....019364</h4>
-            <h4 className="dot">20DOT</h4>
-            <p>13:12:09 09/10</p>
-          </div>
-        </li>
+        {parachainData?.list.length > 0
+          ? parachainData.list.map((v, index) => {
+              return (
+                <li key={index}>
+                  <div className="polkadot_icon">
+                    <Identicon value={v.from} size={32} theme={"polkadot"} />
+                  </div>
+                  <div className="fr">
+                    <h4 className="address">{sortName(v.from)}</h4>
+                    <h4 className="dot">{v.total} DOT</h4>
+                    <p>13:12:09 09/10</p>
+                  </div>
+                </li>
+              );
+            })
+          : null}
       </ul>
     </div>
   );

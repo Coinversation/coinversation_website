@@ -1,38 +1,70 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ParachainData } from "../context";
+import { getGrandPrizePool } from "../utils/utils";
 import "./process.less";
 const Process = () => {
+  const parachainData = useContext(ParachainData);
   return (
     <div className="process">
       <ul className="process_header">
         <li>
-          <h3>20,000CTO</h3>
+          <h3> {getGrandPrizePool(parachainData?.count)[1]} CTO</h3>
           <p>Grand Prize Pool</p>
         </li>
 
         <li>
-          <h3>806</h3>
+          <h3>
+            {parachainData && parachainData.count ? parachainData.count : "-"}
+          </h3>
           <p>Address</p>
         </li>
 
         <li>
-          <h3>6806DOT</h3>
+          <h3>
+            {parachainData && parachainData.alltotal
+              ? parachainData.alltotal
+              : "- "}
+            DOT
+          </h3>
           <p>Total pledge</p>
         </li>
 
         <li>
-          <h3>2.8CTO</h3>
+          <h3>2.8 CTO</h3>
           <p>Expected reward per DOT</p>
         </li>
       </ul>
       <div className="process_inner">
         <div className="line">
           <h4>
-            6808 / <i>10,000 Address</i>
+            {parachainData && parachainData.count ? parachainData.count : "-"} /
+            <i>{getGrandPrizePool(parachainData?.count)[0]} Address</i>
           </h4>
           <div className="line_bg">
-            <i></i>
+            <i
+              style={{
+                width:
+                  parachainData && parachainData.count
+                    ? `${
+                        (parachainData.count /
+                          Number(getGrandPrizePool(parachainData?.count)[2])) *
+                        100
+                      }%`
+                    : "40%",
+              }}
+            ></i>
           </div>
-          <h5>89%</h5>
+          <h5>
+            {parachainData && parachainData.count
+              ? `${parseFloat(
+                  `${
+                    (parachainData.count /
+                      Number(getGrandPrizePool(parachainData?.count)[2])) *
+                    100
+                  }`
+                ).toFixed(1)}%`
+              : "40%"}
+          </h5>
         </div>
         <p className="text">
           The number of CTO awards increases with the number of pledges made by
