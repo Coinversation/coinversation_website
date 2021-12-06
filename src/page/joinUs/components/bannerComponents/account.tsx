@@ -2,35 +2,28 @@ import React, { useContext, useEffect, useState } from "react";
 import { u8aToHex } from "@polkadot/util";
 import { decodeAddress } from "@polkadot/util-crypto";
 import Identicon from "@polkadot/react-identicon";
-import type { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
-import { AccountsContext } from "@substrate/context";
 import { setup } from "../../state/state";
 import "./account.less";
-interface mInjectedAccountWithMeta extends InjectedAccountWithMeta {
-  publickey?: string;
-  shidenAddress?: string;
-  sortAddress?: string;
-}
+import {
+  ApiRxContext,
+  useAccountSetter,
+  useAllAccountsSetter,
+  mInjectedAccountWithMeta,
+  AccountContext,
+  useParachainDataSet,
+  ParachainData,
+} from "../../context";
+import { getDerivedStaking } from "../../server/api";
+
 const Account = () => {
+  const { api } = useContext(ApiRxContext);
   const [message, setMessage] = useState("");
+  const setAccounts = useAccountSetter();
+  const currentAccount = useContext(AccountContext);
+  const setAllAccounts = useAllAccountsSetter();
+  const setParachainData = useParachainDataSet();
+  const parachainData = useContext(ParachainData);
   const [waiting, setWaiting] = useState(false);
-  const [allAccounts, setAllAccounts] = useState<mInjectedAccountWithMeta[]>(
-    []
-  );
-  const [currentAccount, setCurrentAccount] =
-    useState<mInjectedAccountWithMeta | null>({
-      address: "",
-      meta: {
-        genesisHash: "",
-        name: "",
-        source: "",
-      },
-      type: "ed25519",
-      publickey: "",
-      shidenAddress: "",
-      sortAddress: "",
-    });
-  // console.log(1111);
   // 链接钱包
   useEffect(() => {
     setup(setWaiting, null).then((r) => {
@@ -56,12 +49,12 @@ const Account = () => {
               (v: mInjectedAccountWithMeta) => v.publickey === _item.publickey
             )
           ) {
-            setCurrentAccount(_item);
+            setAccounts(_item);
           } else {
-            setCurrentAccount(_arr[0]);
+            setAccounts(_arr[0]);
           }
         } else {
-          setCurrentAccount(_arr[0]);
+          setAccounts(_arr[0]);
         }
         setAllAccounts(_arr);
       } else {
@@ -70,14 +63,21 @@ const Account = () => {
     });
     // eslint-disable-next-line
   }, []);
-  console.log({ currentAccount }, allAccounts);
+  useEffect(() => {
+    (async () => {
+      if (api && currentAccount) {
+        const data = await getDerivedStaking(currentAccount.address);
+        setParachainData(data);
+      }
+    })();
+  }, [api, currentAccount, setParachainData]);
   return (
     <div className="account">
       <ul>
         <li>
           <img src={require("./img/icon_li.svg")} alt="icon_li" />
           <p>DOT to Contribute</p>
-          <h4>12 DOT</h4>
+          <h4>{parachainData?.total} DOT</h4>
         </li>
         <li>
           <img src={require("./img/icon_li.svg")} alt="icon_li" />

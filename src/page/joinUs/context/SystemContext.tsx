@@ -37,7 +37,7 @@ export const SystemContext: React.Context<SystemContextType> =
 
 export interface SystemContextProviderProps {
   children?: React.ReactElement;
-  provider?: ProviderInterface;
+  provider?: string;
 }
 
 export function SystemContextProvider(
@@ -66,12 +66,6 @@ export function SystemContextProvider(
     if (!provider) {
       return;
     }
-
-    setRpc(
-      // @ts-ignore
-      new RpcCore("instance", registryRef.current, provider) as RpcCore &
-        RpcInterface
-    );
   }, [provider]);
   // useEffect(() => {
   //   if (!provider || !rpc) {

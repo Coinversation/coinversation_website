@@ -7,7 +7,6 @@ import { ProviderInterface } from "@polkadot/rpc-provider/types";
 import { Observable } from "rxjs";
 import envs from "./envs.json";
 import * as definitions from "./interfaces/definitions";
-import { DependencyList, EffectCallback, useEffect, useRef } from "react";
 type EnvNames = keyof typeof envs;
 export const getEnv = (envName: any) => {
   if (!envName) {
@@ -31,16 +30,7 @@ export function providerConnected(
     }
   });
 }
-export function useDidUpdataEffexct(
-  fn: EffectCallback,
-  inputs?: DependencyList
-): void {
-  const didMountRef = useRef(false);
-  return useEffect(() => {
-    if (didMountRef.current) fn();
-    else didMountRef.current = true;
-  }, inputs);
-}
+
 export const buildTypes = () => {
   const types: any = {
     AccountInfo: "AccountInfoWithDualRefCount",

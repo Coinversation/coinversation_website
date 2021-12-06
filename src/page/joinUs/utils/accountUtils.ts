@@ -1,4 +1,3 @@
-import { u8aToHex } from "@polkadot/util";
 import { web3Accounts, web3Enable } from "@polkadot/extension-dapp";
 import { Account } from "./types";
 
@@ -29,13 +28,6 @@ export const setupAccounts = async (account: Account | null) => {
     return ext;
   }
   const injectedAccounts = ext.injectedAccounts;
-  if (
-    account &&
-    injectedAccounts.map((a) => a.address).includes(account.player.address)
-  ) {
-  } else {
-    console.log(injectedAccounts);
-  }
   return {
     kind: "ok" as const,
     injectedAccounts,
