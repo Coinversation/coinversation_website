@@ -7,7 +7,6 @@ export default function Partmers() {
         Strategic<i> Partners</i>
       </h2>
       <div className="partners_pool">
-        <img src={require("../img/partmers01.svg")} alt="partmers01" />
         <img src={require("../img/partmers02.svg")} alt="partmers02" />
         <img src={require("../img/partmers03.svg")} alt="partmers03" />
         <img src={require("../img/partmers04.svg")} alt="partmers04" />
@@ -23,7 +22,6 @@ export default function Partmers() {
         <img src={require("../img/partmers13.svg")} alt="partmers03" />
         <img src={require("../img/partmers14.svg")} alt="partmers04" />
         <img src={require("../img/partmers15.svg")} alt="partmers05" />
-        <img src={require("../img/partmers16.svg")} alt="partmers01" />
         <img src={require("../img/partmers17.svg")} alt="partmers02" />
         <img src={require("../img/partmers18.svg")} alt="partmers03" />
         <img src={require("../img/partmers19.svg")} alt="partmers04" />
