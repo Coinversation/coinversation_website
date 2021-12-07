@@ -10,8 +10,8 @@ export default function Banner() {
           // data-animate="animate__fadeInUp"
           // data-animation-delay="1.1s"
           >
-            <i> A Synthetic Asset Issuance Protocol & </i>
-            Decentralised Contract Trading
+            <i>Build Decentralized Finance Platform </i>
+            on Polkadot
             {/* <i>A Synthetic Asset Issuance Protocol & </i>
             Decentralised Contract Trading */}
           </h1>
@@ -21,7 +21,7 @@ export default function Banner() {
           data-animate="animate__fadeInUp"
           data-animation-delay="1.5s"
         >
-          <i>Exchange Based on Polkadot Contract Chain</i>
+          <i>Synthetic Asset to Defi 2.0</i>
         </p>
         {/* <ul>
           <li>

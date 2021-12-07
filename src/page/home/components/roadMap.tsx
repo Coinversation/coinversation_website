@@ -21,13 +21,15 @@ export default function RoadMap() {
         <li>
           <h3>2021 Q4~2022 Q1</h3>
           <p>
-            Participate in Polkadot Parachain auction Develop NFT Dutch auction
-            function
+            Participate in Polkadot Parachain auction and deploy our parachain
+            on Polkadot
           </p>
         </li>
         <li>
           <h3>2022 Q2~2022 Q4 </h3>
-          <p>Build the basic components of Polkadot ecological NFT</p>
+          <p>
+            Launch Dex, interest-bearing asset protocol with stable currecies
+          </p>
         </li>
       </ul>
     </div>
