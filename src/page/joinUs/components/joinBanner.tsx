@@ -16,7 +16,7 @@ const JoinBanner = () => {
             <JoinBannerFl account={""} />
           </LastParachainDataSet.Provider>
         </LastParachainData.Provider>
-        {/* <JoinBannerFr /> */}
+        <JoinBannerFr />
       </div>
     </div>
   );
