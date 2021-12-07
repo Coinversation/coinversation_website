@@ -15,7 +15,8 @@ import {
 } from "../../context";
 import { getDerivedStaking } from "../../server/api";
 import { sortName } from "../../utils/utils";
-
+import ContributeModal from "./modal/contributeModal";
+import SwitchAddress from "./modal/switchAddress";
 const Account = () => {
   const { api } = useContext(ApiRxContext);
   const [message, setMessage] = useState("");
@@ -25,6 +26,9 @@ const Account = () => {
   const setParachainData = useParachainDataSet();
   const parachainData = useContext(ParachainData);
   const [waiting, setWaiting] = useState(false);
+
+  const [contributeModal, setContributeModal] = useState(false);
+  const [switchAddress, setSwitchAddress] = useState(false);
   // 链接钱包
   useEffect(() => {
     setup(setWaiting, null).then((r) => {
@@ -71,7 +75,7 @@ const Account = () => {
   }, [api, currentAccount, setParachainData]);
   return (
     <div className="account">
-      <ul>
+      <ul className="account_ul">
         <li>
           <img src={require("./img/icon_li.svg")} alt="icon_li" />
           <p>DOT to Contribute</p>
@@ -83,7 +87,12 @@ const Account = () => {
           <h4>{parachainData?.total} CTO</h4>
         </li>
       </ul>
-      <button className={waiting || message ? "disable" : ""}>Put DOT</button>
+      <button
+        className={waiting || message ? "disable btn" : "btn"}
+        onClick={() => setContributeModal(!contributeModal)}
+      >
+        DOT to Contribute
+      </button>
       {waiting ? (
         <h4 className="textH4">
           <i>waiting</i>
@@ -101,8 +110,17 @@ const Account = () => {
         </div>
         <h5>{currentAccount.meta?.name}</h5>
         <p>{currentAccount.sortAddress}</p>
-        <img src={require("./img/icon_switch.svg")} alt="icon_switch" />
+        <img
+          src={require("./img/icon_switch.svg")}
+          alt="icon_switch"
+          onClick={() => setSwitchAddress(true)}
+        />
       </div>
+      <ContributeModal
+        visible={contributeModal}
+        setVisible={setContributeModal}
+      />
+      <SwitchAddress visible={switchAddress} setVisible={setSwitchAddress} />
     </div>
   );
 };

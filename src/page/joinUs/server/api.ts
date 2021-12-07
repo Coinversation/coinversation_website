@@ -26,7 +26,7 @@ let apiPromise: ApiPromise | null = null;
 const registry = new TypeRegistry();
 const types = buildTypes();
 registry.register(types);
-
+const decimals = 10000000000;
 export const connected = async (endpoint: string, f: () => Promise<any>) => {
   let api: ApiPromise | null = null;
   try {
@@ -197,7 +197,6 @@ export const getDerivedStaking = async (currentWallet) => {
   const api = getApi();
   const fund = await api.query.crowdloan?.funds(parachanID);
   if (fund) {
-    console.log(111);
     // @ts-ignore
     const trieIndex = fund.unwrap().trieIndex;
     const childKey = createChildKey(trieIndex);
@@ -209,9 +208,7 @@ export const getDerivedStaking = async (currentWallet) => {
     let total = 0;
     let _Alltotal = 0;
     // @ts-ignore
-    console.log({ values });
     const contributions = values.map((v, idx) => {
-      console.log(v.unwrap());
       return {
         from: ss58Keys[idx],
         data: api.createType("(Balance, Vec<u8>)", v.unwrap()).toJSON(),
@@ -226,14 +223,14 @@ export const getDerivedStaking = async (currentWallet) => {
       buffList.map((ele, index) => {
         if (val.from === ele.from) {
           ex = true;
-          buffList[index].total += Number(val.data[0]) / 10000000000;
+          buffList[index].total += Number(val.data[0]) / decimals;
           // _Alltotal += buffList[index].total;
         }
         return null;
       });
       if (!ex) {
         _Alltotal += val.data[0];
-        buffList.push({ from: val.from, total: val.data[0] / 10000000000 });
+        buffList.push({ from: val.from, total: val.data[0] / decimals });
       }
       if (currentWallet && addr === val.from) {
         total += val.data[0];
@@ -242,14 +239,11 @@ export const getDerivedStaking = async (currentWallet) => {
     });
 
     // buffList = buffList.sort((a, b) => (a.total < b.total ? 1 : -1));
-    console.log({ _Alltotal });
     return {
       count: len,
       list: buffList.slice(0, 2),
-      alltotal: Number(
-        `${parseFloat(`${_Alltotal / 10000000000}`).toFixed(2)}`
-      ),
-      total: total / 10000000000, // DOT to Contribute
+      alltotal: Number(`${parseFloat(`${_Alltotal / decimals}`).toFixed(2)}`),
+      total: total / decimals, // DOT to Contribute
     };
     // 当前出块时间
   }
@@ -301,5 +295,28 @@ export async function getBlock(blockTag: BlockId): Promise<BlockInfo | null> {
         }
       }
   }
+  return null;
+}
+
+export async function getAddressBalance(address: string) {
+  const api = getApi();
+  const account = await api.query.system.account(address);
+  return Number(account.data.free.toBn()) / decimals;
+}
+
+export async function contribution(val: string, address: string) {
+  try {
+    const api = getApi();
+    const parachanID = config.parachanID;
+    const crowdloanEntrinsic = api.tx.crowdloan.contribute(
+      parachanID,
+      `${Number(val) * decimals}`.toString(),
+      null
+    );
+    const hash = await crowdloanEntrinsic.signAndSend(address);
+    if (hash) {
+      return hash;
+    }
+  } catch (error: any) {}
   return null;
 }
