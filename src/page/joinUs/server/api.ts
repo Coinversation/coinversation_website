@@ -304,7 +304,7 @@ export async function getBlock(blockTag: BlockId): Promise<BlockInfo | null> {
 export async function getAddressBalance(address: string) {
   const api = getApi();
   const account = await api.query.system.account(address);
-  return Number(account.data.free.toBn()) / decimals;
+  return Number(account.data.free.toString()) / decimals;
 }
 
 export async function contribution(val: string, address: string) {
