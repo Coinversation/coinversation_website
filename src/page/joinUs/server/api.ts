@@ -186,7 +186,7 @@ const createChildKey = (trieIndex: any) => {
   );
 };
 const convertToKSM = (address: any) => {
-  if (!address) {
+  if (!address && `${address}`.length > 0) {
     return null;
   }
   let plk = decodeAddress(address);

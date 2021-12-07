@@ -25,11 +25,14 @@ const SwitchAddress = (props: { visible: boolean; setVisible: any }) => {
         if (allAccounts.length) {
           let _balance = balance;
           allAccounts.map(async (v: mInjectedAccountWithMeta) => {
-            const res = await getAddressBalance(v.address);
-            _balance[`${v.address}`] = `${res}`;
-            console.log(_balance);
-            setBalance(_balance);
-            return null;
+            console.log(v.address);
+            if (v.address) {
+              const res = await getAddressBalance(v.address);
+              _balance[`${v.address}`] = `${res}`;
+              console.log(_balance);
+              setBalance(_balance);
+              return null;
+            }
           });
         }
       })();

@@ -15,8 +15,14 @@ const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
   const [ksmBalance, setKsmBalance] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   useEffect(() => {
-    if (api && currentAccount && currentAccount.address) {
+    if (
+      api &&
+      currentAccount &&
+      currentAccount.address &&
+      currentAccount.address.length > 0
+    ) {
       (async () => {
+        console.log(currentAccount.address);
         const res = await getAddressBalance(currentAccount.address);
         setKsmBalance(res);
       })();
