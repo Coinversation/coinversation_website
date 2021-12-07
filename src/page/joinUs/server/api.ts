@@ -216,7 +216,10 @@ export const getDerivedStaking = async (currentWallet) => {
     });
     // @ts-ignore
     let buffList: any[] = [];
-    const addr = convertToKSM(currentWallet);
+    let addr;
+    if (currentWallet) {
+      addr = convertToKSM(currentWallet);
+    }
     const len = contributions.length;
     contributions.map((val: any) => {
       let ex = false;
@@ -241,7 +244,7 @@ export const getDerivedStaking = async (currentWallet) => {
     // buffList = buffList.sort((a, b) => (a.total < b.total ? 1 : -1));
     return {
       count: len,
-      list: buffList.slice(0, 2),
+      list: buffList.length ? buffList.slice(0, 2) : [],
       alltotal: Number(`${parseFloat(`${_Alltotal / decimals}`).toFixed(2)}`),
       total: total / decimals, // DOT to Contribute
     };
