@@ -69,7 +69,7 @@ const Account = () => {
   }, []);
   useEffect(() => {
     (async () => {
-      if (api && currentAccount) {
+      if (api && currentAccount && currentAccount.address) {
         const data = await getDerivedStaking(currentAccount.address);
         setParachainData(data);
       }

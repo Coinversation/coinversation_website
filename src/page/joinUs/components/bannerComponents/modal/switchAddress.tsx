@@ -20,7 +20,7 @@ const SwitchAddress = (props: { visible: boolean; setVisible: any }) => {
   const [balance, setBalance] = useState<any>({});
   const setAccounts = useAccountSetter();
   useEffect(() => {
-    if (api && currentAccount) {
+    if (api && currentAccount && currentAccount.address) {
       (async () => {
         if (allAccounts.length) {
           let _balance = balance;
