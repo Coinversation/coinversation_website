@@ -34,31 +34,33 @@ const Account = () => {
     setup(setWaiting, null).then((r) => {
       if (r.kind === "ok") {
         // 获取publicKey
-        const _arr = r.injectedAccounts.map((v) => {
-          const publickey = u8aToHex(decodeAddress(v.address, true));
-          return {
-            ...v,
-            publickey,
-            sortAddress: sortName(v.address),
-          };
-        });
-        if (localStorage.getItem("SELECTED_KSM_WALLET")) {
-          const _item: mInjectedAccountWithMeta = JSON.parse(
-            localStorage.getItem("SELECTED_KSM_WALLET")
-          );
-          if (
-            _arr.filter(
-              (v: mInjectedAccountWithMeta) => v.publickey === _item.publickey
-            )
-          ) {
-            setAccounts(_item);
+        if (r && r.injectedAccounts && r.injectedAccounts.length) {
+          const _arr = r.injectedAccounts.map((v) => {
+            const publickey = u8aToHex(decodeAddress(v.address, true));
+            return {
+              ...v,
+              publickey,
+              sortAddress: sortName(v.address),
+            };
+          });
+          if (localStorage.getItem("SELECTED_KSM_WALLET")) {
+            const _item: mInjectedAccountWithMeta = JSON.parse(
+              localStorage.getItem("SELECTED_KSM_WALLET")
+            );
+            if (
+              _arr.filter(
+                (v: mInjectedAccountWithMeta) => v.publickey === _item.publickey
+              )
+            ) {
+              setAccounts(_item);
+            } else {
+              setAccounts(_arr[0]);
+            }
           } else {
             setAccounts(_arr[0]);
           }
-        } else {
-          setAccounts(_arr[0]);
+          setAllAccounts(_arr);
         }
-        setAllAccounts(_arr);
       } else {
         setMessage(r.message || "");
       }
@@ -110,11 +112,13 @@ const Account = () => {
         </div>
         <h5>{currentAccount.meta?.name}</h5>
         <p>{currentAccount.sortAddress}</p>
-        <img
-          src={require("./img/icon_switch.svg")}
-          alt="icon_switch"
-          onClick={() => setSwitchAddress(true)}
-        />
+        {currentAccount.sortAddress ? (
+          <img
+            src={require("./img/icon_switch.svg")}
+            alt="icon_switch"
+            onClick={() => setSwitchAddress(true)}
+          />
+        ) : null}
       </div>
       <ContributeModal
         visible={contributeModal}
