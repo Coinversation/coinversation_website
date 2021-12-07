@@ -16,13 +16,12 @@ const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   useEffect(() => {
     if (api && currentAccount) {
-      getBalance();
+      (async () => {
+        const res = await getAddressBalance(currentAccount.address);
+        setKsmBalance(res);
+      })();
     }
-  }, [api]);
-  const getBalance = async () => {
-    const res = await getAddressBalance(currentAccount.address);
-    setKsmBalance(res);
-  };
+  }, [api, currentAccount]);
   const setMax = () => {
     let max = parseFloat(ksmBalance.toString());
     // @ts-ignore

@@ -23,14 +23,24 @@ const Process = () => {
           <h3>
             {parachainData && parachainData.alltotal
               ? parachainData.alltotal
-              : "- "}
+              : "-"}{" "}
             DOT
           </h3>
           <p>Total pledge</p>
         </li>
 
         <li>
-          <h3>2.8 CTO</h3>
+          <h3>
+            {parachainData && parachainData.alltotal
+              ? parseFloat(
+                  `${
+                    Number(getGrandPrizePool(parachainData?.count)[1]) /
+                    parachainData.alltotal
+                  }`
+                ).toFixed(0)
+              : "-"}{" "}
+            CTO
+          </h3>
           <p>Expected reward per DOT</p>
         </li>
       </ul>

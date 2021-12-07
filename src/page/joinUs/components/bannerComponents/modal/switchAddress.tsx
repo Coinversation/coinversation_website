@@ -1,15 +1,13 @@
 import React, { useEffect, useContext, useState } from "react";
 import {
-  useAllAccountsSetter,
   AllAccounts,
   ApiRxContext,
   AccountContext,
   mInjectedAccountWithMeta,
   useAccountSetter,
 } from "../../../context";
-import { getAddressBalance, contribution } from "../../../server/api";
+import { getAddressBalance } from "../../../server/api";
 import Identicon from "@polkadot/react-identicon";
-import toast from "@/components/toast";
 import close from "./close.svg";
 import ok from "./ok.svg";
 
@@ -23,22 +21,20 @@ const SwitchAddress = (props: { visible: boolean; setVisible: any }) => {
   const setAccounts = useAccountSetter();
   useEffect(() => {
     if (api && currentAccount) {
-      getBalance();
+      (async () => {
+        if (allAccounts.length) {
+          let _balance = balance;
+          allAccounts.map(async (v: mInjectedAccountWithMeta) => {
+            const res = await getAddressBalance(v.address);
+            _balance[`${v.address}`] = `${res}`;
+            console.log(_balance);
+            setBalance(_balance);
+            return null;
+          });
+        }
+      })();
     }
-  }, [api]);
-  const getBalance = async () => {
-    if (allAccounts.length) {
-      let _balance = balance;
-      allAccounts.map(async (v: mInjectedAccountWithMeta) => {
-        const res = await getAddressBalance(v.address);
-        _balance[`${v.address}`] = `${res}`;
-        console.log(_balance);
-        setBalance(_balance);
-        return null;
-      });
-    }
-  };
-  console.log(balance);
+  }, [api, currentAccount, allAccounts, balance]);
   return visible ? (
     <div className="switchAddress">
       <div className="modal-content">
