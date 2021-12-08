@@ -5,25 +5,25 @@ import Identicon from "@polkadot/react-identicon";
 import { setup } from "../../state/state";
 import "./account.less";
 import {
-  // ApiRxContext,
+  ApiRxContext,
   useAccountSetter,
   useAllAccountsSetter,
   mInjectedAccountWithMeta,
   AccountContext,
-  // useParachainDataSet,
+  useParachainDataSet,
   ParachainData,
 } from "../../context";
-// import { getDerivedStaking } from "../../server/api";
+import { getDerivedStaking } from "../../server/api";
 import { sortName } from "../../utils/utils";
 import ContributeModal from "./modal/contributeModal";
 import SwitchAddress from "./modal/switchAddress";
 const Account = () => {
-  // const { api } = useContext(ApiRxContext);
+  const { api } = useContext(ApiRxContext);
   const [message, setMessage] = useState("");
   const setAccounts = useAccountSetter();
   const currentAccount = useContext(AccountContext);
   const setAllAccounts = useAllAccountsSetter();
-  // const setParachainData = useParachainDataSet();
+  const setParachainData = useParachainDataSet();
   const parachainData = useContext(ParachainData);
   const [waiting, setWaiting] = useState(false);
 
@@ -66,14 +66,14 @@ const Account = () => {
       }
     });
   }, [setAccounts, setAllAccounts]);
-  // useEffect(() => {
-  //   (async () => {
-  //     if (api && currentAccount && currentAccount.address) {
-  //       const data = await getDerivedStaking(currentAccount.address);
-  //       setParachainData(data);
-  //     }
-  //   })();
-  // }, [api, currentAccount, setParachainData]);
+  useEffect(() => {
+    (async () => {
+      if (api && currentAccount && currentAccount.address) {
+        const data = await getDerivedStaking(currentAccount.address);
+        setParachainData(data);
+      }
+    })();
+  }, [api, currentAccount, setParachainData]);
   return (
     <div className="account">
       <ul className="account_ul">
@@ -102,12 +102,14 @@ const Account = () => {
       {message ? <h4 className="textH4">{message}</h4> : null}
       <div className="now_account">
         <div className="polkadot_icon">
-          <Identicon
-            value={currentAccount.address}
-            size={32}
-            style={{ marginTop: 10 }}
-            theme={"polkadot"}
-          />
+          {currentAccount && currentAccount.address ? (
+            <Identicon
+              value={currentAccount?.address || "-"}
+              size={32}
+              style={{ marginTop: 10 }}
+              theme={"polkadot"}
+            />
+          ) : null}
         </div>
         <h5>{currentAccount.meta?.name}</h5>
         <p>{currentAccount.sortAddress}</p>

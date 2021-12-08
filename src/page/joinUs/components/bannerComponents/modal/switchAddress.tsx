@@ -60,7 +60,11 @@ const SwitchAddress = (props: { visible: boolean; setVisible: any }) => {
                   }}
                 >
                   <div className="polkadot_icon">
-                    <Identicon value={v.address} size={32} theme={"polkadot"} />
+                    <Identicon
+                      value={v?.address ?? ""}
+                      size={32}
+                      theme={"polkadot"}
+                    />
                   </div>
                   <h5>{v.meta?.name}</h5>
                   <p>{v.sortAddress}</p>
