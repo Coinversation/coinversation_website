@@ -34,7 +34,7 @@ const Process = () => {
             {parachainData && parachainData.alltotal
               ? parseFloat(
                   `${
-                    Number(getGrandPrizePool(parachainData?.count)[1]) /
+                    Number(getGrandPrizePool(parachainData?.count)[0]) /
                     parachainData.alltotal
                   }`
                 ).toFixed(0)
