@@ -26,7 +26,7 @@ let apiPromise: ApiPromise | null = null;
 const registry = new TypeRegistry();
 const types = buildTypes();
 registry.register(types);
-const decimals = 10000000000;
+export const decimals = 10000000000;
 export const connected = async (endpoint: string, f: () => Promise<any>) => {
   let api: ApiPromise | null = null;
   try {
@@ -323,3 +323,52 @@ export async function contribution(val: string, address: string) {
   } catch (error: any) {}
   return null;
 }
+
+export const getContributeLast = async (): Promise<any> => {
+  try {
+    const response = await fetch(`/api/contribute/get/last`);
+    if (response.status !== 200) {
+      return null;
+    }
+    const contributeLast = await response.json();
+    console.log(contributeLast);
+    if (contributeLast.code === "200") {
+      return isNaN(contributeLast?.data?.block)
+        ? ""
+        : contributeLast?.data?.block;
+    }
+    return null;
+  } catch (error) {
+    return null;
+  }
+};
+export const postContributeAdd = async (
+  block: string,
+  at: string,
+  amount: string,
+  publickey: string,
+  sources: string
+): Promise<any> => {
+  try {
+    const response = await fetch(`/api/contribute/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        block: block,
+        at: at,
+        amount: amount,
+        publickey: publickey,
+        sources: sources,
+      }),
+    });
+    if (response.status !== 200) {
+      return null;
+    }
+    const signAddressRes = await response.json();
+    return signAddressRes;
+  } catch (error) {
+    return null;
+  }
+};
