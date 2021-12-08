@@ -28,7 +28,6 @@ const BannerFr = () => {
                 parachainData?.list.length ? parachainData.list[0].from : "-"
               }
               size={32}
-              style={{ marginTop: 10 }}
             />
           </div>
           <div className="fr">

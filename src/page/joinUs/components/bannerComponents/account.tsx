@@ -105,11 +105,7 @@ const Account = () => {
       <div className="now_account">
         <div className="polkadot_icon">
           {currentAccount && currentAccount.address ? (
-            <MIdenticon
-              address={currentAccount?.address || "-"}
-              size={32}
-              style={{ marginTop: 10 }}
-            />
+            <MIdenticon address={currentAccount?.address || "-"} size={32} />
           ) : null}
         </div>
         <h5>{currentAccount.meta?.name}</h5>
