@@ -3,8 +3,8 @@ import HeaderWidget from "@/components/header/headerWidget";
 import FooterWidget from "@/components/footer/footerWidget";
 import Height from "@/components/height/heightWidget";
 // import JoinBanner from "./components/joinBanner";
-// import Process from "./components/process";
-// import ListOfWinners from "./components/listOfWinners";
+import Process from "./components/process";
+import ListOfWinners from "./components/listOfWinners";
 import "./joinIndex.less";
 // import { jest } from "@types/jest";
 import {
@@ -54,11 +54,11 @@ export default function JoinIndex() {
                       <div className="joinIndex_inner_inner">
                         <Height height={60} />
                         {/* <JoinBanner /> */}
-                        {/* <Height height={40} />
+                        {/* <Height height={40} /> */}
                         <Process />
                         <Height height={40} />
                         <ListOfWinners />
-                        <Height height={60} /> */}
+                        <Height height={60} />
                       </div>
                     </ParachainDataSet.Provider>
                   </ParachainData.Provider>
