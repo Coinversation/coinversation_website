@@ -1,32 +1,32 @@
-import React from "react";
-// import React, { useEffect, useState, useContext } from "react";
+// import React,{useState} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Tips from "@/components/tips/tipsWidget";
 import "./joinBannerFl.less";
-// import NoAccount from "./noAccount";
+import NoAccount from "./noAccount";
 // import Account from "./account";
-// import { getBlock } from "../../server/api";
-// import { ApiRxContext } from "../../context";
-// type Phase = "none" | "setup" | "shop" | "battle" | "result";
+import { getBlock } from "../../server/api";
+import { ApiRxContext } from "../../context";
+type Phase = "none" | "setup" | "shop" | "battle" | "result";
 
 const JoinBannerFl = (props: { account: string }) => {
-  // const [phase, setPhase] = useState<Phase>(
-  //   (window.localStorage.getItem("PolkadotAccount_TSX_phase") as Phase) ||
-  //     "none"
-  // );
-  // const connectWallet = () => {
-  //   setPhase("setup");
-  //   window.localStorage.setItem("PolkadotAccount_TSX_phase", "setup");
-  // };
-  // const { api } = useContext(ApiRxContext);
+  const [phase, setPhase] = useState<Phase>(
+    (window.localStorage.getItem("PolkadotAccount_TSX_phase") as Phase) ||
+      "none"
+  );
+  const connectWallet = () => {
+    setPhase("setup");
+    window.localStorage.setItem("PolkadotAccount_TSX_phase", "setup");
+  };
+  const { api } = useContext(ApiRxContext);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (api) {
-  //       const block = await getBlock("latest");
-  //       console.log(block);
-  //     }
-  //   })();
-  // }, [api]);
+  useEffect(() => {
+    (async () => {
+      if (api) {
+        const block = await getBlock("latest");
+        console.log(block);
+      }
+    })();
+  }, [api]);
 
   return (
     <div className="join_bannerFl">
@@ -49,12 +49,13 @@ const JoinBannerFl = (props: { account: string }) => {
           }
         />
       </div>
-      {/* 
+
       {phase === "setup" ? (
-        <Account />
+        // <Account />
+        <h3>3333</h3>
       ) : (
         <NoAccount connectWallet={connectWallet} />
-      )} */}
+      )}
     </div>
   );
 };
