@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import Tips from "@/components/tips/tipsWidget";
 import "./joinBannerFl.less";
 import NoAccount from "./noAccount";
-// import Account from "./account";
+import Account from "./account";
 import { getBlock } from "../../server/api";
 import { ApiRxContext } from "../../context";
 type Phase = "none" | "setup" | "shop" | "battle" | "result";
@@ -51,8 +51,7 @@ const JoinBannerFl = (props: { account: string }) => {
       </div>
 
       {phase === "setup" ? (
-        // <Account />
-        <h3>3333</h3>
+        <Account />
       ) : (
         <NoAccount connectWallet={connectWallet} />
       )}
