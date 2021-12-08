@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import JoinBannerFl from "./bannerComponents/joinBannerFl";
-// import JoinBannerFr from "./bannerComponents/joinBannerFr";
+// import JoinBannerFl from "./bannerComponents/joinBannerFl";
+import JoinBannerFr from "./bannerComponents/joinBannerFr";
 import {
   LastParachainData,
   LastParachainDataSet,
@@ -13,10 +13,11 @@ const JoinBanner = () => {
       <div className="join_banner_inner">
         <LastParachainData.Provider value={lastParachainBlock}>
           <LastParachainDataSet.Provider value={setLastParachainBlock}>
-            <JoinBannerFl account={""} />
+            {/* <JoinBannerFl account={""} /> */}
+            <h1>w333</h1>
           </LastParachainDataSet.Provider>
         </LastParachainData.Provider>
-        {/* <JoinBannerFr /> */}
+        <JoinBannerFr />
       </div>
     </div>
   );
