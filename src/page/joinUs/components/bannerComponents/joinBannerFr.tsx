@@ -16,11 +16,11 @@ const BannerFr = () => {
         Reward rules&gt;&gt;
       </a>
       <h2>
-        {getGrandPrizePool(parachainData?.count)[1]}
+        {parachainData ? getGrandPrizePool(parachainData?.count)[1] : null}
         <i>CTO</i>
       </h2>
       <h3>≈ $12938.28</h3>
-      {parachainData?.list.length > 0 ? (
+      {parachainData && parachainData?.list.length > 0 ? (
         <div className="now_address">
           <div className="polkadot_icon">
             <Identicon
@@ -37,7 +37,7 @@ const BannerFr = () => {
         </div>
       ) : null}
       <ul>
-        {parachainData?.list.length > 0
+        {parachainData && parachainData?.list.length > 0
           ? parachainData.list.map((v, index) => {
               return (
                 <li key={index}>
