@@ -16,7 +16,7 @@ const BannerFr = () => {
         Reward rules&gt;&gt;
       </a>
       <h2>
-        {parachainData ? getGrandPrizePool(parachainData?.count)[1] : null}
+        {getGrandPrizePool(parachainData?.count)[1]}
         <i>CTO</i>
       </h2>
       <h3>≈ $12938.28</h3>
