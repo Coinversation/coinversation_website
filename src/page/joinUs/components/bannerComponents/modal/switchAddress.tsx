@@ -7,7 +7,7 @@ import {
   useAccountSetter,
 } from "../../../context";
 import { getAddressBalance } from "../../../server/api";
-import Identicon from "@polkadot/react-identicon";
+import MIdenticon from "../identicon";
 import close from "./close.svg";
 import ok from "./ok.svg";
 
@@ -59,13 +59,9 @@ const SwitchAddress = (props: { visible: boolean; setVisible: any }) => {
                     );
                   }}
                 >
-                  {/* <div className="polkadot_icon">
-                    <Identicon
-                      value={v?.address ?? "-"}
-                      size={32}
-                      theme={"polkadot"}
-                    />
-                  </div> */}
+                  <div className="polkadot_icon">
+                    <MIdenticon address={v?.address ?? "-"} size={24} />
+                  </div>
                   <h5>{v.meta?.name}</h5>
                   <p>{v.sortAddress}</p>
                   {balance[`${v.address}`] ? (
