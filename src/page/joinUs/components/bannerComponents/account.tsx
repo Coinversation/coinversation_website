@@ -68,7 +68,7 @@ const Account = () => {
   }, [setAccounts, setAllAccounts]);
   useEffect(() => {
     (async () => {
-      if (api && currentAccount && currentAccount.address) {
+      if (api) {
         const data = await getDerivedStaking(currentAccount.address);
         setParachainData(data);
       }
@@ -76,18 +76,20 @@ const Account = () => {
   }, [api, currentAccount, setParachainData]);
   return (
     <div className="account">
-      <ul className="account_ul">
-        <li>
-          <img src={require("./img/icon_li.svg")} alt="icon_li" />
-          <p>DOT to Contribute</p>
-          <h4>{parachainData?.total} DOT</h4>
-        </li>
-        <li>
-          <img src={require("./img/icon_li.svg")} alt="icon_li" />
-          <p>Estimated score</p>
-          <h4>{parachainData?.total} CTO</h4>
-        </li>
-      </ul>
+      {message ? null : (
+        <ul className="account_ul">
+          <li>
+            <img src={require("./img/icon_li.svg")} alt="icon_li" />
+            <p>DOT to Contribute</p>
+            <h4>{parachainData?.total} DOT</h4>
+          </li>
+          <li>
+            <img src={require("./img/icon_li.svg")} alt="icon_li" />
+            <p>Estimated score</p>
+            <h4>{parachainData?.total} CTO</h4>
+          </li>
+        </ul>
+      )}
       <button
         className={waiting || message ? "disable btn" : "btn"}
         onClick={() => setContributeModal(!contributeModal)}

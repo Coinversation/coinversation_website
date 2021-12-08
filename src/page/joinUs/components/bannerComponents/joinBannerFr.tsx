@@ -36,27 +36,44 @@ const BannerFr = () => {
             <p>Expected to win the Grand Prize</p>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div className="now_address op7">
+          <div className="polkadot_icon"></div>
+          <div className="fr"></div>
+        </div>
+      )}
       <ul>
-        {parachainData?.list.length > 0
-          ? parachainData.list.map((v, index) => {
-              return (
-                <li key={index}>
-                  <div className="polkadot_icon">
-                    <MIdenticon
-                      address={v && v.from ? v.from : "-"}
-                      size={32}
-                    />
-                  </div>
-                  <div className="fr">
-                    <h4 className="address">{sortName(v.from)}</h4>
-                    <h4 className="dot">{v.total} DOT</h4>
-                    <p>13:12:09 09/10</p>
-                  </div>
-                </li>
-              );
-            })
-          : null}
+        {parachainData?.list.length > 0 ? (
+          parachainData.list.map((v, index) => {
+            return (
+              <li key={index}>
+                <div className="polkadot_icon">
+                  <MIdenticon address={v && v.from ? v.from : "-"} size={32} />
+                </div>
+                <div className="fr">
+                  <h4 className="address">{sortName(v.from)}</h4>
+                  <h4 className="dot">{v.total} DOT</h4>
+                  <p>13:12:09 09/10</p>
+                </div>
+              </li>
+            );
+          })
+        ) : (
+          <>
+            <li>
+              <div className="polkadot_icon"></div>
+              <div className="fr"></div>
+            </li>
+            <li>
+              <div className="polkadot_icon"></div>
+              <div className="fr"></div>
+            </li>
+            <li>
+              <div className="polkadot_icon"></div>
+              <div className="fr"></div>
+            </li>
+          </>
+        )}
       </ul>
     </div>
   );
