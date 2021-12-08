@@ -59,13 +59,13 @@ const SwitchAddress = (props: { visible: boolean; setVisible: any }) => {
                     );
                   }}
                 >
-                  <div className="polkadot_icon">
+                  {/* <div className="polkadot_icon">
                     <Identicon
-                      value={v?.address ?? ""}
+                      value={v?.address ?? "-"}
                       size={32}
                       theme={"polkadot"}
                     />
-                  </div>
+                  </div> */}
                   <h5>{v.meta?.name}</h5>
                   <p>{v.sortAddress}</p>
                   {balance[`${v.address}`] ? (

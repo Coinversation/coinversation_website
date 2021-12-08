@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import Identicon from "@polkadot/react-identicon";
+// import Identicon from "@polkadot/react-identicon";
 import "./joinBannerFr.less";
 import { ParachainData } from "../../context";
-import { sortName, getGrandPrizePool } from "../../utils/utils";
+import { getGrandPrizePool } from "../../utils/utils";
+// import { sortName, getGrandPrizePool } from "../../utils/utils";
 const BannerFr = () => {
   const parachainData = useContext(ParachainData);
   return (
@@ -20,7 +21,7 @@ const BannerFr = () => {
         <i>CTO</i>
       </h2>
       <h3>≈ $12938.28</h3>
-      {parachainData?.list.length > 0 ? (
+      {/* {parachainData?.list.length > 0 ? (
         <div className="now_address">
           <div className="polkadot_icon">
             <Identicon
@@ -59,7 +60,7 @@ const BannerFr = () => {
               );
             })
           : null}
-      </ul>
+      </ul> */}
     </div>
   );
 };
