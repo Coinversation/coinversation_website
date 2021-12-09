@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import MIdenticon from "./identicon";
 import "./joinBannerFr.less";
-import { ParachainData } from "../../context";
+import { ContributeDataContext } from "../../context/ContributeData";
 import { sortName, getGrandPrizePool } from "../../utils/utils";
+import moment from "moment";
 const BannerFr = () => {
-  const parachainData = useContext(ParachainData);
+  const parachainData = useContext(ContributeDataContext);
+  console.log(parachainData);
   return (
     <div className="join_bannerFr">
       <a
@@ -20,18 +22,20 @@ const BannerFr = () => {
         <i>CTO</i>
       </h2>
       <h3>≈ $12938.28</h3>
-      {parachainData?.list.length > 0 ? (
+      {parachainData && parachainData.list && parachainData.list.length > 0 ? (
         <div className="now_address">
           <div className="polkadot_icon">
             <MIdenticon
               address={
-                parachainData?.list.length ? parachainData.list[0].from : "-"
+                parachainData && parachainData.list && parachainData.list.length
+                  ? parachainData?.list[0]?.address
+                  : ""
               }
               size={32}
             />
           </div>
           <div className="fr">
-            <h4>{sortName(parachainData.list[0].from)}</h4>
+            <h4>{sortName(parachainData?.list[0]?.address)}</h4>
             <p>Expected to win the Grand Prize</p>
           </div>
         </div>
@@ -42,17 +46,19 @@ const BannerFr = () => {
         </div>
       )}
       <ul>
-        {parachainData?.list.length > 0 ? (
-          parachainData.list.map((v, index) => {
+        {parachainData &&
+        parachainData.list &&
+        parachainData.list.length > 0 ? (
+          parachainData.list.reverse().map((v, index) => {
             return (
               <li key={index}>
                 <div className="polkadot_icon">
-                  <MIdenticon address={v && v.from ? v.from : "-"} size={32} />
+                  <MIdenticon address={v?.address} size={32} />
                 </div>
                 <div className="fr">
-                  <h4 className="address">{sortName(v.from)}</h4>
-                  <h4 className="dot">{v.total} DOT</h4>
-                  <p>13:12:09 09/10</p>
+                  <h4 className="address">{sortName(v?.address)}</h4>
+                  <h4 className="dot">{v?.amount} DOT</h4>
+                  <p>{moment(+v?.at).format("HH:mm:ss MM/DD")}</p>
                 </div>
               </li>
             );

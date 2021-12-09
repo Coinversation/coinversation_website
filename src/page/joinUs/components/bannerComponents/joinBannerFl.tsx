@@ -10,7 +10,7 @@ import NowTime from "./time/nowTime";
 import BlockTime from "./time/blockTime";
 type Phase = "none" | "setup" | "shop" | "battle" | "result";
 
-const JoinBannerFl = (props: { account: string }) => {
+const JoinBannerFl = () => {
   const lastBlockContext = useContext(LastBlockContext);
   const [phase, setPhase] = useState<Phase>(
     (window.localStorage.getItem("PolkadotAccount_TSX_phase") as Phase) ||
@@ -33,9 +33,9 @@ const JoinBannerFl = (props: { account: string }) => {
 
   return (
     <div className="join_bannerFl">
-      {!lastBlockContext?.lastBlock ? <NowTime /> : null}
+      {!lastBlockContext?.latestBlock ? <NowTime /> : null}
 
-      {lastBlockContext?.lastBlock ? (
+      {lastBlockContext?.latestBlock ? (
         <BlockTime
           last={+lastBlockContext.lastBlock}
           latest={+lastBlockContext.latestBlock}

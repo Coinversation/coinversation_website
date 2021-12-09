@@ -5,26 +5,21 @@ import MIdenticon from "./identicon";
 import { setup } from "../../state/state";
 import "./account.less";
 import {
-  ApiRxContext,
   useAccountSetter,
   useAllAccountsSetter,
   mInjectedAccountWithMeta,
   AccountContext,
-  useParachainDataSet,
-  ParachainData,
 } from "../../context";
-import { getDerivedStaking } from "../../server/api";
+import { ContributeDataContext } from "../../context/ContributeData";
 import { sortName } from "../../utils/utils";
 import ContributeModal from "./modal/contributeModal";
 import SwitchAddress from "./modal/switchAddress";
 const Account = () => {
-  const { api } = useContext(ApiRxContext);
   const [message, setMessage] = useState("");
   const setAccounts = useAccountSetter();
   const currentAccount = useContext(AccountContext);
   const setAllAccounts = useAllAccountsSetter();
-  const setParachainData = useParachainDataSet();
-  const parachainData = useContext(ParachainData);
+  const parachainData = useContext(ContributeDataContext);
   const [waiting, setWaiting] = useState(false);
 
   const [contributeModal, setContributeModal] = useState(false);
@@ -66,14 +61,7 @@ const Account = () => {
       }
     });
   }, [setAccounts, setAllAccounts]);
-  useEffect(() => {
-    (async () => {
-      if (api) {
-        const data = await getDerivedStaking(currentAccount.address);
-        setParachainData(data);
-      }
-    })();
-  }, [api, currentAccount, setParachainData]);
+
   return (
     <div className="account">
       {message ? null : (
@@ -105,7 +93,7 @@ const Account = () => {
       <div className="now_account">
         <div className="polkadot_icon">
           {currentAccount && currentAccount.address ? (
-            <MIdenticon address={currentAccount?.address || "-"} size={32} />
+            <MIdenticon address={currentAccount?.address} size={32} />
           ) : null}
         </div>
         <h5>{currentAccount.meta?.name}</h5>

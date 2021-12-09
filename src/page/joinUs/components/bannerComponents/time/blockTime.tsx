@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Tips from "@/components/tips/tipsWidget";
+let timer;
 const BlockTime = (props: { last: number; latest: number }) => {
   const { last, latest } = props;
   const [remain, setRemain] = useState(6000);
@@ -8,14 +9,13 @@ const BlockTime = (props: { last: number; latest: number }) => {
   const [countHours, setCountHours] = useState("00");
   const [countMinutes, setCountMinutes] = useState("00");
   const [countSeconds, setCountSeconds] = useState("00");
-  let timer;
 
   useEffect(() => {
     if (lastM === last) {
       return;
     }
     setLastM(last);
-    const _remain = 6000 - (latest - last);
+    const _remain = last === 0 ? 6000 : 6000 - (latest - last);
     if (_remain === remain) {
       return;
     }
@@ -37,7 +37,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
     }
 
     setRemain(_remain);
-  }, [last, latest, lastM, remain]);
+  }, [last, latest, lastM, remain, countSeconds, countMinutes, countHours]);
   useEffect(() => {
     if (remain <= 0) {
       return;
@@ -60,6 +60,9 @@ const BlockTime = (props: { last: number; latest: number }) => {
       setCountSeconds(
         offset % 60 >= 10 ? String(offset % 60) : "0" + (offset % 60)
       );
+      if (i % 6) {
+        setRemain(remain - 1);
+      }
       i++;
     }, 1000);
     return () => {

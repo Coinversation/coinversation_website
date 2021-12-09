@@ -6,18 +6,23 @@ import {
   contribution,
   postContributeAdd,
 } from "../../../server/api";
+import { LastBlockContext } from "../../context/LastParachainData";
 import toast from "@/components/toast";
 import close from "./close.svg";
+import { getContributeList } from "../../../server/api";
+import { useContributeDataContextSet } from "../../../context/ContributeData";
 const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
   const amountKsmInput = useRef(null);
   const { api } = useContext(ApiRxContext);
   const [amount, setAmount] = useState(0);
   const currentAccount = useContext(AccountContext);
   const { visible, setVisible } = props;
-  const ratioReward = 1 / 350; //%
-  // const [ksmReward, setKsmReward] = useState(0);
   const [balance, setBalance] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const lastBlockContext = useContext(LastBlockContext);
+
+  const setData = useContributeDataContextSet();
   useEffect(() => {
     if (
       api &&
@@ -33,10 +38,8 @@ const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
   }, [api, currentAccount]);
   const setMax = () => {
     let max = parseFloat(balance.toString());
-    // @ts-ignore
     amountKsmInput.current.value = max;
     setAmount(max);
-    // setKsmReward(max / ratioReward);
   };
   const changeAmount = (event: any) => {
     let value = event.target.value;
@@ -48,17 +51,21 @@ const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
       value = 0;
     }
     setAmount(parseFloat(value));
-    // @ts-ignore
-    setKsmReward(value / ratioReward);
+    // setKsmReward(value / ratioReward);
   };
   const submitContribution = async () => {
-    postContributeAdd(
-      "blockwww",
-      "atwww",
-      "amountwww",
-      "publickeywww",
-      "sourceswww"
+    const res = await postContributeAdd(
+      `${lastBlockContext.latestBlock}`,
+      `${new Date().getTime()}`,
+      "10000",
+      currentAccount.publickey,
+      "coinversation",
+      currentAccount.address
     );
+    if (res) {
+      const res = await getContributeList(currentAccount?.publickey);
+      setData(res);
+    }
     if (!amount || amount < 0 || amount > parseFloat(balance.toString())) {
       toast.show("Invalid DOT amount or insufficient balance");
       return;

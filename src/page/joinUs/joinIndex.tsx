@@ -13,10 +13,8 @@ import {
   AccountSetterContext,
   AllAccountsSetterContext,
   AllAccounts,
-  ParachainData,
-  ParachainDataSet,
-  IParachainData,
 } from "./context";
+import { ContributeDataContextProvider } from "./context/ContributeData";
 // const WS_PROVIDER = new WsProvider("wss://rpc.plasmnet.io/");
 
 const WS_PROVIDER = "wss://rpc.polkadot.io";
@@ -37,8 +35,6 @@ export default function JoinIndex() {
   const [allAccounts, setAllAccounts] = useState<mInjectedAccountWithMeta[]>(
     []
   );
-
-  const [parachainData, setParachainData] = useState<IParachainData>();
   return (
     <div className="joinIndex">
       <HeaderWidget propsOnKey="ParachainA" />
@@ -48,19 +44,17 @@ export default function JoinIndex() {
             <AllAccounts.Provider value={allAccounts}>
               <AllAccountsSetterContext.Provider value={setAllAccounts}>
                 <AccountSetterContext.Provider value={setAccount}>
-                  <ParachainData.Provider value={parachainData}>
-                    <ParachainDataSet.Provider value={setParachainData}>
-                      <div className="joinIndex_inner_inner">
-                        <Height height={60} />
-                        <JoinBanner />
-                        <Height height={40} />
-                        <Process />
-                        <Height height={40} />
-                        <ListOfWinners />
-                        <Height height={60} />
-                      </div>
-                    </ParachainDataSet.Provider>
-                  </ParachainData.Provider>
+                  <ContributeDataContextProvider>
+                    <div className="joinIndex_inner_inner">
+                      <Height height={60} />
+                      <JoinBanner />
+                      <Height height={40} />
+                      <Process />
+                      <Height height={40} />
+                      <ListOfWinners />
+                      <Height height={60} />
+                    </div>
+                  </ContributeDataContextProvider>
                 </AccountSetterContext.Provider>
               </AllAccountsSetterContext.Provider>
             </AllAccounts.Provider>

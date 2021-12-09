@@ -19,7 +19,10 @@ export const getEnv = (envName: any) => {
   return env;
 };
 export function sortName(name: string) {
-  return `${name.slice(0, 7)}...${name.slice(name.length - 4, name.length)}`;
+  if (name && name.length > 7) {
+    return `${name.slice(0, 7)}...${name.slice(name.length - 4, name.length)}`;
+  }
+  return name;
 }
 export function getGrandPrizePool(addressNum: number) {
   let num = 60000;

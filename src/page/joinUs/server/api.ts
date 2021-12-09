@@ -331,11 +331,36 @@ export const getContributeLast = async (): Promise<any> => {
       return null;
     }
     const contributeLast = await response.json();
-    console.log(contributeLast);
     if (contributeLast.code === "200") {
       return isNaN(contributeLast?.data?.block)
-        ? ""
-        : contributeLast?.data?.block;
+        ? 0
+        : +contributeLast?.data?.block;
+    }
+    return null;
+  } catch (error) {
+    return null;
+  }
+};
+export const getContributeList = async (publickey: string): Promise<any> => {
+  try {
+    const response = await fetch(
+      `/api/contribute/get/list?publickey=${publickey}`
+    );
+    if (response.status !== 200) {
+      return null;
+    }
+    const contributeLast = await response.json();
+    if (contributeLast.code === "200") {
+      const _data = contributeLast?.data;
+      if (_data?.list.length > 0) {
+        console.log(_data);
+        return {
+          count: _data.count,
+          list: _data.list,
+          total: _data?.total || 0,
+          alltotal: _data.alltotal,
+        };
+      }
     }
     return null;
   } catch (error) {
@@ -347,7 +372,8 @@ export const postContributeAdd = async (
   at: string,
   amount: string,
   publickey: string,
-  sources: string
+  sources: string,
+  address: string
 ): Promise<any> => {
   try {
     const response = await fetch(`/api/contribute/add`, {
@@ -361,6 +387,7 @@ export const postContributeAdd = async (
         amount: amount,
         publickey: publickey,
         sources: sources,
+        address: address,
       }),
     });
     if (response.status !== 200) {

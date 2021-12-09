@@ -4,16 +4,19 @@ import { polkadotIcon } from "@polkadot/ui-shared";
 import type { Circle } from "@polkadot/ui-shared/icons/types";
 
 function _Identicon(props: { address: string; size: number }) {
+  const _address =
+    props.address || "14r48SVtMrJKxUWD9ijDy8aQU3asTXja8qny9mzXTutdByju";
+  console.log(_address);
   return (
     <svg
       className={"identicon"}
       height={props.size}
-      id={props.address}
-      name={props.address}
+      id={_address}
+      name={_address}
       viewBox="0 0 64 64"
       width={props.size}
     >
-      {polkadotIcon(props.address, { isAlternative: false }).map(renderCircle)}
+      {polkadotIcon(_address, { isAlternative: false }).map(renderCircle)}
     </svg>
   );
 }

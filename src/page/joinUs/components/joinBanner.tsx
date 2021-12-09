@@ -8,7 +8,7 @@ const JoinBanner = () => {
     <div className="join_banner">
       <div className="join_banner_inner">
         <LastParachainData>
-          <JoinBannerFl account={""} />
+          <JoinBannerFl />
         </LastParachainData>
         <JoinBannerFr />
       </div>

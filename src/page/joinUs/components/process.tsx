@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { ParachainData } from "../context";
+import { ContributeDataContext } from "../context/ContributeData";
 import { getGrandPrizePool } from "../utils/utils";
 import "./process.less";
 const Process = () => {
-  const parachainData = useContext(ParachainData);
+  const parachainData = useContext(ContributeDataContext);
   return (
     <div className="process">
       <ul className="process_header">

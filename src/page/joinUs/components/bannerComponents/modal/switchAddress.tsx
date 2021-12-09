@@ -60,7 +60,7 @@ const SwitchAddress = (props: { visible: boolean; setVisible: any }) => {
                   }}
                 >
                   <div className="polkadot_icon">
-                    <MIdenticon address={v?.address ?? "-"} size={24} />
+                    <MIdenticon address={v.address} size={24} />
                   </div>
                   <h5>{v.meta?.name}</h5>
                   <p>{v.sortAddress}</p>
