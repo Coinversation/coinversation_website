@@ -67,10 +67,6 @@ const BannerFr = () => {
               <div className="polkadot_icon"></div>
               <div className="fr"></div>
             </li>
-            <li>
-              <div className="polkadot_icon"></div>
-              <div className="fr"></div>
-            </li>
           </>
         )}
       </ul>

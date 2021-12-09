@@ -1,14 +1,17 @@
 // import React,{useState} from "react";
 import React, { useEffect, useState, useContext } from "react";
-import Tips from "@/components/tips/tipsWidget";
 import "./joinBannerFl.less";
 import NoAccount from "./noAccount";
 import Account from "./account";
 import { getBlock } from "../../server/api";
 import { ApiRxContext } from "../../context";
+import { LastBlockContext } from "../context/LastParachainData";
+import NowTime from "./time/nowTime";
+import BlockTime from "./time/blockTime";
 type Phase = "none" | "setup" | "shop" | "battle" | "result";
 
 const JoinBannerFl = (props: { account: string }) => {
+  const lastBlockContext = useContext(LastBlockContext);
   const [phase, setPhase] = useState<Phase>(
     (window.localStorage.getItem("PolkadotAccount_TSX_phase") as Phase) ||
       "none"
@@ -30,26 +33,14 @@ const JoinBannerFl = (props: { account: string }) => {
 
   return (
     <div className="join_bannerFl">
-      <h3>5000</h3>
-      <div className="text_p">
-        <p>Comdivletion Block</p>
-        <Tips
-          message={
-            "An introduction to copywriting Here is an explanatory note on special nouns"
-          }
-        />
-      </div>
+      {!lastBlockContext?.lastBlock ? <NowTime /> : null}
 
-      <h3>20:18:07</h3>
-      <div className="text_p">
-        <p> Countdown</p>
-        <Tips
-          message={
-            "An introduction to copywriting Here is an explanatory note on special nouns"
-          }
+      {lastBlockContext?.lastBlock ? (
+        <BlockTime
+          last={+lastBlockContext.lastBlock}
+          latest={+lastBlockContext.latestBlock}
         />
-      </div>
-
+      ) : null}
       {phase === "setup" ? (
         <Account />
       ) : (

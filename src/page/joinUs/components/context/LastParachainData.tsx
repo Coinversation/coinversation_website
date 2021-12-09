@@ -29,7 +29,7 @@ export function LastParachainData(props: {
           setLatestBlock(_latestBlock.number);
           setLastBlock(contributeLast);
         })();
-      }, 6000);
+      }, 12000);
     }
   }, [api, lastBlock]);
 
