@@ -6,7 +6,6 @@ import type { Circle } from "@polkadot/ui-shared/icons/types";
 function _Identicon(props: { address: string; size: number }) {
   const _address =
     props.address || "14r48SVtMrJKxUWD9ijDy8aQU3asTXja8qny9mzXTutdByju";
-  console.log(_address);
   return (
     <svg
       className={"identicon"}

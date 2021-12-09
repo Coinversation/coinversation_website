@@ -5,6 +5,7 @@ import Height from "@/components/height/heightWidget";
 import JoinBanner from "./components/joinBanner";
 import Process from "./components/process";
 import ListOfWinners from "./components/listOfWinners";
+import PNS from "./components/pns";
 import "./joinIndex.less";
 import {
   ApiRxContextProvider,
@@ -52,6 +53,8 @@ export default function JoinIndex() {
                       <Process />
                       <Height height={40} />
                       <ListOfWinners />
+                      <Height height={40} />
+                      <PNS />
                       <Height height={60} />
                     </div>
                   </ContributeDataContextProvider>

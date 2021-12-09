@@ -14,7 +14,8 @@ import { ContributeDataContext } from "../../context/ContributeData";
 import { sortName } from "../../utils/utils";
 import ContributeModal from "./modal/contributeModal";
 import SwitchAddress from "./modal/switchAddress";
-const Account = () => {
+const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
+  const { btnOnly, receivePns } = props;
   const [message, setMessage] = useState("");
   const setAccounts = useAccountSetter();
   const currentAccount = useContext(AccountContext);
@@ -64,7 +65,7 @@ const Account = () => {
 
   return (
     <div className="account">
-      {message ? null : (
+      {message || btnOnly ? null : (
         <ul className="account_ul">
           <li>
             <img src={require("./img/icon_li.svg")} alt="icon_li" />
@@ -80,9 +81,15 @@ const Account = () => {
       )}
       <button
         className={waiting || message ? "disable btn" : "btn"}
-        onClick={() => setContributeModal(!contributeModal)}
+        onClick={() => {
+          if (receivePns) {
+            window.open("https://www.baidu.com/");
+          } else {
+            setContributeModal(!contributeModal);
+          }
+        }}
       >
-        DOT to Contribute
+        {receivePns ? "Receive PNS" : "DOT to Contribute"}
       </button>
       {waiting ? (
         <h4 className="textH4">

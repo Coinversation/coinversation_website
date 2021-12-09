@@ -62,7 +62,6 @@ export function SystemContextProvider(
     setName(undefined);
     setProperties(undefined);
     setVersion(undefined);
-
     if (!provider) {
       return;
     }

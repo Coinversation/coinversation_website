@@ -1,0 +1,59 @@
+@import url("@/styles/theme.less");
+.pns {
+  border-radius: @border-radius-big-size;
+  background-color: @bgColor01;
+  overflow: hidden;
+  padding: 30px 5%;
+  clear: both;
+  text-align: center;
+  ._h2,
+  ._p,
+  .btn {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  ._h2 {
+    color: #fff;
+    padding: 30px 60px 40px 40px;
+    font-size: 40px;
+    background: url("./img/icon_pns.svg") no-repeat;
+    background-size: 100% 100%;
+  }
+  ._p {
+    padding: 0 3%;
+    width: 50%;
+    font-size: 14px;
+    color: #343133;
+  }
+  .btn {
+    width: 20%;
+    float: right;
+    .account {
+      padding-top: 0;
+    }
+  }
+}
+@media screen and (max-width: 930px) {
+  .pns .btn {
+    width: 80%;
+    margin-top: 10px;
+    float: none;
+  }
+}
+@media screen and (max-width: 750px) {
+  .pns {
+    text-align: left;
+  }
+  .pns ._h2 {
+    font-size: 20px;
+    padding: 20px 24px 24px 20px;
+  }
+  .pns ._p {
+    padding: 0;
+    padding-top: 10px;
+    width: 100%;
+  }
+  .pns .btn {
+    width: 100%;
+  }
+}

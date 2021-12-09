@@ -72,7 +72,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
 
   return (
     <>
-      <h3>{remain}</h3>
+      <h3>{`${remain}`}</h3>
       <div className="text_p">
         <p>Comdivletion Block</p>
         <Tips

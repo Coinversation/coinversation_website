@@ -18,13 +18,14 @@ export function LastParachainData(props: {
 
   useEffect(() => {
     (async () => {
-      const contributeLast = await getContributeLast();
-      if (contributeLast === lastBlock) {
-        return;
-      }
-      setLastBlock(contributeLast);
       if (api) {
+        console.log(111);
         const _latestBlock = await getBlock("latest");
+        console.log(_latestBlock);
+        const contributeLast = await getContributeLast();
+        if (contributeLast === lastBlock) {
+          return;
+        }
         setLatestBlock(+_latestBlock.number);
         setLastBlock(contributeLast);
         setInterval(() => {

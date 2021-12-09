@@ -1,12 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MIdenticon from "./identicon";
 import "./joinBannerFr.less";
 import { ContributeDataContext } from "../../context/ContributeData";
 import { sortName, getGrandPrizePool } from "../../utils/utils";
+import { getRate } from "../../server/api";
 import moment from "moment";
 const BannerFr = () => {
   const parachainData = useContext(ContributeDataContext);
-  console.log(parachainData);
+  const [rate, setRate] = useState<number>();
+  useEffect(() => {
+    (async () => {
+      const res = await getRate();
+      setRate(res);
+    })();
+  }, []);
   return (
     <div className="join_bannerFr">
       <a
@@ -21,7 +28,14 @@ const BannerFr = () => {
         {getGrandPrizePool(parachainData?.count)[1]}
         <i>CTO</i>
       </h2>
-      <h3>≈ $12938.28</h3>
+      <h3>
+        ≈ $
+        {rate
+          ? parseFloat(
+              `${Number(getGrandPrizePool(parachainData?.count)[0]) * rate}`
+            ).toFixed(2)
+          : ""}
+      </h3>
       {parachainData && parachainData.list && parachainData.list.length > 0 ? (
         <div className="now_address">
           <div className="polkadot_icon">

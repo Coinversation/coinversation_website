@@ -353,7 +353,6 @@ export const getContributeList = async (publickey: string): Promise<any> => {
     if (contributeLast.code === "200") {
       const _data = contributeLast?.data;
       if (_data?.list.length > 0) {
-        console.log(_data);
         return {
           count: _data.count,
           list: _data.list,
@@ -397,5 +396,37 @@ export const postContributeAdd = async (
     return signAddressRes;
   } catch (error) {
     return null;
+  }
+};
+
+export const getRate = async (): Promise<any> => {
+  try {
+    const response = await fetch(`/api/rate`);
+    if (response.status !== 200) {
+      return null;
+    }
+    const rate = await response.json();
+    if (rate.code === "200") {
+      return isNaN(rate?.data?.last) ? null : +rate.data.last;
+    }
+    return null;
+  } catch (error) {
+    return null;
+  }
+};
+export const getReceivePns = async (publickey): Promise<any> => {
+  try {
+    const response = await fetch(`/api/pns/status?publickey=${publickey}`);
+    if (response.status !== 200) {
+      return null;
+    }
+    const data = await response.json();
+    console.log(data);
+    if (data.code === "200") {
+      return data.data;
+    }
+    return false;
+  } catch (error) {
+    return false;
   }
 };
