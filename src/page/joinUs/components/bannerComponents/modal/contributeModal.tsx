@@ -68,13 +68,13 @@ const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
           setVisible(false);
           toast.show(`Completed at block hash: ${hash}`);
           const res = await postContributeAdd(
-            `${block}`,
+            block,
             `${new Date().getTime()}`,
             `${amount}`,
             currentAccount.publickey,
             "coinversation",
             currentAccount.address,
-            hash.toString()
+            hash
           );
           if (res) {
             const _res = await getContributeList(currentAccount?.publickey);
