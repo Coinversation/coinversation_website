@@ -80,7 +80,13 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
         </ul>
       )}
       <button
-        className={waiting || message ? "disable btn" : "btn"}
+        className={
+          waiting || message
+            ? "disable btn"
+            : btnOnly && !receivePns
+            ? "btn btn_count"
+            : "btn"
+        }
         onClick={() => {
           if (receivePns) {
             window.open("https://www.baidu.com/");

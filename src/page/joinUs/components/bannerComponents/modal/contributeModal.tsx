@@ -54,28 +54,35 @@ const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
     // setKsmReward(value / ratioReward);
   };
   const submitContribution = async () => {
-    const res = await postContributeAdd(
-      `${lastBlockContext.latestBlock}`,
-      `${new Date().getTime()}`,
-      "10000",
-      currentAccount.publickey,
-      "coinversation",
-      currentAccount.address
-    );
-    if (res) {
-      const res = await getContributeList(currentAccount?.publickey);
-      setData(res);
-    }
     if (!amount || amount < 0 || amount > parseFloat(balance.toString())) {
       toast.show("Invalid DOT amount or insufficient balance");
       return;
     }
 
     setIsSubmitting(true);
-    const hash = await contribution(`${amount}`, currentAccount.address);
-    if (hash) {
-      toast.show(`Completed at block hash: ${hash}`);
-    }
+    await contribution(
+      `${amount}`,
+      currentAccount.address,
+      async (block: string, hash: string) => {
+        if (hash) {
+          setVisible(false);
+          toast.show(`Completed at block hash: ${hash}`);
+          const res = await postContributeAdd(
+            `${block}`,
+            `${new Date().getTime()}`,
+            `${amount}`,
+            currentAccount.publickey,
+            "coinversation",
+            currentAccount.address,
+            hash.toString()
+          );
+          if (res) {
+            const _res = await getContributeList(currentAccount?.publickey);
+            setData(_res);
+          }
+        }
+      }
+    );
   };
   return visible ? (
     <div className="contributeModal">

@@ -307,7 +307,7 @@ export async function getAddressBalance(address: string) {
   return Number(account.data.free.toString()) / decimals;
 }
 
-export async function contribution(val: string, address: string) {
+export async function contribution(val: string, address: string, fn: any) {
   try {
     const api = getApi();
     const parachanID = config.parachanID;
@@ -316,10 +316,31 @@ export async function contribution(val: string, address: string) {
       `${Number(val) * decimals}`.toString(),
       null
     );
-    const hash = await crowdloanEntrinsic.signAndSend(address);
-    if (hash) {
-      return hash;
-    }
+    const unsub = await crowdloanEntrinsic.signAndSend(
+      address,
+      {},
+      async ({ status }) => {
+        if (status.isReady) {
+          console.log("status.isReady: ", status.isReady);
+        }
+        if (status.isBroadcast) {
+          console.log("status.isBroadcast: ", status.isBroadcast);
+        }
+        if (status.isInBlock) {
+          console.log("status.isInBlock: ", status.isInBlock);
+          const res = await api.rpc.chain.getBlock(status.asInBlock);
+          const block = res.block.header.number.toString();
+          console.log(block, status.asInBlock.toString());
+          if (fn) {
+            fn(block, status.asInBlock.toString());
+          }
+        }
+        if (status.isFinalized) {
+          console.log("status.isFinalized: ", status.isFinalized);
+          unsub();
+        }
+      }
+    );
   } catch (error: any) {}
   return null;
 }
@@ -372,7 +393,8 @@ export const postContributeAdd = async (
   amount: string,
   publickey: string,
   sources: string,
-  address: string
+  address: string,
+  hash: string
 ): Promise<any> => {
   try {
     const response = await fetch(`/api/contribute/add`, {
@@ -387,6 +409,7 @@ export const postContributeAdd = async (
         publickey: publickey,
         sources: sources,
         address: address,
+        hash: hash,
       }),
     });
     if (response.status !== 200) {
@@ -422,6 +445,22 @@ export const getReceivePns = async (publickey): Promise<any> => {
     }
     const data = await response.json();
     console.log(data);
+    if (data.code === "200") {
+      return data.data;
+    }
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const getListOfWinners = async (): Promise<any> => {
+  try {
+    const response = await fetch(`/api/contribute/list/winners`);
+    if (response.status !== 200) {
+      return null;
+    }
+    const data = await response.json();
     if (data.code === "200") {
       return data.data;
     }

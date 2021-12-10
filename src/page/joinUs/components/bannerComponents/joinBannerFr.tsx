@@ -8,6 +8,7 @@ import moment from "moment";
 const BannerFr = () => {
   const parachainData = useContext(ContributeDataContext);
   const [rate, setRate] = useState<number>();
+
   useEffect(() => {
     (async () => {
       const res = await getRate();
