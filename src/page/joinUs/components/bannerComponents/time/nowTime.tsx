@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import config from "@/config";
 const NowTime = () => {
   let now = new Date();
   const [countHours, setCountHours] = useState(now.getHours());
@@ -18,7 +19,7 @@ const NowTime = () => {
 
   return (
     <>
-      <h3>6000</h3>
+      <h3>{config.maxBlock}</h3>
       <div className="text_p">
         <p>Comdivletion Block</p>
       </div>

@@ -11,15 +11,17 @@ const JoinBannerFl = () => {
 
   return (
     <div className="join_bannerFl">
-      {!lastBlockContext?.latestBlock ? <NowTime /> : null}
+      <div className="join_bannerFl_inner_">
+        {!lastBlockContext?.latestBlock ? <NowTime /> : null}
 
-      {lastBlockContext?.latestBlock ? (
-        <BlockTime
-          last={+lastBlockContext.lastBlock}
-          latest={+lastBlockContext.latestBlock}
-        />
-      ) : null}
-      <AccountBtn />
+        {lastBlockContext?.latestBlock ? (
+          <BlockTime
+            last={+lastBlockContext.lastBlock}
+            latest={+lastBlockContext.latestBlock}
+          />
+        ) : null}
+        <AccountBtn />
+      </div>
     </div>
   );
 };

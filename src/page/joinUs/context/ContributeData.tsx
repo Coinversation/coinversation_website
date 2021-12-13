@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 import { LastBlockContext } from "../components/context/LastParachainData";
 import { AccountContext } from "./AccountContext";
 import { getContributeList } from "../server/api";
+import config from "@/config";
 interface IContributeDataType {
   count: number;
   list: any[];
@@ -22,7 +23,7 @@ export function ContributeDataContextProvider(props: {
   const [data, setData] = useState<IContributeDataType>();
 
   useEffect(() => {
-    const _remain = 6000 - (+latest - +last);
+    const _remain = config.maxBlock - (+latest - +last);
     if (_remain < 0) {
       return;
     }

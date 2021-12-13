@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ContributeDataContext } from "../context/ContributeData";
-import { getGrandPrizePool } from "../utils/utils";
+import { getGrandPrizePool, formatNumber } from "../utils/utils";
 import "./process.less";
 const Process = () => {
   const parachainData = useContext(ContributeDataContext);
@@ -9,35 +9,39 @@ const Process = () => {
       <ul className="process_header">
         <li>
           <h3> {getGrandPrizePool(parachainData?.count)[1]} CTO</h3>
-          <p>Grand Prize Pool</p>
+          <p>Extra Prize Pool</p>
         </li>
 
         <li>
           <h3>
-            {parachainData && parachainData.count ? parachainData.count : "-"}
+            {parachainData && parachainData.count
+              ? formatNumber(`${parachainData.count}`)
+              : "-"}
           </h3>
-          <p>Address</p>
+          <p>Address via this page</p>
         </li>
 
         <li>
           <h3>
             {parachainData && parachainData.alltotal
-              ? parachainData.alltotal
+              ? formatNumber(`${parachainData.alltotal}`)
               : "-"}{" "}
             DOT
           </h3>
-          <p>Total pledge</p>
+          <p>Total Staked</p>
         </li>
 
         <li>
           <h3>
             {parachainData && parachainData.alltotal
-              ? parseFloat(
-                  `${
-                    Number(getGrandPrizePool(parachainData?.count)[0]) /
-                    parachainData.alltotal
-                  }`
-                ).toFixed(0)
+              ? formatNumber(
+                  parseFloat(
+                    `${
+                      Number(getGrandPrizePool(parachainData?.count)[0]) /
+                      parachainData.alltotal
+                    }`
+                  ).toFixed(0)
+                )
               : "-"}{" "}
             CTO
           </h3>
@@ -45,10 +49,18 @@ const Process = () => {
         </li>
       </ul>
       <div className="process_inner">
+        <img
+          className="icon_bg_err"
+          src={require("./img/icon_bg_err.svg")}
+          alt=""
+        />
         <div className="line">
           <h4>
-            {parachainData && parachainData.count ? parachainData.count : "-"} /
-            <i>{getGrandPrizePool(parachainData?.count)[0]} Address</i>
+            {parachainData && parachainData.count ? parachainData.count : "-"}
+            <i>
+              <em>/</em>
+              {getGrandPrizePool(parachainData?.count)[2]} Address
+            </i>
           </h4>
           <div className="line_bg">
             <i
@@ -81,11 +93,6 @@ const Process = () => {
           DOT. For every 1,000 DOT, the number of CTO awards increases by
           10,000, and so on
         </p>
-        <img
-          className="icon_bg_err"
-          src={require("./img/icon_bg_err.svg")}
-          alt=""
-        />
       </div>
     </div>
   );

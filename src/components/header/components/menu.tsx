@@ -31,12 +31,14 @@ export default function Menu(props: {
                   />
                 </div>
                 <div className="fr">
-                  <h3>Winning CTO Awards</h3>
-                  <p>
+                  <h3>
+                    <Link to="/joinus">Auction Event</Link>
+                  </h3>
+                  {/* <p>
                     Coinversation is auctioning off Boca parallel slots to
                     pledge your DOT for a big CTO award. GET INVOLVED!
-                  </p>
-                  <Link to="/joinus">Details in</Link>
+                  </p> */}
+                  {/* <Link to="/joinus">Details in</Link> */}
                 </div>
               </div>
             </div>

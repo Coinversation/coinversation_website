@@ -23,10 +23,11 @@ const BannerFr = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        Reward rules&gt;&gt;
+        Rules
+        {/* &gt;&gt; */}
       </a>
       <h2>
-        {getGrandPrizePool(parachainData?.count)[1]}
+        {getGrandPrizePool(parachainData?.count)[3]}
         <i>CTO</i>
       </h2>
       <h3>

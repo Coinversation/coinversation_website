@@ -14,7 +14,7 @@
       color: @bgColor01;
       h3 {
         font-size: 32px;
-        font-family: Bold;
+        font-family: "Bold";
       }
       p {
         font-size: 14px;
@@ -28,6 +28,9 @@
     background: url("./img/process_bg.png") no-repeat;
     background-size: 90% 100%;
     background-position: right center;
+    h6 {
+      display: none;
+    }
     h4 {
       font-weight: Bold;
       font-size: 24px;
@@ -36,6 +39,9 @@
       margin-top: 10px;
       i {
         color: @text01;
+        em {
+          font-style: normal;
+        }
       }
     }
     .text {
@@ -91,34 +97,74 @@
 @media screen and (max-width: 750px) {
   .process .process_header {
     display: block;
+    width: 80%;
+    padding-top: 10px;
+    padding-left: 10%;
+    padding-right: 10%;
   }
   .process .process_header li {
-    width: 49%;
+    width: 100%;
     display: inline-block;
     vertical-align: top;
-    &:nth-child(2n) {
-      text-align: right;
-      padding-top: 40px;
-    }
+    padding-top: 20px;
   }
   .process .process_header li h3 {
-    font-size: 24px;
+    font-size: 26px;
+    line-height: 36px;
   }
   .process .process_header li p {
-    font-size: 12px;
+    font-size: 10px;
+  }
+  .process .process_inner {
+    position: relative;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 20px;
+  }
+  .process .process_inner .icon_bg_err {
+    z-index: 1;
+    opacity: 0.9;
   }
   .process .process_inner .line h5 {
-    width: 100px;
-    height: 50px;
-    font-size: 22px;
-    left: 60%;
-    top: 40px;
-    line-height: 50px;
+    // width: 100px;
+    // height: 60px;
+    // font-size: 20px;
+    // left: 60%;
+    // top: 10px;
+    // line-height: 50px;
+    display: none;
+    // background: none;
+    // position: relative;
+    // height: 20px;
+    // font-size: 12px;
+    // color: #e6007a;
+    // top: 0;
+    // left: 0;
   }
+
   .process .process_inner h4 {
-    margin-bottom: 40px;
+    font-size: 20px;
+    font-family: "Bold";
+    padding-bottom: 0;
+    margin-bottom: 10px;
+    i {
+      // display: block;
+      font-size: 20px;
+      // font-family: "Medium";
+      em {
+        font-size: 16px;
+      }
+    }
+  }
+  .process .process_inner .text {
+    font-size: 10px;
+    position: relative;
+    z-index: 2;
+    line-height: 16px;
+    padding-top: 30px;
   }
   .process .process_inner .line .line_bg {
     width: 100%;
+    height: 10px;
   }
 }

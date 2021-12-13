@@ -26,8 +26,8 @@
     font-size: 80px;
     line-height: 80px;
     color: @themeColor01;
-    font-weight: Bold;
     text-shadow: 3px 4px 0px rgba(194, 170, 182, 0.3);
+    font-family: "Bold";
     i {
       font-size: 24px;
       padding-left: 30px;
@@ -40,7 +40,7 @@
   }
   .now_address {
     width: 360px;
-    background: #f9f7f8 url("./img/icon_btn_bg.svg") no-repeat;
+    background: url("./img/icon_btn_bg.svg") no-repeat;
     background-size: 100% 100%;
     padding: 50px 40px 56px;
     margin-top: 30px;
@@ -76,9 +76,10 @@
         line-height: 30px;
       }
       p {
-        font-size: 16px;
+        font-size: 12px;
         font-family: Medium;
         color: #fff;
+        padding-top: 4px;
       }
     }
   }
@@ -159,8 +160,16 @@
       width: 80%;
       // margin-top: 10px;
       padding: 30px 20px 40px 30px;
+      .polkadot_icon {
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
       .fr {
         width: 80%;
+        padding-top: 6px;
+        text-transform: uppercase;
         h4 {
           font-size: 16px;
         }
@@ -196,48 +205,92 @@
   .join_bannerFr {
     width: 100%;
     .reward_rules {
-      font-size: 12px;
+      font-size: 9px;
       height: 30px;
       line-height: 30px;
       top: 10px;
+      background-color: #f9f7f8;
+      padding: 0 8px;
+      color: @themeColor01;
     }
     h2 {
-      font-size: 30px;
-      line-height: 40px;
       margin-top: 0px;
+      padding-top: 30px;
+      padding-left: 20px;
+      font-size: 26px;
+      line-height: 36px;
       i {
         padding-left: 4px;
       }
     }
-
+    h3 {
+      padding-left: 20px;
+      font-size: 12px;
+    }
     .now_address {
       margin-top: 10px;
-      padding-left: 10%;
+      padding-left: 2%;
+      background-size: contain;
+      background-position: center;
+      margin-left: 2px;
+      width: 94%;
       img {
         width: 20px;
         height: 20px;
       }
+      .polkadot_icon {
+        padding-left: 20px;
+      }
+      .polkadot_icon,
       .fr {
+        vertical-align: middle;
+      }
+      .fr {
+        width: 60%;
         h4 {
           font-size: 12px;
-          line-height: 20px;
+          line-height: 14px;
+          text-transform: uppercase;
         }
         p {
-          font-size: 10px;
-          line-height: 20px;
+          text-transform: none;
+          font-size: 8px;
+          line-height: 12px;
         }
       }
     }
     ul {
+      margin-left: 0;
       padding: 0 4%;
+      margin-top: -10px;
       li {
-        padding: 0 5%;
+        padding: 0 5% 10px;
         img {
           width: 10px;
           height: 10px;
         }
         p {
           font-size: 12px;
+        }
+        .fr {
+          padding-top: 20px;
+          p {
+            padding: 0;
+          }
+          h4 {
+            display: block;
+            font-size: 12px;
+            line-height: 14px;
+          }
+          .address {
+            margin-right: 0;
+            width: 90%;
+          }
+          .dot {
+            font-size: 10px;
+            color: #999;
+            width: 80%;
+          }
         }
       }
     }

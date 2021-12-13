@@ -26,6 +26,7 @@
     max-width: @page-big-width;
     margin: 0 auto;
   }
+
   .big {
     padding: 0 2%;
     & > a,
@@ -116,7 +117,8 @@
         display: block;
         text-align: center;
         line-height: 40px;
-        font-size: 14px;
+        font-size: 10px;
+        font-family: "Bold";
         &::after {
           content: "";
           display: block;
@@ -161,6 +163,7 @@
       width: 44px;
       height: 38px;
       border: 1px solid @themeColor04;
+      background-color: #f9f7f8;
       img {
         display: block;
         width: 100%;
@@ -199,24 +202,30 @@
   .samll .fl {
     width: 40%;
     line-height: 30px;
+    // overflow: hidden;
   }
   .samll .fl img {
     display: inline-block;
     vertical-align: middle;
-    height: 28px;
+    height: 24px;
+  }
+  .samll .fr {
+    padding-top: 2px;
   }
   .samll .buyLink {
-    font-size: 10px;
+    font-size: 9px;
   }
   .samll .buyLink {
     line-height: 29px;
     height: 29px;
-    padding: 0 10px;
+    padding: 0 8px;
+    margin-right: 4px;
     border-radius: 8px;
   }
   .samll .menu {
-    width: 38px;
-    height: 30px;
+    display: none;
+    width: 30px;
+    height: 27px;
   }
   .modal {
     top: 54px;

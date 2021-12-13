@@ -1,6 +1,7 @@
 import React from "react";
 import "./headerWidget.less";
 import Logo from "./components/logo";
+import { Link } from "react-router-dom";
 import Menu from "./components/menu";
 interface IProps {
   propsOnKey?: string;
@@ -185,6 +186,9 @@ export default class HeaderWidget extends React.Component<IProps, IState> {
             <Logo />
           </div>
           <div className="fr">
+            <Link to="/joinus" className="contribute buyLink">
+              Join Auction
+            </Link>
             <a
               href="https://www.kaco.finance/"
               rel="noopener noreferrer"

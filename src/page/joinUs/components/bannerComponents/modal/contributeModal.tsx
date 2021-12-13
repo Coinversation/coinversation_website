@@ -6,7 +6,6 @@ import {
   contribution,
   postContributeAdd,
 } from "../../../server/api";
-import { LastBlockContext } from "../../context/LastParachainData";
 import toast from "@/components/toast";
 import close from "./close.svg";
 import { getContributeList } from "../../../server/api";
@@ -19,8 +18,6 @@ const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
   const { visible, setVisible } = props;
   const [balance, setBalance] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const lastBlockContext = useContext(LastBlockContext);
 
   const setData = useContributeDataContextSet();
   useEffect(() => {
@@ -54,6 +51,20 @@ const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
     // setKsmReward(value / ratioReward);
   };
   const submitContribution = async () => {
+    // const res = await postContributeAdd(
+    //   "8114659",
+    //   `${new Date().getTime()}`,
+    //   `${"5"}`,
+    //   currentAccount.publickey,
+    //   "coinversation",
+    //   currentAccount.address,
+    //   "wqwqww"
+    // );
+    // if (res) {
+    //   const _res = await getContributeList(currentAccount?.publickey);
+    //   setData(_res);
+    // }
+    // return null;
     if (!amount || amount < 0 || amount > parseFloat(balance.toString())) {
       toast.show("Invalid DOT amount or insufficient balance");
       return;

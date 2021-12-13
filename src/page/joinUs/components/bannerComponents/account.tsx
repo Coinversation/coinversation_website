@@ -64,17 +64,20 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
   }, [setAccounts, setAllAccounts]);
 
   return (
-    <div className="account">
+    <div
+      className="account"
+      style={{ paddingTop: btnOnly ? "0" : message ? "80px" : "60px" }}
+    >
       {message || btnOnly ? null : (
         <ul className="account_ul">
           <li>
             <img src={require("./img/icon_li.svg")} alt="icon_li" />
-            <p>DOT to Contribute</p>
+            <p>Contributed</p>
             <h4>{parachainData?.total} DOT</h4>
           </li>
           <li>
             <img src={require("./img/icon_li.svg")} alt="icon_li" />
-            <p>Estimated score</p>
+            <p>Est. Receive</p>
             <h4>{parachainData?.total} CTO</h4>
           </li>
         </ul>
@@ -87,15 +90,19 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
             ? "btn btn_count"
             : "btn"
         }
+        disabled={waiting || message ? true : false}
         onClick={() => {
           if (receivePns) {
             window.open("https://www.baidu.com/");
           } else {
+            if (message) {
+              return;
+            }
             setContributeModal(!contributeModal);
           }
         }}
       >
-        {receivePns ? "Receive PNS" : "DOT to Contribute"}
+        {receivePns ? "Claim on PNS" : "Contribute Now"}
       </button>
       {waiting ? (
         <h4 className="textH4">
@@ -103,22 +110,24 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
         </h4>
       ) : null}
       {message ? <h4 className="textH4">{message}</h4> : null}
-      <div className="now_account">
-        <div className="polkadot_icon">
-          {currentAccount && currentAccount.address ? (
-            <MIdenticon address={currentAccount?.address} size={32} />
+      {btnOnly ? null : (
+        <div className="now_account">
+          <div className="polkadot_icon">
+            {currentAccount && currentAccount.address ? (
+              <MIdenticon address={currentAccount?.address} size={32} />
+            ) : null}
+          </div>
+          <h5>{currentAccount.meta?.name}</h5>
+          <p>{currentAccount.sortAddress}</p>
+          {currentAccount.sortAddress ? (
+            <img
+              src={require("./img/icon_switch.svg")}
+              alt="icon_switch"
+              onClick={() => setSwitchAddress(true)}
+            />
           ) : null}
         </div>
-        <h5>{currentAccount.meta?.name}</h5>
-        <p>{currentAccount.sortAddress}</p>
-        {currentAccount.sortAddress ? (
-          <img
-            src={require("./img/icon_switch.svg")}
-            alt="icon_switch"
-            onClick={() => setSwitchAddress(true)}
-          />
-        ) : null}
-      </div>
+      )}
       <ContributeModal
         visible={contributeModal}
         setVisible={setContributeModal}

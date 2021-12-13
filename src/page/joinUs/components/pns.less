@@ -23,12 +23,31 @@
     width: 50%;
     font-size: 14px;
     color: #343133;
+    i {
+      display: block;
+      font-family: "Bold";
+      color: @themeColor01;
+      font-size: 16px;
+      padding-top: 4px;
+      em {
+        padding-left: 10px;
+        font-family: "Bold";
+        font-size: 12px;
+        font-style: normal;
+      }
+    }
   }
   .btn {
     width: 20%;
     float: right;
     .account {
       padding-top: 0;
+    }
+  }
+  .account {
+    .textH4 {
+      position: relative;
+      top: 0;
     }
   }
 }
@@ -45,6 +64,8 @@
 @media screen and (max-width: 750px) {
   .pns {
     text-align: left;
+    padding-left: 10%;
+    padding-right: 10%;
   }
   .pns ._h2 {
     font-size: 20px;
@@ -54,6 +75,8 @@
     padding: 0;
     padding-top: 10px;
     width: 100%;
+    font-size: 10px;
+    line-height: 16px;
   }
   .pns .btn {
     width: 100%;

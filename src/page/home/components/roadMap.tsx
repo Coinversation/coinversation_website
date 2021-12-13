@@ -7,9 +7,7 @@ export default function RoadMap() {
       data-animate="animate__fadeInUp"
       id="RoadMap"
     >
-      <h2>
-        Coinversation<i> Roadmap</i>
-      </h2>
+      <h2>Roadmap</h2>
       <ul>
         <li>
           <h3>2020 Q4~2021Q4</h3>

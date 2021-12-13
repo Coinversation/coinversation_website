@@ -85,6 +85,7 @@
 @media screen and (max-width: 750px) {
   .roadMap h2 {
     font-size: @font-h2-750-size;
+    padding-top: 0;
   }
 
   .roadMap ul {
@@ -97,11 +98,17 @@
   .roadMap ul li::before {
     content: "";
     top: 10px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
   }
   .roadMap ul li::after {
     content: "";
+    right: 14px;
     top: 18px;
     opacity: 0.7;
+    width: 10px;
+    height: 10px;
   }
   .roadMap ul li h3 {
     font-size: @font-h3-750-size;

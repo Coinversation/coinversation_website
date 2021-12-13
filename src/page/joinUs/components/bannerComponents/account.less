@@ -2,9 +2,9 @@
 .account {
   padding-top: 50px;
   position: relative;
+
   .textH4 {
     color: #ad3d3d;
-    font-weight: bold;
     font-size: 12px;
     width: 200px;
     word-break: break-all;
@@ -34,7 +34,7 @@
     }
   }
   button.btn {
-    margin: 20px auto 20px;
+    margin: 10px auto 10px;
     display: block;
     width: 100%;
     text-align: center;
@@ -53,7 +53,7 @@
       border: 1px solid @themeColor01;
     }
     &.disable {
-      opacity: 0.8;
+      opacity: 0.6;
     }
   }
   .now_account {
@@ -83,6 +83,25 @@
     }
     h5 {
       color: @themeColor01;
+    }
+  }
+}
+@media screen and (max-width: 750px) {
+  .account {
+    .textH4 {
+      position: absolute;
+      top: auto;
+      bottom: 20px;
+      font-size: 8px;
+      line-height: 14px;
+      width: 70%;
+      left: 15%;
+      text-align: center;
+    }
+    button.btn {
+      height: 40px;
+      line-height: 40px;
+      font-size: 14px;
     }
   }
 }

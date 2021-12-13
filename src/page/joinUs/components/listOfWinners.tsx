@@ -14,13 +14,13 @@ const ListOfWinners = () => {
     <div className="listOfWinners">
       <h2>List of winners</h2>
       <ul>
-        {data.map((v) => (
-          <li>
+        {data.map((v, index: number) => (
+          <li key={index}>
             <h3>{v?.block}</h3>
-            <h4>
-              Block height
-              <Tips message="ddd" />
-            </h4>
+            <div className="_h4">
+              <p>Block height</p>
+              <Tips message="The height of the block invested by users who will be able to share the jackpot" />
+            </div>
             <p>{v?.address}</p>
           </li>
         ))}

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Tips from "@/components/tips/tipsWidget";
+import config from "@/config";
 let timer;
 const BlockTime = (props: { last: number; latest: number }) => {
   const { last, latest } = props;
-  const [remain, setRemain] = useState(6000);
+  const [remain, setRemain] = useState(config.maxBlock);
 
   const [lastM, setLastM] = useState<number>();
   const [countHours, setCountHours] = useState("00");
@@ -15,7 +16,8 @@ const BlockTime = (props: { last: number; latest: number }) => {
       return;
     }
     setLastM(last);
-    const _remain = last === 0 ? 6000 : 6000 - (latest - last);
+    const _remain =
+      last === 0 ? config.maxBlock : config.maxBlock - (latest - last);
     if (_remain === remain) {
       return;
     }
@@ -76,9 +78,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
       <div className="text_p">
         <p>Comdivletion Block</p>
         <Tips
-          message={
-            "An introduction to copywriting Here is an explanatory note on special nouns"
-          }
+          message={`If the user does not invest in ${config.maxBlock} blocks, the last user who contributes will be able to share the jackpot after Coinversation win the auction`}
         />
       </div>
       <h3>
@@ -86,11 +86,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
       </h3>
       <div className="text_p">
         <p>Countdown</p>
-        <Tips
-          message={
-            "An introduction to copywriting Here is an explanatory note on special nouns"
-          }
-        />
+        <Tips message={"The estimated time based on the block"} />
       </div>
     </>
   );
