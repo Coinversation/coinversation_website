@@ -19,11 +19,13 @@ const PNS = () => {
       <h2 className="_h2">PNS</h2>
       {/* <img src={require("./img/icon_pns.svg")} alt="" /> */}
       <p className="_p">
-        As long as each user supports Coinversation with a minimum of 10 DOTs in
-        the crowd loan, they can go to the PNS page to register their own
-        exclusive Polkadot domain name for free. The first 1000 users who have
-        completed the domain name registration can also directly bind and use it
-        for free.
+        Polkadot Name System (PNS) is a decentralized domain name system in the
+        Polkadot ecosystem. You can use a .dot domain name to support smart
+        contracts, domain names, wallets, and NFTs, etc., On PNS, you can create
+        your own Web 3.0 name card, using a domain name that you fully possess
+        and manage. Top 1000 participants who contribute more than 10 DOT to the
+        Coinversation Crowdloan via Coinversation can earn a Polkadot domain
+        name (.dot) for free after verification.
         {currentAccount.sortAddress ? (
           <i>
             {currentAccount.sortAddress}
