@@ -347,39 +347,99 @@ export async function contribution(val: string, address: string, fn: any) {
 
 export const getContributeLast = async (): Promise<any> => {
   try {
-    const response = await fetch(`/api/contribute/get/last`);
-    if (response.status !== 200) {
+    if (config.isDev) {
+      const _latestBlock = await getBlock("latest");
+      const response = {
+        code: "200",
+        data: {
+          _id: "61b721348a785421cf18ee56",
+          block: Number(_latestBlock.number) - 10,
+          amount: "5",
+          publickey:
+            "0xc48f8b1d04cd6dab198aa80dc64d3001a9a1e96ffcd4604180d5e6da36102864",
+          sources: "coinversation",
+          address: "5GWRtDZqpfqgfvwBGBfbphqmyZM3TCPU5FDPP1gaDipjbScu",
+          __v: 0,
+        },
+      };
+      return isNaN(response?.data?.block) ? 0 : +response.data.block;
+    } else {
+      const response = await fetch(`/api/contribute/get/last`);
+      if (response.status !== 200) {
+        return null;
+      }
+      const contributeLast = await response.json();
+      if (contributeLast.code === "200") {
+        return isNaN(contributeLast?.data?.block)
+          ? 0
+          : +contributeLast?.data?.block;
+      }
       return null;
     }
-    const contributeLast = await response.json();
-    if (contributeLast.code === "200") {
-      return isNaN(contributeLast?.data?.block)
-        ? 0
-        : +contributeLast?.data?.block;
-    }
-    return null;
   } catch (error) {
     return null;
   }
 };
 export const getContributeList = async (publickey: string): Promise<any> => {
   try {
-    const response = await fetch(
-      `/api/contribute/get/list?publickey=${publickey}`
-    );
-    if (response.status !== 200) {
-      return null;
-    }
-    const contributeLast = await response.json();
-    if (contributeLast.code === "200") {
-      const _data = contributeLast?.data;
-      if (_data?.list.length > 0) {
-        return {
-          count: _data.count,
-          list: _data.list,
-          total: _data?.total || 0,
-          alltotal: _data.alltotal,
-        };
+    if (config.isDev) {
+      const response = {
+        code: "200",
+        data: {
+          list: [
+            {
+              _id: "61b720e68a785421cf18ee3d",
+              block: "8111719",
+              at: "1639391462438",
+              amount: "10",
+              publickey:
+                "0x648604f86ca119439c59689d74a455e28d61415d0463260ae7fa59e64a9c4c69",
+              sources: "coinversation",
+              address: "0x0000000000000000000000000000000000000000",
+              __v: 0,
+            },
+            {
+              _id: "61b721348a785421cf18ee56",
+              block: "8114659",
+              at: "1639391540183",
+              amount: "5",
+              publickey:
+                "0xc48f8b1d04cd6dab198aa80dc64d3001a9a1e96ffcd4604180d5e6da36102864",
+              sources: "coinversation",
+              address: "0x0000000000000000000000000000000000000000",
+              __v: 0,
+            },
+          ],
+          alltotal: 40015,
+          count: 5,
+          total: 0,
+        },
+      };
+      const _data = response.data;
+      return {
+        count: _data.count,
+        list: _data.list,
+        total: _data.total,
+        alltotal: _data.alltotal,
+      };
+    } else {
+      const response = await fetch(
+        `/api/contribute/get/list?publickey=${publickey}`
+      );
+      if (response.status !== 200) {
+        return null;
+      }
+      const contributeLast = await response.json();
+      if (contributeLast.code === "200") {
+        const _data = contributeLast?.data;
+        if (_data?.list.length > 0) {
+          return {
+            count: _data.count,
+            list: _data.list,
+            total: _data?.total || 0,
+            alltotal: _data.alltotal,
+          };
+        }
       }
     }
     return null;
@@ -424,38 +484,30 @@ export const postContributeAdd = async (
 
 export const getRate = async (): Promise<any> => {
   try {
-    const response = await fetch(`/api/rate`);
-    if (response.status !== 200) {
-      return null;
+    if (config.isDev) {
+      return 0.174;
+    } else {
+      const response = await fetch(`/api/rate`);
+      if (response.status !== 200) {
+        return null;
+      }
+      const rate = await response.json();
+      if (rate.code === "200") {
+        return isNaN(rate?.data?.last) ? null : +rate.data.last;
+      }
     }
-    const rate = await response.json();
-    if (rate.code === "200") {
-      return isNaN(rate?.data?.last) ? null : +rate.data.last;
-    }
+
     return null;
   } catch (error) {
     return null;
-  }
-};
-export const getReceivePns = async (publickey): Promise<any> => {
-  try {
-    const response = await fetch(`/api/pns/status?publickey=${publickey}`);
-    if (response.status !== 200) {
-      return null;
-    }
-    const data = await response.json();
-    console.log(data);
-    if (data.code === "200") {
-      return data.data;
-    }
-    return false;
-  } catch (error) {
-    return false;
   }
 };
 
 export const getListOfWinners = async (): Promise<any> => {
   try {
+    if (config.isDev) {
+      return [];
+    }
     const response = await fetch(`/api/contribute/list/winners`);
     if (response.status !== 200) {
       return null;

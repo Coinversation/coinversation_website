@@ -1,19 +1,19 @@
 import React, { useEffect, useState, useContext } from "react";
 import AccountBtn from "./bannerComponents/accountBtn";
 import { AccountContext } from "../context/AccountContext";
-import { getReceivePns } from "../server/api";
+import { ContributeDataContext } from "../context/ContributeData";
 import "./pns.less";
 const PNS = () => {
   const [receivePns, setReceivePns] = useState(false);
+  const parachainData = useContext(ContributeDataContext);
   const currentAccount = useContext(AccountContext);
   useEffect(() => {
-    if (currentAccount) {
+    if (currentAccount && parachainData?.total) {
       (async () => {
-        const res = await getReceivePns(currentAccount.publickey);
-        setReceivePns(res);
+        setReceivePns(+parachainData.total > 5);
       })();
     }
-  }, [currentAccount]);
+  }, [currentAccount, parachainData]);
   return (
     <div className="pns">
       <h2 className="_h2">PNS</h2>

@@ -10,22 +10,26 @@ const ListOfWinners = () => {
       setData(_res);
     })();
   }, []);
-  return data && data.length > 0 ? (
+  return (
     <div className="listOfWinners">
       <h2>List of winners</h2>
-      <ul>
-        {data.map((v, index: number) => (
-          <li key={index}>
-            <h3>{v?.block}</h3>
-            <div className="_h4">
-              <p>Block height</p>
-              <Tips message="The height of the block invested by users who will be able to share the jackpot" />
-            </div>
-            <p>{v?.address}</p>
-          </li>
-        ))}
-      </ul>
+      {data && data.length > 0 ? (
+        <ul>
+          {data.map((v, index: number) => (
+            <li key={index}>
+              <h3>{v?.block}</h3>
+              <div className="_h4">
+                <p>Block height</p>
+                <Tips message="The height of the block invested by users who will be able to share the jackpot" />
+              </div>
+              <p>{v?.address}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <h6>No data</h6>
+      )}
     </div>
-  ) : null;
+  );
 };
 export default ListOfWinners;

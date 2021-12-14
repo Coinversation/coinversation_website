@@ -25,7 +25,8 @@ export function sortName(name: string) {
   return name;
 }
 export function getGrandPrizePool(addressNum: number) {
-  let num = 120000;
+  let num = 140000;
+  let numMax = 60000;
   let max_add = 2000;
   if (addressNum) {
     if (addressNum < 2000) {
@@ -37,7 +38,7 @@ export function getGrandPrizePool(addressNum: number) {
       max_add = 6000;
     }
   }
-  return [num, formatNumber(`${num}`), max_add, formatNumber(`${num / 2}`)];
+  return [num, formatNumber(`${num}`), max_add, formatNumber(`${numMax}`)];
 }
 export function formatNumber(n: string) {
   var b = parseInt(n).toString();
