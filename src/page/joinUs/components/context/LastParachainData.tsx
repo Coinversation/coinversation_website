@@ -28,17 +28,17 @@ export function LastParachainData(props: {
         }
         setLatestBlock(+_latestBlock.number);
         setLastBlock(contributeLast);
-        setInterval(() => {
-          (async () => {
-            const contributeLast = await getContributeLast();
-            if (contributeLast === lastBlock) {
-              return;
-            }
-            const _latestBlock = await getBlock("latest");
-            setLatestBlock(+_latestBlock.number);
-            setLastBlock(contributeLast);
-          })();
-        }, 12000);
+        // setInterval(() => {
+        //   (async () => {
+        //     const contributeLast = await getContributeLast();
+        //     if (contributeLast === lastBlock) {
+        //       return;
+        //     }
+        //     const _latestBlock = await getBlock("latest");
+        //     setLatestBlock(+_latestBlock.number);
+        //     setLastBlock(contributeLast);
+        //   })();
+        // }, 12000);
       }
     })();
   }, [api, lastBlock]);
