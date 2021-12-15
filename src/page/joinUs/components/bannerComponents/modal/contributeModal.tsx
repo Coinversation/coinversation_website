@@ -8,8 +8,17 @@ import {
 } from "../../../server/api";
 import toast from "@/components/toast";
 import close from "./close.svg";
-import { getContributeList } from "../../../server/api";
-import { useContributeDataContextSet } from "../../../context/ContributeData";
+import {
+  getContributeList,
+  getContributeTotal,
+  getMyContribute,
+} from "../../../server/api";
+import {
+  useContributeDataContextSetAllTotal,
+  useContributeDataContextSetList,
+  useContributeDataContextSetCount,
+  useContributeDataContextSetTotal,
+} from "../../../context/ContributeData";
 const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
   const amountKsmInput = useRef(null);
   const { api } = useContext(ApiRxContext);
@@ -19,7 +28,10 @@ const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
   const [balance, setBalance] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const setData = useContributeDataContextSet();
+  const setAlltotal = useContributeDataContextSetAllTotal();
+  const setList = useContributeDataContextSetList();
+  const setCount = useContributeDataContextSetCount();
+  const setTotal = useContributeDataContextSetTotal();
   useEffect(() => {
     if (
       api &&
@@ -51,45 +63,28 @@ const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
     // setKsmReward(value / ratioReward);
   };
   const submitContribution = async () => {
-    // const res = await postContributeAdd(
-    //   "8114659",
-    //   `${new Date().getTime()}`,
-    //   `${"5"}`,
-    //   currentAccount.publickey,
-    //   "coinversation",
-    //   currentAccount.address,
-    //   "wqwqww"
-    // );
-    // if (res) {
-    //   const _res = await getContributeList(currentAccount?.publickey);
-    //   setData(_res);
-    // }
-    // return null;
-    if (!amount || amount < 0 || amount > parseFloat(balance.toString())) {
+    if (!amount || amount < 5 || amount > parseFloat(balance.toString())) {
       toast.show("Invalid DOT amount or insufficient balance");
       return;
     }
-
     setIsSubmitting(true);
     await contribution(
       `${amount}`,
       currentAccount.address,
+      currentAccount.meta.source,
       async (block: string, hash: string) => {
         if (hash) {
           setVisible(false);
           toast.show(`Completed at block hash: ${hash}`);
-          const res = await postContributeAdd(
-            block,
-            `${new Date().getTime()}`,
-            `${amount}`,
-            currentAccount.publickey,
-            "coinversation",
-            currentAccount.address,
-            hash
-          );
+          const res = await postContributeAdd(block, hash);
           if (res) {
-            const _res = await getContributeList(currentAccount?.publickey);
-            setData(_res);
+            const _res = await getContributeList();
+            setList(_res);
+            const resAlltotal = await getContributeTotal();
+            setAlltotal(resAlltotal.totalStakedFromPage);
+            setCount(resAlltotal.totalAddressesFromPage);
+            const res = await getMyContribute(currentAccount?.publickey);
+            setTotal(res);
           }
         }
       }

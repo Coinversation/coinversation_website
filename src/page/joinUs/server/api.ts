@@ -8,6 +8,7 @@ import type { DispatchErrorModule } from "@polkadot/types/interfaces";
 import type { Hash } from "@polkadot/types/interfaces/runtime";
 import { u8aConcat, u8aToHex } from "@polkadot/util";
 import { BlockHash } from "@polkadot/types/interfaces/chain";
+import { web3FromSource } from "@polkadot/extension-dapp";
 import {
   blake2AsU8a,
   encodeAddress,
@@ -307,19 +308,27 @@ export async function getAddressBalance(address: string) {
   return Number(account.data.free.toString()) / decimals;
 }
 
-export async function contribution(val: string, address: string, fn: any) {
+export async function contribution(
+  val: string,
+  address: string,
+  source: any,
+  fn: any
+) {
   try {
     const api = getApi();
     const parachanID = config.parachanID;
+    const injector = await web3FromSource(source);
     const crowdloanEntrinsic = api.tx.crowdloan.contribute(
       parachanID,
       `${Number(val) * decimals}`.toString(),
       null
     );
+    console.log("Sssss");
     const unsub = await crowdloanEntrinsic.signAndSend(
       address,
-      {},
+      { signer: injector.signer },
       async ({ status }) => {
+        console.log(111);
         if (status.isReady) {
           console.log("status.isReady: ", status.isReady);
         }
@@ -329,8 +338,7 @@ export async function contribution(val: string, address: string, fn: any) {
         if (status.isInBlock) {
           console.log("status.isInBlock: ", status.isInBlock);
           const res = await api.rpc.chain.getBlock(status.asInBlock);
-          const block = res.block.header.number.toString();
-          console.log(block, status.asInBlock.toString());
+          const block = res.block.hash.toHex();
           if (fn) {
             fn(block, status.asInBlock.toString());
           }
@@ -380,96 +388,85 @@ export const getContributeLast = async (): Promise<any> => {
     return null;
   }
 };
-export const getContributeList = async (publickey: string): Promise<any> => {
+export const getContributeList = async (): Promise<any> => {
   try {
     if (config.isDev) {
-      const response = {
-        code: "200",
-        data: {
-          list: [
-            {
-              _id: "61b720e68a785421cf18ee3d",
-              block: "8111719",
-              at: "1639391462438",
-              amount: "10",
-              publickey:
-                "0x648604f86ca119439c59689d74a455e28d61415d0463260ae7fa59e64a9c4c69",
-              sources: "coinversation",
-              address: "0x0000000000000000000000000000000000000000",
-              __v: 0,
-            },
-            {
-              _id: "61b721348a785421cf18ee56",
-              block: "8114659",
-              at: "1639391540183",
-              amount: "5",
-              publickey:
-                "0xc48f8b1d04cd6dab198aa80dc64d3001a9a1e96ffcd4604180d5e6da36102864",
-              sources: "coinversation",
-              address: "0x0000000000000000000000000000000000000000",
-              __v: 0,
-            },
-          ],
-          alltotal: 40015,
-          count: 5,
-          total: 0,
-        },
-      };
-      const _data = response.data;
-      return {
-        count: _data.count,
-        list: _data.list,
-        total: _data.total,
-        alltotal: _data.alltotal,
-      };
+    } else {
+      const response = await fetch(`/api/crowdloan/contribution`);
+      if (response.status !== 200) {
+        return null;
+      }
+      const contributeLast = await response.json();
+      const _data = contributeLast?.data;
+      if (_data.length > 0) {
+        return {
+          count: _data.count,
+          list: _data.list,
+          total: _data?.total || 0,
+          alltotal: _data.alltotal,
+        };
+      }
+    }
+    return [];
+  } catch (error) {
+    return [];
+  }
+};
+export const getMyContribute = async (publickey: string): Promise<any> => {
+  try {
+    if (config.isDev) {
     } else {
       const response = await fetch(
-        `/api/contribute/get/list?publickey=${publickey}`
+        `/api/crowdloan/count?publicKey=${publickey}`
       );
       if (response.status !== 200) {
         return null;
       }
       const contributeLast = await response.json();
-      if (contributeLast.code === "200") {
-        const _data = contributeLast?.data;
-        if (_data?.list.length > 0) {
-          return {
-            count: _data.count,
-            list: _data.list,
-            total: _data?.total || 0,
-            alltotal: _data.alltotal,
-          };
-        }
-      }
+      return contributeLast?.sources?.coinversation ?? 0;
     }
     return null;
   } catch (error) {
     return null;
   }
 };
+export const getContributeTotal = async (): Promise<any> => {
+  try {
+    if (config.isDev) {
+    } else {
+      const response = await fetch(`/api/crowdloan/info`);
+      if (response.status !== 200) {
+        return null;
+      }
+      const contributeLast = await response.json();
+      return contributeLast.data;
+    }
+    return null;
+  } catch (error) {
+    return null;
+  }
+};
+
 export const postContributeAdd = async (
-  block: string,
-  at: string,
-  amount: string,
-  publickey: string,
-  sources: string,
-  address: string,
-  hash: string
+  blockHash: string,
+  extrinsicHash: string
 ): Promise<any> => {
   try {
-    const response = await fetch(`/api/contribute/add`, {
+    const response = await fetch(`/api/crowdloan/contribution`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        block: block,
-        at: at,
-        amount: amount,
-        publickey: publickey,
-        sources: sources,
-        address: address,
-        hash: hash,
+        // block: block,
+        // at: at,
+        // amount: amount,
+        // publickey: publickey,
+        // sources: sources,
+        // address: address,
+        // hash: hash,
+        blockHash: blockHash,
+        extrinsicHash: extrinsicHash,
       }),
     });
     if (response.status !== 200) {
@@ -487,17 +484,13 @@ export const getRate = async (): Promise<any> => {
     if (config.isDev) {
       return 0.174;
     } else {
-      const response = await fetch(`/api/rate`);
+      const response = await fetch(`/api/crowdloan/price/cto`);
       if (response.status !== 200) {
         return null;
       }
       const rate = await response.json();
-      if (rate.code === "200") {
-        return isNaN(rate?.data?.last) ? null : +rate.data.last;
-      }
+      return isNaN(rate?.data) ? null : +rate.data;
     }
-
-    return null;
   } catch (error) {
     return null;
   }
@@ -508,15 +501,12 @@ export const getListOfWinners = async (): Promise<any> => {
     if (config.isDev) {
       return [];
     }
-    const response = await fetch(`/api/contribute/list/winners`);
+    const response = await fetch(`/api/crowdloan/winners`);
     if (response.status !== 200) {
       return null;
     }
     const data = await response.json();
-    if (data.code === "200") {
-      return data.data;
-    }
-    return false;
+    return data.data || [];
   } catch (error) {
     return false;
   }

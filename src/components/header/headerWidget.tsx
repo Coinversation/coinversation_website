@@ -192,8 +192,8 @@ export default class HeaderWidget extends React.Component<IProps, IState> {
             <a
               href="https://www.kaco.finance/"
               rel="noopener noreferrer"
-              className="buyLink"
               target="_blank"
+              className="buyLink"
             >
               DApp
             </a>

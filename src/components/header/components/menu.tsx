@@ -24,22 +24,73 @@ export default function Menu(props: {
               <em></em>
               <i></i>
               <div className="menu_parachain_pop">
-                <div className="fl">
-                  <img
-                    src={require("../img/icon_polkaSmith.svg")}
-                    alt="icon_polkaSmith"
-                  />
-                </div>
-                <div className="fr">
-                  <h3>
-                    <Link to="/joinus">Auction Event</Link>
-                  </h3>
-                  {/* <p>
-                    Coinversation is auctioning off Boca parallel slots to
-                    pledge your DOT for a big CTO award. GET INVOLVED!
-                  </p> */}
-                  {/* <Link to="/joinus">Details in</Link> */}
-                </div>
+                <ul>
+                  <li>
+                    <Link to="/joinus">
+                      {" "}
+                      <div className="fl">
+                        <img
+                          src={require("../img/icon_polkaSmith.svg")}
+                          alt="icon_polkaSmith"
+                        />
+                      </div>
+                      <div className="fr">
+                        <h3>Auction Event</h3>
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <a
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/parachains/crowdloan"
+                    >
+                      <div className="fl">
+                        <img
+                          src={require("../img/icon_Polkadot.svg")}
+                          alt="icon_Polkadot"
+                        />
+                      </div>
+                      <div className="fr">
+                        <h3>Polkadot</h3>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      href="https://crowdloan.parallel.fi/#/auction/polkadot"
+                    >
+                      <div className="fl">
+                        <img
+                          src={require("../img/icon_Parallel.svg")}
+                          alt="icon_Parallel"
+                        />
+                      </div>
+                      <div className="fr">
+                        <h3>Parallel</h3>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      href="https://bifrost.app/vcrowdloan?paraId=2027"
+                    >
+                      <div className="fl">
+                        <img
+                          src={require("../img/icon_Bifrost.svg")}
+                          alt="icon_Bifrost"
+                        />
+                      </div>
+                      <div className="fr">
+                        <h3>Bifrost</h3>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           );

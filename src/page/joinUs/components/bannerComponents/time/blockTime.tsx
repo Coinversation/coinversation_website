@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Tips from "@/components/tips/tipsWidget";
 import config from "@/config";
-let timer;
+
 const BlockTime = (props: { last: number; latest: number }) => {
   const { last, latest } = props;
   const [remain, setRemain] = useState(config.maxBlock);
@@ -10,6 +10,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
   const [countHours, setCountHours] = useState("00");
   const [countMinutes, setCountMinutes] = useState("00");
   const [countSeconds, setCountSeconds] = useState("00");
+  const timer = useRef<NodeJS.Timer>();
 
   useEffect(() => {
     if (lastM === last) {
@@ -21,7 +22,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
     if (_remain === remain) {
       return;
     }
-    if (_remain < 0) {
+    if (_remain <= 0) {
       if (
         countSeconds !== "00" ||
         countMinutes !== "00" ||
@@ -31,8 +32,8 @@ const BlockTime = (props: { last: number; latest: number }) => {
         setCountMinutes("00");
         setCountSeconds("00");
       }
-      if (timer) {
-        clearInterval(timer);
+      if (timer.current) {
+        clearInterval(timer.current);
       }
       setRemain(0);
       return;
@@ -45,13 +46,13 @@ const BlockTime = (props: { last: number; latest: number }) => {
       return;
     }
     if (timer) {
-      clearInterval(timer);
+      clearInterval(timer.current);
     }
     let i = 0;
-    timer = setInterval(() => {
+    timer.current = setInterval(() => {
       let offset = remain * 6 - i;
       if (offset < 0) {
-        clearInterval(timer);
+        clearInterval(timer.current);
         return;
       }
       let minutesCal = Math.floor(offset / 60) % 60;
@@ -68,7 +69,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
       i++;
     }, 1000);
     return () => {
-      clearInterval(timer);
+      clearInterval(timer.current);
     };
   }, [remain]);
 

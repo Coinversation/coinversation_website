@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { getBlock, getContributeLast } from "../../server/api";
+import { getBlock } from "../../server/api";
 import { ApiRxContext } from "../../context";
 export interface ILastBlockContextType {
   latestBlock: number;
-  lastBlock: number;
+  // lastBlock: number;
 }
 
 export const LastBlockContext: React.Context<ILastBlockContextType> =
@@ -13,40 +13,19 @@ export function LastParachainData(props: {
 }): React.ReactElement {
   const { children = null } = props;
   const [latestBlock, setLatestBlock] = React.useState<number>(0);
-  const [lastBlock, setLastBlock] = React.useState<number>();
   const { api } = React.useContext(ApiRxContext);
 
   useEffect(() => {
     (async () => {
       if (api) {
-        console.log(111);
         const _latestBlock = await getBlock("latest");
-        console.log(_latestBlock);
-        const contributeLast = await getContributeLast();
-        if (contributeLast === lastBlock) {
-          return;
-        }
         setLatestBlock(+_latestBlock.number);
-        setLastBlock(contributeLast);
-        // setInterval(() => {
-        //   (async () => {
-        //     const contributeLast = await getContributeLast();
-        //     if (contributeLast === lastBlock) {
-        //       return;
-        //     }
-        //     const _latestBlock = await getBlock("latest");
-        //     setLatestBlock(+_latestBlock.number);
-        //     setLastBlock(contributeLast);
-        //   })();
-        // }, 12000);
       }
     })();
-  }, [api, lastBlock]);
+  }, [api]);
 
   return (
-    <LastBlockContext.Provider
-      value={{ latestBlock: latestBlock, lastBlock: lastBlock }}
-    >
+    <LastBlockContext.Provider value={{ latestBlock: latestBlock }}>
       {children}
     </LastBlockContext.Provider>
   );

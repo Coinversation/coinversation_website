@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import config from "@/config";
 const NowTime = () => {
   let now = new Date();
   const [countHours, setCountHours] = useState(now.getHours());
   const [countMinutes, setCountMinutes] = useState(now.getMinutes());
   const [countSeconds, setCountSeconds] = useState(now.getSeconds());
+  const timer = useRef<NodeJS.Timer>();
   useEffect(() => {
-    const timer = setInterval(() => {
+    timer.current = setInterval(() => {
       const now = new Date();
       setCountHours(now.getHours());
       setCountMinutes(now.getMinutes());
       setCountSeconds(now.getSeconds());
     }, 1000);
     return () => {
-      clearInterval(timer);
+      clearInterval(timer.current);
     };
   }, []);
 

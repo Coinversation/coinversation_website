@@ -1,7 +1,7 @@
 export default {
   nftAddress: "",
   preLink: "",
-  parachanID: 2017,
+  parachanID: 2027,
   maxBlock: 150,
-  isDev: true,
+  isDev: false,
 };
