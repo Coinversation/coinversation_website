@@ -5,17 +5,20 @@
   overflow: hidden;
   padding: 30px 5%;
   clear: both;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   .noAccount_button {
-    display: inline-block;
-    vertical-align: middle;
+    // display: inline-block;
+    // vertical-align: middle;
     margin-top: 20px;
     margin-bottom: 0;
   }
   ._h2,
   ._p,
   .btn {
-    display: inline-block;
-    vertical-align: middle;
+    // display: inline-block;
+    // vertical-align: middle;
   }
   ._h2 {
     color: #fff;
@@ -44,8 +47,7 @@
     }
   }
   .btn {
-    width: 20%;
-    float: right;
+    width: 300px;
     .account {
       padding-top: 0;
     }
@@ -59,9 +61,19 @@
 }
 @media screen and (max-width: 930px) {
   .pns {
+    display: block;
     text-align: center;
   }
-  .pns .btn {
+  ._h2,
+  ._p,
+  .btn {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .btn {
+    min-width: 80%;
+  }
+  .pns div.btn {
     width: 80%;
     margin-top: 10px;
     float: none;
@@ -77,14 +89,16 @@
     font-size: 20px;
     padding: 20px 24px 24px 20px;
   }
+  .pns div.btn {
+    width: 100%;
+    margin-top: 10px;
+    float: none;
+  }
   .pns ._p {
     padding: 0;
     padding-top: 10px;
     width: 100%;
     font-size: 10px;
     line-height: 16px;
-  }
-  .pns .btn {
-    width: 100%;
   }
 }

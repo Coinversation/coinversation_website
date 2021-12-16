@@ -4,7 +4,6 @@ import "./joinBannerFr.less";
 import { ContributeDataContext } from "../../context/ContributeData";
 import { sortName, getGrandPrizePool } from "../../utils/utils";
 import { getRate } from "../../server/api";
-import moment from "moment";
 const BannerFr = () => {
   const parachainData = useContext(ContributeDataContext);
   const [rate, setRate] = useState<number>();
@@ -67,14 +66,21 @@ const BannerFr = () => {
         parachainData.list.length > 0 ? (
           parachainData.list.reverse().map((v, index) => {
             return (
-              <li key={index}>
+              <li
+                key={index}
+                onClick={() => {
+                  window.open(
+                    `https://polkadot.subscan.io/extrinsic/${v.extrinsicHash}`
+                  );
+                }}
+              >
                 <div className="polkadot_icon">
                   <MIdenticon address={v?.address} size={32} />
                 </div>
                 <div className="fr">
                   <h4 className="address">{sortName(v?.address)}</h4>
                   <h4 className="dot">{v?.amount} DOT</h4>
-                  <p>{moment(+v?.at).format("HH:mm:ss MM/DD")}</p>
+                  <p>{v?.blockNum}</p>
                 </div>
               </li>
             );

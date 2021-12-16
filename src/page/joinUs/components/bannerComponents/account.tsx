@@ -3,13 +3,16 @@ import { u8aToHex } from "@polkadot/util";
 import { decodeAddress } from "@polkadot/util-crypto";
 import MIdenticon from "./identicon";
 import { setup } from "../../state/state";
+import toast from "@/components/toast";
 import "./account.less";
 import {
   useAccountSetter,
   useAllAccountsSetter,
   mInjectedAccountWithMeta,
   AccountContext,
+  ApiRxContext,
 } from "../../context";
+import { getAddressBalance } from "../../server/api";
 import { ContributeDataContext } from "../../context/ContributeData";
 import { sortName } from "../../utils/utils";
 import ContributeModal from "./modal/contributeModal";
@@ -22,9 +25,24 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
   const setAllAccounts = useAllAccountsSetter();
   const parachainData = useContext(ContributeDataContext);
   const [waiting, setWaiting] = useState(false);
+  const { api } = useContext(ApiRxContext);
 
   const [contributeModal, setContributeModal] = useState(false);
   const [switchAddress, setSwitchAddress] = useState(false);
+  const [balance, setBalance] = useState<number | undefined>();
+  useEffect(() => {
+    if (
+      api &&
+      currentAccount &&
+      currentAccount.address &&
+      currentAccount.address.length > 0
+    ) {
+      (async () => {
+        const res = await getAddressBalance(currentAccount.address);
+        setBalance(res);
+      })();
+    }
+  }, [api, currentAccount]);
   // 链接钱包
   useEffect(() => {
     setup(setWaiting, null).then((r) => {
@@ -62,7 +80,6 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
       }
     });
   }, [setAccounts, setAllAccounts]);
-
   return (
     <div
       className="account"
@@ -73,12 +90,12 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
           <li>
             <img src={require("./img/icon_li.svg")} alt="icon_li" />
             <p>Contributed</p>
-            <h4>{parachainData?.total} DOT</h4>
+            <h4>{parachainData?.total ?? 0} DOT</h4>
           </li>
           <li>
             <img src={require("./img/icon_li.svg")} alt="icon_li" />
             <p>Est. Receive</p>
-            <h4>{parachainData?.total} CTO</h4>
+            <h4>{parachainData?.total ?? 0} CTO</h4>
           </li>
         </ul>
       )}
@@ -96,6 +113,10 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
             window.open("https://www.baidu.com/");
           } else {
             if (message) {
+              return;
+            }
+            if (balance === undefined) {
+              toast.show(`Getting balance`);
               return;
             }
             setContributeModal(!contributeModal);
@@ -131,6 +152,7 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
       <ContributeModal
         visible={contributeModal}
         setVisible={setContributeModal}
+        balance={balance}
       />
       <SwitchAddress visible={switchAddress} setVisible={setSwitchAddress} />
     </div>

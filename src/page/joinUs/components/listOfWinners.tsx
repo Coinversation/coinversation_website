@@ -16,7 +16,14 @@ const ListOfWinners = () => {
       {data && data.length > 0 ? (
         <ul>
           {data.map((v, index: number) => (
-            <li key={index}>
+            <li
+              key={index}
+              onClick={() => {
+                window.open(
+                  `https://polkadot.subscan.io/extrinsic/${v.extrinsicHash}`
+                );
+              }}
+            >
               <h3>{v?.block}</h3>
               <div className="_h4">
                 <p>Block height</p>

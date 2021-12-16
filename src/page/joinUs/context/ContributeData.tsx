@@ -42,26 +42,27 @@ export function ContributeDataContextProvider(props: {
       return;
     }
     setBol(true);
-    console.log(bol, latestBlock, lastBlock, currentAccount);
-    if (list === undefined) {
-      (async () => {
+    (async () => {
+      if (list === undefined) {
         const list = await getContributeList();
         setList(list ?? []);
         if (list.length) {
-          console.log("setLastBlock", +list[list.length - 1].blockNum);
           setLastBlock(+list[list.length - 1].blockNum);
         }
+      }
+      if (alltotal === undefined) {
         const resAlltotal = await getContributeTotal();
         setAlltotal(resAlltotal.totalStakedFromPage);
         setCount(resAlltotal.totalAddressesFromPage);
+      }
+      if (total === undefined) {
         if (currentAccount && currentAccount.publickey) {
-          console.log("ccc1111");
           const resMy = await getMyContribute(currentAccount?.publickey);
           setTotal(resMy);
         }
-        setBol(false);
-      })();
-    }
+      }
+      setBol(false);
+    })();
 
     if (timer.current) {
       clearInterval(timer.current);
@@ -77,11 +78,9 @@ export function ContributeDataContextProvider(props: {
       if (latestBlock <= lastBlock) {
         return;
       }
-      console.log("lastBlock", latestBlock, lastBlock);
       const list = await getContributeList();
       setList(list);
       if (list.length) {
-        console.log("setLastBlock", +list[list.length - 1].blockNum);
         setLastBlock(+list[list.length - 1].blockNum);
       }
       const resAlltotal = await getContributeTotal();
@@ -95,7 +94,7 @@ export function ContributeDataContextProvider(props: {
     return () => {
       clearTimeout(timer.current);
     };
-  }, [bol, latestBlock, list, lastBlock, currentAccount]);
+  }, [bol, alltotal, total, latestBlock, list, lastBlock, currentAccount]);
   return (
     <ContributeDataContext.Provider
       value={{

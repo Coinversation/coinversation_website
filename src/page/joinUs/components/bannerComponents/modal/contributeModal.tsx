@@ -1,11 +1,7 @@
-import React, { useRef, useContext, useState, useEffect } from "react";
+import React, { useRef, useContext, useState } from "react";
 import "./contributeModal.less";
-import { AccountContext, ApiRxContext } from "../../../context";
-import {
-  getAddressBalance,
-  contribution,
-  postContributeAdd,
-} from "../../../server/api";
+import { AccountContext } from "../../../context";
+import { contribution, postContributeAdd } from "../../../server/api";
 import toast from "@/components/toast";
 import close from "./close.svg";
 import {
@@ -19,32 +15,22 @@ import {
   useContributeDataContextSetCount,
   useContributeDataContextSetTotal,
 } from "../../../context/ContributeData";
-const ContributeModal = (props: { visible: boolean; setVisible: any }) => {
+const ContributeModal = (props: {
+  visible: boolean;
+  setVisible: any;
+  balance: number;
+}) => {
   const amountKsmInput = useRef(null);
-  const { api } = useContext(ApiRxContext);
   const [amount, setAmount] = useState(0);
   const currentAccount = useContext(AccountContext);
-  const { visible, setVisible } = props;
-  const [balance, setBalance] = useState(0);
+  const { visible, setVisible, balance } = props;
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const setAlltotal = useContributeDataContextSetAllTotal();
   const setList = useContributeDataContextSetList();
   const setCount = useContributeDataContextSetCount();
   const setTotal = useContributeDataContextSetTotal();
-  useEffect(() => {
-    if (
-      api &&
-      currentAccount &&
-      currentAccount.address &&
-      currentAccount.address.length > 0
-    ) {
-      (async () => {
-        const res = await getAddressBalance(currentAccount.address);
-        setBalance(res);
-      })();
-    }
-  }, [api, currentAccount]);
+
   const setMax = () => {
     let max = parseFloat(balance.toString());
     amountKsmInput.current.value = max;

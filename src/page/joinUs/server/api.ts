@@ -193,6 +193,9 @@ const convertToKSM = (address: any) => {
   let plk = decodeAddress(address);
   return encodeAddress(plk, 2);
 };
+export const publickToAdd = (publickey: string) => {
+  return encodeAddress(publickey);
+};
 export const getDerivedStaking = async (currentWallet) => {
   const parachanID = config.parachanID;
   const api = getApi();
@@ -323,20 +326,18 @@ export async function contribution(
       `${Number(val) * decimals}`.toString(),
       null
     );
-    console.log("Sssss");
     const unsub = await crowdloanEntrinsic.signAndSend(
       address,
       { signer: injector.signer },
       async ({ status }) => {
-        console.log(111);
         if (status.isReady) {
-          console.log("status.isReady: ", status.isReady);
+          // console.log("status.isReady: ", status.isReady);
         }
         if (status.isBroadcast) {
-          console.log("status.isBroadcast: ", status.isBroadcast);
+          // console.log("status.isBroadcast: ", status.isBroadcast);
         }
         if (status.isInBlock) {
-          console.log("status.isInBlock: ", status.isInBlock);
+          // console.log("status.isInBlock: ", status.isInBlock);
           const res = await api.rpc.chain.getBlock(status.asInBlock);
           const block = res.block.hash.toHex();
           if (fn) {
@@ -344,7 +345,7 @@ export async function contribution(
           }
         }
         if (status.isFinalized) {
-          console.log("status.isFinalized: ", status.isFinalized);
+          // console.log("status.isFinalized: ", status.isFinalized);
           unsub();
         }
       }
@@ -356,21 +357,6 @@ export async function contribution(
 export const getContributeLast = async (): Promise<any> => {
   try {
     if (config.isDev) {
-      const _latestBlock = await getBlock("latest");
-      const response = {
-        code: "200",
-        data: {
-          _id: "61b721348a785421cf18ee56",
-          block: Number(_latestBlock.number) - 10,
-          amount: "5",
-          publickey:
-            "0xc48f8b1d04cd6dab198aa80dc64d3001a9a1e96ffcd4604180d5e6da36102864",
-          sources: "coinversation",
-          address: "5GWRtDZqpfqgfvwBGBfbphqmyZM3TCPU5FDPP1gaDipjbScu",
-          __v: 0,
-        },
-      };
-      return isNaN(response?.data?.block) ? 0 : +response.data.block;
     } else {
       const response = await fetch(`/api/contribute/get/last`);
       if (response.status !== 200) {
@@ -399,12 +385,16 @@ export const getContributeList = async (): Promise<any> => {
       const contributeLast = await response.json();
       const _data = contributeLast?.data;
       if (_data.length > 0) {
-        return {
-          count: _data.count,
-          list: _data.list,
-          total: _data?.total || 0,
-          alltotal: _data.alltotal,
-        };
+        const __data = [];
+        for (let i = 0; i < _data.length; i++) {
+          __data.push({
+            extrinsicHash: _data[i].extrinsicHash,
+            blockNum: _data[i].blockNum,
+            address: publickToAdd(_data[i].publickey),
+            amount: +_data[i].value / decimals,
+          });
+        }
+        return __data;
       }
     }
     return [];
@@ -412,6 +402,7 @@ export const getContributeList = async (): Promise<any> => {
     return [];
   }
 };
+
 export const getMyContribute = async (publickey: string): Promise<any> => {
   try {
     if (config.isDev) {
@@ -439,9 +430,12 @@ export const getContributeTotal = async (): Promise<any> => {
         return null;
       }
       const contributeLast = await response.json();
-      return contributeLast.data;
+      return {
+        totalStakedFromPage:
+          +contributeLast.data.totalStakedFromPage / decimals,
+        totalAddressesFromPage: contributeLast.data.totalAddressesFromPage,
+      };
     }
-    return null;
   } catch (error) {
     return null;
   }
@@ -473,7 +467,7 @@ export const postContributeAdd = async (
       return null;
     }
     const signAddressRes = await response.json();
-    return signAddressRes;
+    return signAddressRes.data;
   } catch (error) {
     return null;
   }
@@ -506,7 +500,20 @@ export const getListOfWinners = async (): Promise<any> => {
       return null;
     }
     const data = await response.json();
-    return data.data || [];
+    const _data = data?.data;
+    if (_data.length > 0) {
+      const __data = [];
+      for (let i = 0; i < _data.length; i++) {
+        __data.push({
+          extrinsicHash: _data[i].extrinsicHash,
+          blockNum: _data[i].blockNum,
+          address: publickToAdd(_data[i].publickey),
+          amount: +_data[i].value / decimals,
+        });
+      }
+      return __data;
+    }
+    return [];
   } catch (error) {
     return false;
   }
