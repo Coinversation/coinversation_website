@@ -24,7 +24,7 @@ const ListOfWinners = () => {
                 );
               }}
             >
-              <h3>{v?.block}</h3>
+              <h3>{v?.blockNum}</h3>
               <div className="_h4">
                 <p>Block height</p>
                 <Tips message="The height of the block invested by users who will be able to share the jackpot" />

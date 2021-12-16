@@ -10,6 +10,7 @@ import AccountBtn from "./accountBtn";
 const JoinBannerFl = () => {
   const lastBlockContext = useContext(LastBlockContext);
   const data = useContext(ContributeDataContext);
+  console.log("data.lastBlock", data.lastBlock);
   return (
     <div className="join_bannerFl">
       <div className="join_bannerFl_inner_">

@@ -64,7 +64,7 @@ const BannerFr = () => {
         {parachainData &&
         parachainData.list &&
         parachainData.list.length > 0 ? (
-          parachainData.list.reverse().map((v, index) => {
+          parachainData.list.slice(0, 2).map((v, index) => {
             return (
               <li
                 key={index}

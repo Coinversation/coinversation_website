@@ -11,7 +11,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
   const [countMinutes, setCountMinutes] = useState("00");
   const [countSeconds, setCountSeconds] = useState("00");
   const timer = useRef<NodeJS.Timer>();
-
+  console.log({ last, latest });
   useEffect(() => {
     if (lastM === last) {
       return;
@@ -75,7 +75,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
 
   return (
     <>
-      <h3>{`${remain}`}</h3>
+      <h3>{`${remain === 0 ? 150 : remain}`}</h3>
       <div className="text_p">
         <p>Comdivletion Block</p>
         <Tips
@@ -83,7 +83,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
         />
       </div>
       <h3>
-        {countHours}:{countMinutes}:{countSeconds}
+        {countHours}:{remain === 0 ? 15 : countMinutes}:{countSeconds}
       </h3>
       <div className="text_p">
         <p>Countdown</p>

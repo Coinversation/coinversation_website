@@ -5,6 +5,7 @@ import MIdenticon from "./identicon";
 import { setup } from "../../state/state";
 import toast from "@/components/toast";
 import "./account.less";
+
 import {
   useAccountSetter,
   useAllAccountsSetter,
@@ -14,7 +15,7 @@ import {
 } from "../../context";
 import { getAddressBalance } from "../../server/api";
 import { ContributeDataContext } from "../../context/ContributeData";
-import { sortName } from "../../utils/utils";
+import { sortName, getGrandPrizePool, formatNumber } from "../../utils/utils";
 import ContributeModal from "./modal/contributeModal";
 import SwitchAddress from "./modal/switchAddress";
 const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
@@ -95,13 +96,26 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
           <li>
             <img src={require("./img/icon_li.svg")} alt="icon_li" />
             <p>Est. Receive</p>
-            <h4>{parachainData?.total ?? 0} CTO</h4>
+            <h4>
+              {parachainData && parachainData.alltotal && parachainData.total
+                ? formatNumber(
+                    parseFloat(
+                      `${
+                        (Number(getGrandPrizePool(parachainData?.count)[0]) *
+                          parachainData?.total) /
+                        parachainData.alltotal
+                      }`
+                    ).toFixed(0)
+                  )
+                : "0"}{" "}
+              CTO
+            </h4>
           </li>
         </ul>
       )}
       <button
         className={
-          waiting || message
+          waiting || message || !api
             ? "disable btn"
             : btnOnly && !receivePns
             ? "btn btn_count"
@@ -110,7 +124,7 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
         disabled={waiting || message ? true : false}
         onClick={() => {
           if (receivePns) {
-            window.open("https://www.baidu.com/");
+            // window.open("https://www.baidu.com/");
           } else {
             if (message) {
               return;
@@ -123,7 +137,8 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
           }
         }}
       >
-        {receivePns ? "Claim on PNS" : "Contribute Now"}
+        {receivePns ? "Coming Soon" : "Contribute Now"}
+        {/* {receivePns ? "Claim on PNS" : "Contribute Now"} */}
       </button>
       {waiting ? (
         <h4 className="textH4">

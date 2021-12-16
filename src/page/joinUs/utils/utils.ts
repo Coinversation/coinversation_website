@@ -106,3 +106,15 @@ export const withToggleAsync = async <T>(
   toggle(false);
   return result;
 };
+export function unique(arr: any, key: any) {
+  if (!arr) return arr;
+  if (key === undefined) return [...new Set(arr)];
+  const map = {
+    string: (e) => e[key],
+    function: (e) => key(e),
+  };
+  const fn = map[typeof key];
+  // eslint-disable-next-line
+  const obj = arr.reduce((o: any, e: any) => ((o[fn(e)] = e), o), {});
+  return Object.values(obj);
+}

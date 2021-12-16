@@ -19,6 +19,7 @@ import {
   KeyringPairOrAddressAndSigner,
   extractTxArgs,
   getEnv,
+  unique,
 } from "../utils/utils";
 import config from "@/config";
 
@@ -194,7 +195,13 @@ const convertToKSM = (address: any) => {
   return encodeAddress(plk, 2);
 };
 export const publickToAdd = (publickey: string) => {
-  return encodeAddress(publickey);
+  try {
+    console.log("eeee");
+    return encodeAddress(publickey);
+  } catch (e) {
+    console.log("333qw", e, publickey);
+    return null;
+  }
 };
 export const getDerivedStaking = async (currentWallet) => {
   const parachanID = config.parachanID;
@@ -326,31 +333,27 @@ export async function contribution(
       `${Number(val) * decimals}`.toString(),
       null
     );
-    const unsub = await crowdloanEntrinsic.signAndSend(
-      address,
-      { signer: injector.signer },
-      async ({ status }) => {
-        if (status.isReady) {
-          // console.log("status.isReady: ", status.isReady);
-        }
-        if (status.isBroadcast) {
-          // console.log("status.isBroadcast: ", status.isBroadcast);
-        }
-        if (status.isInBlock) {
-          // console.log("status.isInBlock: ", status.isInBlock);
-          const res = await api.rpc.chain.getBlock(status.asInBlock);
-          const block = res.block.hash.toHex();
-          if (fn) {
-            fn(block, status.asInBlock.toString());
-          }
-        }
-        if (status.isFinalized) {
-          // console.log("status.isFinalized: ", status.isFinalized);
-          unsub();
-        }
+    const hash = await crowdloanEntrinsic.signAndSend(address, {
+      signer: injector.signer,
+      nonce: -1,
+    });
+    const h = await api.rpc.chain.getHeader();
+    const res = await api.rpc.chain.getBlock(h.hash);
+    setTimeout(async () => {
+      console.log("header.number: ", res.block.header.number.toString());
+      const blockhash = await api.rpc.chain.getBlockHash(
+        res.block.header.number.toString()
+      );
+      console.log(`hash: ${hash}`);
+      console.log(`block: ${blockhash}`);
+      if (fn) {
+        fn(blockhash, hash); // block, hash
       }
-    );
-  } catch (error: any) {}
+    }, 1000);
+  } catch (error: any) {
+    // eslint-disable-next-line
+    console.log("Error: ", error);
+  }
   return null;
 }
 
@@ -383,18 +386,26 @@ export const getContributeList = async (): Promise<any> => {
         return null;
       }
       const contributeLast = await response.json();
-      const _data = contributeLast?.data;
+      let _data = contributeLast?.data;
       if (_data.length > 0) {
+        _data = unique(_data, "extrinsicHash");
         const __data = [];
         for (let i = 0; i < _data.length; i++) {
+          console.log(1111, _data[i].publickey);
+          const _address = publickToAdd(
+            _data[i].publickey || _data[i].publicKey
+          );
           __data.push({
             extrinsicHash: _data[i].extrinsicHash,
             blockNum: _data[i].blockNum,
-            address: publickToAdd(_data[i].publickey),
+            address: _address || _data[i].publicKey,
             amount: +_data[i].value / decimals,
           });
+          console.log(2222);
         }
-        return __data;
+        console.log(__data);
+
+        return __data.reverse();
       }
     }
     return [];
@@ -414,9 +425,10 @@ export const getMyContribute = async (publickey: string): Promise<any> => {
         return null;
       }
       const contributeLast = await response.json();
-      return contributeLast?.sources?.coinversation ?? 0;
+      return contributeLast?.data?.sources?.coinversation
+        ? contributeLast?.data?.sources?.coinversation / decimals
+        : 0;
     }
-    return null;
   } catch (error) {
     return null;
   }
@@ -452,13 +464,6 @@ export const postContributeAdd = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // block: block,
-        // at: at,
-        // amount: amount,
-        // publickey: publickey,
-        // sources: sources,
-        // address: address,
-        // hash: hash,
         blockHash: blockHash,
         extrinsicHash: extrinsicHash,
       }),
@@ -467,7 +472,7 @@ export const postContributeAdd = async (
       return null;
     }
     const signAddressRes = await response.json();
-    return signAddressRes.data;
+    return signAddressRes.msg === "ok";
   } catch (error) {
     return null;
   }
@@ -504,10 +509,11 @@ export const getListOfWinners = async (): Promise<any> => {
     if (_data.length > 0) {
       const __data = [];
       for (let i = 0; i < _data.length; i++) {
+        const _address = publickToAdd(_data[i].publickey || _data[i].publicKey);
         __data.push({
           extrinsicHash: _data[i].extrinsicHash,
           blockNum: _data[i].blockNum,
-          address: publickToAdd(_data[i].publickey),
+          address: _address || _data[i].publicKey,
           amount: +_data[i].value / decimals,
         });
       }

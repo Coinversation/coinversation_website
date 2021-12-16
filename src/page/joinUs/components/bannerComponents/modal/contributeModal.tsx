@@ -59,11 +59,20 @@ const ContributeModal = (props: {
       currentAccount.address,
       currentAccount.meta.source,
       async (block: string, hash: string) => {
+        window.localStorage.setItem(
+          "TRADE_HASH",
+          JSON.stringify({
+            blockHash: block,
+            extrinsicHash: hash,
+          })
+        );
+
         if (hash) {
           setVisible(false);
           toast.show(`Completed at block hash: ${hash}`);
           const res = await postContributeAdd(block, hash);
           if (res) {
+            window.localStorage.removeItem("TRADE_HASH");
             const _res = await getContributeList();
             setList(_res);
             const resAlltotal = await getContributeTotal();

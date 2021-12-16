@@ -11,6 +11,7 @@ import {
   getContributeList,
   getContributeTotal,
   getMyContribute,
+  postContributeAdd,
 } from "../server/api";
 import config from "@/config";
 interface IContributeDataType {
@@ -45,9 +46,9 @@ export function ContributeDataContextProvider(props: {
     (async () => {
       if (list === undefined) {
         const list = await getContributeList();
-        setList(list ?? []);
-        if (list.length) {
-          setLastBlock(+list[list.length - 1].blockNum);
+        setList(list || []);
+        if (list && list.length) {
+          setLastBlock(+list[0].blockNum);
         }
       }
       if (alltotal === undefined) {
@@ -80,7 +81,7 @@ export function ContributeDataContextProvider(props: {
       }
       const list = await getContributeList();
       setList(list);
-      if (list.length) {
+      if (list && list.length) {
         setLastBlock(+list[list.length - 1].blockNum);
       }
       const resAlltotal = await getContributeTotal();
@@ -89,6 +90,24 @@ export function ContributeDataContextProvider(props: {
       if (currentAccount && currentAccount.publickey) {
         const res = await getMyContribute(currentAccount?.publickey);
         setTotal(res);
+      }
+      const TRADE_HASH = window.localStorage.getItem("TRADE_HASH");
+      if (TRADE_HASH) {
+        const TRADE_HASH_JSON = JSON.parse(TRADE_HASH);
+        const resAdd = await postContributeAdd(
+          TRADE_HASH_JSON.blockHash,
+          TRADE_HASH_JSON.extrinsicHash
+        );
+        if (resAdd) {
+          window.localStorage.removeItem("TRADE_HASH");
+          const _res = await getContributeList();
+          setList(_res);
+          const resAlltotal = await getContributeTotal();
+          setAlltotal(resAlltotal.totalStakedFromPage);
+          setCount(resAlltotal.totalAddressesFromPage);
+          const res = await getMyContribute(currentAccount?.publickey);
+          setTotal(res);
+        }
       }
     }, 3000);
     return () => {
