@@ -361,7 +361,9 @@ export const getContributeLast = async (): Promise<any> => {
   try {
     if (config.isDev) {
     } else {
-      const response = await fetch(`/api/contribute/get/last`);
+      const response = await fetch(
+        `https://www.coinversation.io/api/contribute/get/last`
+      );
       if (response.status !== 200) {
         return null;
       }
@@ -381,7 +383,9 @@ export const getContributeList = async (): Promise<any> => {
   try {
     if (config.isDev) {
     } else {
-      const response = await fetch(`/api/crowdloan/contribution`);
+      const response = await fetch(
+        `https://www.coinversation.io/api/crowdloan/contribution`
+      );
       if (response.status !== 200) {
         return null;
       }
@@ -419,7 +423,7 @@ export const getMyContribute = async (publickey: string): Promise<any> => {
     if (config.isDev) {
     } else {
       const response = await fetch(
-        `/api/crowdloan/count?publicKey=${publickey}`
+        `https://www.coinversation.io/api/crowdloan/count?publicKey=${publickey}`
       );
       if (response.status !== 200) {
         return null;
@@ -437,7 +441,9 @@ export const getContributeTotal = async (): Promise<any> => {
   try {
     if (config.isDev) {
     } else {
-      const response = await fetch(`/api/crowdloan/info`);
+      const response = await fetch(
+        `https://www.coinversation.io/api/crowdloan/info`
+      );
       if (response.status !== 200) {
         return null;
       }
@@ -458,16 +464,19 @@ export const postContributeAdd = async (
   extrinsicHash: string
 ): Promise<any> => {
   try {
-    const response = await fetch(`/api/crowdloan/contribution`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        blockHash: blockHash,
-        extrinsicHash: extrinsicHash,
-      }),
-    });
+    const response = await fetch(
+      `https://www.coinversation.io/api/crowdloan/contribution`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          blockHash: blockHash,
+          extrinsicHash: extrinsicHash,
+        }),
+      }
+    );
     if (response.status !== 200) {
       return null;
     }
@@ -483,7 +492,9 @@ export const getRate = async (): Promise<any> => {
     if (config.isDev) {
       return 0.174;
     } else {
-      const response = await fetch(`/api/crowdloan/price/cto`);
+      const response = await fetch(
+        `https://www.coinversation.io/api/crowdloan/price/cto`
+      );
       if (response.status !== 200) {
         return null;
       }
@@ -500,7 +511,9 @@ export const getListOfWinners = async (): Promise<any> => {
     if (config.isDev) {
       return [];
     }
-    const response = await fetch(`/api/crowdloan/winners`);
+    const response = await fetch(
+      `https://www.coinversation.io/api/crowdloan/winners`
+    );
     if (response.status !== 200) {
       return null;
     }
