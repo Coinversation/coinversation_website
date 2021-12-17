@@ -12,7 +12,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
   useEffect(() => {
     let _remain =
       last === 0 ? config.maxBlock : config.maxBlock - (latest - last);
-    if (_remain !== remain) {
+    if (_remain !== remain && _remain > 0) {
       setRemain(_remain);
     }
   }, [last, latest, remain]);
@@ -89,7 +89,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
 
   return (
     <>
-      <h3>{`${remain === 0 ? config.maxBlock : remain}`}</h3>
+      <h3>{`${remain <= 0 ? config.maxBlock : remain}`}</h3>
       <div className="text_p">
         <p>Block</p>
         <Tips
@@ -98,7 +98,10 @@ const BlockTime = (props: { last: number; latest: number }) => {
       </div>
       <h3>
         {/* {countHours}: */}
-        {remain === 0 ? 15 : countMinutes}:{countSeconds}
+        {remain <= 0
+          ? Math.floor((config.maxBlock * 6) / 60) % 60
+          : countMinutes}
+        :{countSeconds}
       </h3>
       <div className="text_p">
         <p>Countdown</p>
