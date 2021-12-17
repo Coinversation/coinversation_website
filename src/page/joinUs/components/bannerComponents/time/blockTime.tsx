@@ -16,7 +16,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
       return;
     }
     setLastM(last);
-    const _remain =
+    let _remain =
       last === 0 ? config.maxBlock : config.maxBlock - (latest - last);
     if (_remain === remain) {
       return;
@@ -37,7 +37,9 @@ const BlockTime = (props: { last: number; latest: number }) => {
       setRemain(0);
       return;
     }
-
+    if (_remain > config.maxBlock) {
+      _remain = config.maxBlock;
+    }
     setRemain(_remain);
   }, [last, latest, lastM, remain, countSeconds, countMinutes, countHours]);
   useEffect(() => {

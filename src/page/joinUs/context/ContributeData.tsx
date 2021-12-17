@@ -6,11 +6,13 @@ import React, {
   useRef,
 } from "react";
 import { AccountContext } from "./AccountContext";
+import { useLastBlockContextSet } from "../components/context/LastParachainData";
 import {
   getContributeList,
   getContributeTotal,
   getMyContribute,
   postContributeAdd,
+  getBlock,
 } from "../server/api";
 interface IContributeDataType {
   count: number;
@@ -33,6 +35,7 @@ export function ContributeDataContextProvider(props: {
   const [alltotal, setAlltotal] = useState<number>();
   const [lastBlock, setLastBlock] = React.useState<number>(0);
   const timer = useRef<NodeJS.Timer>();
+  const setLatestBlock = useLastBlockContextSet();
   useEffect(() => {
     (async () => {
       if (list === undefined) {
@@ -62,6 +65,9 @@ export function ContributeDataContextProvider(props: {
     timer.current = setInterval(async () => {
       const list = await getContributeList();
       if (list && list.length && lastBlock !== +list[0].blockNum) {
+        const _latestBlock = await getBlock("latest");
+        setLatestBlock(+_latestBlock.number);
+        console.log("latestBlock: ", _latestBlock.number);
         setList(list);
         setLastBlock(+list[0].blockNum);
       }
@@ -94,7 +100,7 @@ export function ContributeDataContextProvider(props: {
     return () => {
       clearTimeout(timer.current);
     };
-  }, [alltotal, total, list, lastBlock, currentAccount]);
+  }, [alltotal, total, list, lastBlock, currentAccount, setLatestBlock]);
   return (
     <ContributeDataContext.Provider
       value={{
@@ -109,9 +115,7 @@ export function ContributeDataContextProvider(props: {
         <ContributeDataContextSetList.Provider value={setList}>
           <ContributeDataContextSetTotal.Provider value={setTotal}>
             <ContributeDataContextSetAllTotal.Provider value={setAlltotal}>
-              <LastBlockContextSet.Provider value={setLastBlock}>
-                {children}
-              </LastBlockContextSet.Provider>
+              {children}
             </ContributeDataContextSetAllTotal.Provider>
           </ContributeDataContextSetTotal.Provider>
         </ContributeDataContextSetList.Provider>
@@ -159,17 +163,6 @@ export const useContributeDataContextSetAllTotal = () => {
   const setter = useContext(ContributeDataContextSetAllTotal);
   if (!setter) {
     throw new Error("ContributeDataContextSetAllTotal null");
-  }
-  return setter;
-};
-
-export const LastBlockContextSet = createContext<React.Dispatch<
-  React.SetStateAction<number | null>
-> | null>(null);
-export const useLastBlockContextSet = () => {
-  const setter = useContext(LastBlockContextSet);
-  if (!setter) {
-    throw new Error("LastBlockContextSet null");
   }
   return setter;
 };

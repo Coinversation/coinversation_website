@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, createContext, useContext } from "react";
 import { getBlock } from "../../server/api";
 import { ApiRxContext } from "../../context";
 export interface ILastBlockContextType {
@@ -6,8 +6,20 @@ export interface ILastBlockContextType {
   // lastBlock: number;
 }
 
+export const LastBlockContextSet = createContext<React.Dispatch<
+  React.SetStateAction<number | null>
+> | null>(null);
+export const useLastBlockContextSet = () => {
+  const setter = useContext(LastBlockContextSet);
+  if (!setter) {
+    throw new Error("LastBlockContextSet null");
+  }
+  return setter;
+};
+
 export const LastBlockContext: React.Context<ILastBlockContextType> =
   React.createContext({} as ILastBlockContextType);
+
 export function LastParachainData(props: {
   children?: React.ReactElement;
 }): React.ReactElement {
@@ -27,7 +39,9 @@ export function LastParachainData(props: {
 
   return (
     <LastBlockContext.Provider value={{ latestBlock: latestBlock }}>
-      {children}
+      <LastBlockContextSet.Provider value={setLatestBlock}>
+        {children}
+      </LastBlockContextSet.Provider>
     </LastBlockContext.Provider>
   );
 }
