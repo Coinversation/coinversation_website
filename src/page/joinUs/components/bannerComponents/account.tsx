@@ -12,6 +12,7 @@ import {
   mInjectedAccountWithMeta,
   AccountContext,
   ApiRxContext,
+  ConnectWalletContext,
 } from "../../context";
 import { getAddressBalance } from "../../server/api";
 import { ContributeDataContext } from "../../context/ContributeData";
@@ -31,6 +32,8 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
   const [contributeModal, setContributeModal] = useState(false);
   const [switchAddress, setSwitchAddress] = useState(false);
   const [balance, setBalance] = useState<number | undefined>();
+
+  const phase = useContext(ConnectWalletContext);
   useEffect(() => {
     if (
       api &&
@@ -46,43 +49,46 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
   }, [api, currentAccount]);
   // 链接钱包
   useEffect(() => {
-    setup(setWaiting, null).then((r) => {
-      if (r.kind === "ok") {
-        // 获取publicKey
-        if (r && r.injectedAccounts && r.injectedAccounts.length) {
-          const _arr = r.injectedAccounts.map((v) => {
-            const publickey = u8aToHex(decodeAddress(v.address, true));
-            const address = encodeAddress(publickey, 0);
-            return {
-              ...v,
-              publickey,
-              sortAddress: sortName(address),
-              address: address,
-            };
-          });
-          if (localStorage.getItem("SELECTED_KSM_WALLET")) {
-            const _item: mInjectedAccountWithMeta = JSON.parse(
-              localStorage.getItem("SELECTED_KSM_WALLET")
-            );
-            if (
-              _arr.filter(
-                (v: mInjectedAccountWithMeta) => v.publickey === _item.publickey
-              )
-            ) {
-              setAccounts(_item);
+    if (phase === "setup") {
+      setup(setWaiting, null).then((r) => {
+        if (r.kind === "ok") {
+          // 获取publicKey
+          if (r && r.injectedAccounts && r.injectedAccounts.length) {
+            const _arr = r.injectedAccounts.map((v) => {
+              const publickey = u8aToHex(decodeAddress(v.address, true));
+              const address = encodeAddress(publickey, 0);
+              return {
+                ...v,
+                publickey,
+                sortAddress: sortName(address),
+                address: address,
+              };
+            });
+            if (localStorage.getItem("SELECTED_KSM_WALLET")) {
+              const _item: mInjectedAccountWithMeta = JSON.parse(
+                localStorage.getItem("SELECTED_KSM_WALLET")
+              );
+              if (
+                _arr.filter(
+                  (v: mInjectedAccountWithMeta) =>
+                    v.publickey === _item.publickey
+                )
+              ) {
+                setAccounts(_item);
+              } else {
+                setAccounts(_arr[0]);
+              }
             } else {
               setAccounts(_arr[0]);
             }
-          } else {
-            setAccounts(_arr[0]);
+            setAllAccounts(_arr);
           }
-          setAllAccounts(_arr);
+        } else {
+          setMessage(r.message || "");
         }
-      } else {
-        setMessage(r.message || "");
-      }
-    });
-  }, [setAccounts, setAllAccounts]);
+      });
+    }
+  }, [phase, setAccounts, setAllAccounts]);
   return (
     <div
       className="account"
@@ -147,7 +153,18 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
           <i>waiting</i>
         </h4>
       ) : null}
-      {message ? <h4 className="textH4">{message}</h4> : null}
+      {message ? (
+        <h4 className="textH4">
+          {message}
+          <a
+            href="https://polkadot.js.org/extension/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Get Polkadot.js extension?
+          </a>
+        </h4>
+      ) : null}
       {btnOnly ? null : (
         <div className="now_account">
           <div className="polkadot_icon">

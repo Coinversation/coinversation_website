@@ -30,11 +30,13 @@ export function ConnectWalletProvider(props: {
     (window.localStorage.getItem("PolkadotAccount_TSX_phase") as Phase) ||
       "none"
   );
+
   const connectWallet = () => {
     setPhase("setup");
     window.localStorage.setItem("PolkadotAccount_TSX_phase", "setup");
   };
   const { children } = props;
+
   return (
     <ConnectWalletContext.Provider value={phase}>
       <ConnectWalletContextSet.Provider value={connectWallet}>

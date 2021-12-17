@@ -6,44 +6,55 @@ const BlockTime = (props: { last: number; latest: number }) => {
   const { last, latest } = props;
   const [remain, setRemain] = useState(config.maxBlock);
 
-  const [lastM, setLastM] = useState<number>();
-  const [countHours, setCountHours] = useState("00");
   const [countMinutes, setCountMinutes] = useState("00");
   const [countSeconds, setCountSeconds] = useState("00");
   const timer = useRef<NodeJS.Timer>();
   useEffect(() => {
-    if (lastM === last) {
-      return;
-    }
-    setLastM(last);
     let _remain =
       last === 0 ? config.maxBlock : config.maxBlock - (latest - last);
-    if (_remain === remain) {
-      return;
+    if (_remain !== remain) {
+      setRemain(_remain);
     }
-    if (_remain <= 0) {
-      if (
-        countSeconds !== "00" ||
-        countMinutes !== "00" ||
-        countHours !== "00"
-      ) {
-        setCountHours("00");
-        setCountMinutes("00");
-        setCountSeconds("00");
-      }
-      if (timer.current) {
-        clearInterval(timer.current);
-      }
-      setRemain(0);
-      return;
-    }
-    if (_remain > config.maxBlock) {
-      _remain = config.maxBlock;
-    }
-    setRemain(_remain);
-  }, [last, latest, lastM, remain, countSeconds, countMinutes, countHours]);
+  }, [last, latest, remain]);
+
+  // useEffect(() => {
+  //   if (lastM === last) {
+  //     return;
+  //   }
+  //   setLastM(last);
+  //   let _remain =
+  //     last === 0 ? config.maxBlock : config.maxBlock - (latest - last);
+  //   if (_remain === remain) {
+  //     return;
+  //   }
+  //   if (_remain <= 0) {
+  //     if (
+  //       countSeconds !== "00" ||
+  //       countMinutes !== "00" ||
+  //       countHours !== "00"
+  //     ) {
+  //       setCountHours("00");
+  //       setCountMinutes("00");
+  //       setCountSeconds("00");
+  //     }
+  //     if (timer.current) {
+  //       clearInterval(timer.current);
+  //     }
+  //     setRemain(0);
+  //     return;
+  //   }
+  //   if (_remain > config.maxBlock) {
+  //     _remain = config.maxBlock;
+  //   }
+  //   setRemain(_remain);
+  // }, [last, latest, lastM, remain, countSeconds, countMinutes, countHours]);
   useEffect(() => {
     if (remain <= 0) {
+      if (timer) {
+        clearInterval(timer.current);
+      }
+      setCountMinutes("00");
+      setCountSeconds("00");
       return;
     }
     if (timer) {
@@ -57,9 +68,6 @@ const BlockTime = (props: { last: number; latest: number }) => {
         return;
       }
       let minutesCal = Math.floor(offset / 60) % 60;
-      let hoursCal = Math.floor(offset / (60 * 60)) % 24;
-      setCountHours(hoursCal >= 10 ? String(hoursCal) : "0" + hoursCal);
-
       setCountMinutes(minutesCal >= 10 ? String(minutesCal) : "0" + minutesCal);
       setCountSeconds(
         offset % 60 >= 10 ? String(offset % 60) : "0" + (offset % 60)

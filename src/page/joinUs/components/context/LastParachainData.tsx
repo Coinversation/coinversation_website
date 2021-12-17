@@ -1,22 +1,8 @@
-import React, { useEffect, createContext, useContext } from "react";
-import { getBlock } from "../../server/api";
+import React, { useEffect } from "react";
 import { ApiRxContext } from "../../context";
 export interface ILastBlockContextType {
   latestBlock: number;
-  // lastBlock: number;
 }
-
-export const LastBlockContextSet = createContext<React.Dispatch<
-  React.SetStateAction<number | null>
-> | null>(null);
-export const useLastBlockContextSet = () => {
-  const setter = useContext(LastBlockContextSet);
-  if (!setter) {
-    throw new Error("LastBlockContextSet null");
-  }
-  return setter;
-};
-
 export const LastBlockContext: React.Context<ILastBlockContextType> =
   React.createContext({} as ILastBlockContextType);
 
@@ -30,18 +16,16 @@ export function LastParachainData(props: {
   useEffect(() => {
     (async () => {
       if (api) {
-        const _latestBlock = await getBlock("latest");
-        setLatestBlock(+_latestBlock.number);
-        console.log("latestBlock: ", _latestBlock.number);
+        await api.rpc.chain.subscribeNewHeads((header) => {
+          setLatestBlock(header.number.toNumber());
+        });
       }
     })();
   }, [api]);
 
   return (
     <LastBlockContext.Provider value={{ latestBlock: latestBlock }}>
-      <LastBlockContextSet.Provider value={setLatestBlock}>
-        {children}
-      </LastBlockContextSet.Provider>
+      {children}
     </LastBlockContext.Provider>
   );
 }
