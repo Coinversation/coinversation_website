@@ -17,6 +17,7 @@ import {
   ConnectWalletProvider,
 } from "./context";
 import { ContributeDataContextProvider } from "./context/ContributeData";
+import { LastParachainData } from "./components/context/LastParachainData";
 // const WS_PROVIDER = new WsProvider("wss://rpc.plasmnet.io/");
 
 const WS_PROVIDER = "wss://rpc.polkadot.io";
@@ -43,27 +44,29 @@ export default function JoinIndex() {
       <div className="joinIndex_inner">
         <ApiRxContextProvider provider={WS_PROVIDER}>
           <ConnectWalletProvider>
-            <AccountContext.Provider value={account}>
-              <AllAccounts.Provider value={allAccounts}>
-                <AllAccountsSetterContext.Provider value={setAllAccounts}>
-                  <AccountSetterContext.Provider value={setAccount}>
-                    <ContributeDataContextProvider>
-                      <div className="joinIndex_inner_inner">
-                        <Height height={60} />
-                        <JoinBanner />
-                        <Height height={40} />
-                        <Process />
-                        <Height height={40} />
-                        <ListOfWinners />
-                        <Height height={40} />
-                        <PNS />
-                        <Height height={60} />
-                      </div>
-                    </ContributeDataContextProvider>
-                  </AccountSetterContext.Provider>
-                </AllAccountsSetterContext.Provider>
-              </AllAccounts.Provider>
-            </AccountContext.Provider>
+            <LastParachainData>
+              <AccountContext.Provider value={account}>
+                <AllAccounts.Provider value={allAccounts}>
+                  <AllAccountsSetterContext.Provider value={setAllAccounts}>
+                    <AccountSetterContext.Provider value={setAccount}>
+                      <ContributeDataContextProvider>
+                        <div className="joinIndex_inner_inner">
+                          <Height height={60} />
+                          <JoinBanner />
+                          <Height height={40} />
+                          <Process />
+                          <Height height={40} />
+                          <ListOfWinners />
+                          <Height height={40} />
+                          <PNS />
+                          <Height height={60} />
+                        </div>
+                      </ContributeDataContextProvider>
+                    </AccountSetterContext.Provider>
+                  </AllAccountsSetterContext.Provider>
+                </AllAccounts.Provider>
+              </AccountContext.Provider>
+            </LastParachainData>
           </ConnectWalletProvider>
         </ApiRxContextProvider>
       </div>

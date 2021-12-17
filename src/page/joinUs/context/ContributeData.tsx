@@ -5,6 +5,7 @@ import React, {
   createContext,
   useRef,
 } from "react";
+import { ApiRxContext } from "../context";
 import { AccountContext } from "./AccountContext";
 import { useLastBlockContextSet } from "../components/context/LastParachainData";
 import {
@@ -36,6 +37,7 @@ export function ContributeDataContextProvider(props: {
   const [lastBlock, setLastBlock] = React.useState<number>(0);
   const timer = useRef<NodeJS.Timer>();
   const setLatestBlock = useLastBlockContextSet();
+  const { api } = React.useContext(ApiRxContext);
   useEffect(() => {
     (async () => {
       if (list === undefined) {
@@ -66,7 +68,9 @@ export function ContributeDataContextProvider(props: {
       const list = await getContributeList();
       if (list && list.length && lastBlock !== +list[0].blockNum) {
         const _latestBlock = await getBlock("latest");
-        setLatestBlock(+_latestBlock.number);
+        if (api) {
+          setLatestBlock(+_latestBlock.number);
+        }
         console.log("latestBlock: ", _latestBlock.number);
         setList(list);
         setLastBlock(+list[0].blockNum);
@@ -100,7 +104,7 @@ export function ContributeDataContextProvider(props: {
     return () => {
       clearTimeout(timer.current);
     };
-  }, [alltotal, total, list, lastBlock, currentAccount, setLatestBlock]);
+  }, [api, alltotal, total, list, lastBlock, currentAccount, setLatestBlock]);
   return (
     <ContributeDataContext.Provider
       value={{
