@@ -29,7 +29,7 @@ const NowTime = () => {
         />
       </div>
       <h3>
-        15:00:00
+        15:00
         {/* {countHours < 10 ? `0${countHours}` : countHours}:
         {countMinutes < 10 ? `0${countMinutes}` : countMinutes}:
         {countSeconds < 10 ? `0${countSeconds}` : countSeconds} */}

@@ -62,7 +62,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
       setCountSeconds(
         offset % 60 >= 10 ? String(offset % 60) : "0" + (offset % 60)
       );
-      if (i % 6) {
+      if (i && i % 6 === 0) {
         setRemain(remain - 1);
       }
       i++;
