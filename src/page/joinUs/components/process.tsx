@@ -9,7 +9,7 @@ const Process = () => {
       <ul className="process_header">
         <li>
           <h3> {getGrandPrizePool(parachainData?.count)[1]} CTO</h3>
-          <p>Extra Prize Pool</p>
+          <p>Bonus Pool</p>
         </li>
 
         <li>
@@ -90,8 +90,9 @@ const Process = () => {
         </div>
         <p className="text">
           The number of CTO awards increases with the number of pledges made by
-          DOT. For every 1,000 DOT, the number of CTO awards increases by
-          10,000, and so on
+          DOT. For every 2,000 contributors, the number of CTO awards increases
+          by 0.2%(0.14% for bonus pool, 0.06% for lottery pool), and so on until
+          the maximum 2%
         </p>
       </div>
     </div>

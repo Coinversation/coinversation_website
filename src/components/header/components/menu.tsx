@@ -18,16 +18,16 @@ export default function Menu(props: {
               className={
                 v.replaceAll(" ", "") === onKey ? "on parachain" : "parachain"
               }
-              onClick={() => changeOnKey(v)}
             >
-              {v}
-              <em></em>
-              <i></i>
+              <p onClick={() => changeOnKey(v)}>
+                {v}
+                <em></em>
+                <i></i>
+              </p>
               <div className="menu_parachain_pop">
                 <ul>
                   <li>
                     <Link to="/joinus">
-                      {" "}
                       <div className="fl">
                         <img
                           src={require("../img/icon_polkaSmith.svg")}

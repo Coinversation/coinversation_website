@@ -5,7 +5,6 @@ import React, {
   createContext,
   useRef,
 } from "react";
-import { LastBlockContext } from "../components/context/LastParachainData";
 import { AccountContext } from "./AccountContext";
 import {
   getContributeList,
@@ -26,8 +25,6 @@ export const ContributeDataContext: React.Context<IContributeDataType> =
 export function ContributeDataContextProvider(props: {
   children?: React.ReactElement;
 }): React.ReactElement {
-  const lastBlockContext = useContext(LastBlockContext);
-  const { latestBlock } = lastBlockContext;
   const { children = null } = props;
   const currentAccount = useContext(AccountContext);
   const [count, setCount] = useState<number>();
@@ -42,6 +39,7 @@ export function ContributeDataContextProvider(props: {
         const list = await getContributeList();
         setList(list || []);
         if (list && list.length) {
+          // setLastBlock(8167368);
           setLastBlock(+list[0].blockNum);
         }
       }
@@ -63,9 +61,9 @@ export function ContributeDataContextProvider(props: {
     }
     timer.current = setInterval(async () => {
       const list = await getContributeList();
-      setList(list);
-      if (list && list.length) {
-        setLastBlock(+list[list.length - 1].blockNum);
+      if (list && list.length && lastBlock !== +list[0].blockNum) {
+        setList(list);
+        setLastBlock(+list[0].blockNum);
       }
       const resAlltotal = await getContributeTotal();
       setAlltotal(resAlltotal.totalStakedFromPage);
@@ -96,7 +94,7 @@ export function ContributeDataContextProvider(props: {
     return () => {
       clearTimeout(timer.current);
     };
-  }, [alltotal, total, latestBlock, list, lastBlock, currentAccount]);
+  }, [alltotal, total, list, lastBlock, currentAccount]);
   return (
     <ContributeDataContext.Provider
       value={{

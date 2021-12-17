@@ -20,6 +20,7 @@ export function LastParachainData(props: {
       if (api) {
         const _latestBlock = await getBlock("latest");
         setLatestBlock(+_latestBlock.number);
+        console.log("latestBlock: ", _latestBlock.number);
       }
     })();
   }, [api]);

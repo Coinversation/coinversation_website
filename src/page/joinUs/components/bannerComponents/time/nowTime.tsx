@@ -23,13 +23,13 @@ const NowTime = () => {
     <>
       <h3>{config.maxBlock}</h3>
       <div className="text_p">
-        <p>Comdivletion Block</p>
+        <p>Block</p>
         <Tips
           message={`If the user does not invest in ${config.maxBlock} blocks, the last user who contributes will be able to share the jackpot after Coinversation win the auction`}
         />
       </div>
       <h3>
-        00:15:00
+        15:00:00
         {/* {countHours < 10 ? `0${countHours}` : countHours}:
         {countMinutes < 10 ? `0${countMinutes}` : countMinutes}:
         {countSeconds < 10 ? `0${countSeconds}` : countSeconds} */}
