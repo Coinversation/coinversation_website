@@ -76,7 +76,7 @@ const BlockTime = (props: { last: number; latest: number }) => {
     <>
       <h3>{`${remain === 0 ? 150 : remain}`}</h3>
       <div className="text_p">
-        <p>Comdivletion Block</p>
+        <p>Block</p>
         <Tips
           message={`If the user does not invest in ${config.maxBlock} blocks, the last user who contributes will be able to share the jackpot after Coinversation win the auction`}
         />
