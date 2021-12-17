@@ -33,7 +33,7 @@ const BannerFr = () => {
         ≈ $
         {rate
           ? parseFloat(
-              `${Number(getGrandPrizePool(parachainData?.count)[3]) * rate}`
+              `${Number(getGrandPrizePool(parachainData?.count)[4]) * rate}`
             ).toFixed(2)
           : ""}
       </h3>

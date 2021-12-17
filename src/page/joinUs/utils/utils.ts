@@ -38,7 +38,13 @@ export function getGrandPrizePool(addressNum: number) {
       max_add = 6000;
     }
   }
-  return [num, formatNumber(`${num}`), max_add, formatNumber(`${numMax}`)];
+  return [
+    num,
+    formatNumber(`${num}`),
+    max_add,
+    formatNumber(`${numMax}`),
+    numMax,
+  ];
 }
 export function formatNumber(n: string) {
   var b = parseInt(n).toString();
