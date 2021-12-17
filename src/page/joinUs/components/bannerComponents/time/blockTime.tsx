@@ -73,6 +73,11 @@ const BlockTime = (props: { last: number; latest: number }) => {
         offset % 60 >= 10 ? String(offset % 60) : "0" + (offset % 60)
       );
       if (i && i % 6 === 0) {
+        if (remain - 1 < 0) {
+          setRemain(0);
+          clearInterval(timer.current);
+          return;
+        }
         setRemain(remain - 1);
       }
       i++;
