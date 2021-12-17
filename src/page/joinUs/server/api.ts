@@ -331,23 +331,34 @@ export async function contribution(
       `${Number(val) * decimals}`.toString(),
       null
     );
-    const hash = await crowdloanEntrinsic.signAndSend(address, {
-      signer: injector.signer,
-    });
-    const h = await api.rpc.chain.getHeader();
-    const res = await api.rpc.chain.getBlock(h.hash);
-    setTimeout(async () => {
-      const blockhash = await api.rpc.chain.getBlockHash(
-        (res.block.header.number.toNumber() + 1).toString()
-      );
-      if (fn) {
-        fn(
-          blockhash,
-          (res.block.header.number.toNumber() + 1).toString(),
-          hash
-        ); // block, hash
+    await crowdloanEntrinsic.signAndSend(
+      address,
+      {
+        signer: injector.signer,
+      },
+      ({ status }) => {
+        if (!status.isFinalized) return;
+        fn(status.asFinalized.toHex(), crowdloanEntrinsic.hash.toHex());
       }
-    }, 2000);
+    );
+    // const hash = await crowdloanEntrinsic.signAndSend(address, {
+    //   signer: injector.signer,
+    // });
+    // const h = await api.rpc.chain.getHeader();
+
+    // const res = await api.rpc.chain.getBlock(h.hash);
+    // setTimeout(async () => {
+    //   const blockhash = await api.rpc.chain.getBlockHash(
+    //     (res.block.header.number.toNumber() + 1).toString()
+    //   );
+    //   if (fn) {
+    //     fn(
+    //       blockhash,
+    //       (res.block.header.number.toNumber() + 1).toString(),
+    //       hash
+    //     ); // block, hash
+    //   }
+    // }, 2000);
   } catch (error: any) {
     // eslint-disable-next-line
   }
@@ -455,15 +466,9 @@ export const getContributeTotal = async (): Promise<any> => {
 
 export const postContributeAdd = async (
   blockHash: string,
-  extrinsicHash: string,
-  blockNumber?: string
+  extrinsicHash: string
 ): Promise<any> => {
   try {
-    if (blockNumber) {
-      const api = getApi();
-      const _blockHash = await api.rpc.chain.getBlockHash(blockNumber);
-      blockHash = _blockHash.toString();
-    }
     const response = await fetch(
       `https://www.coinversation.io/api/crowdloan/contribution`,
       {

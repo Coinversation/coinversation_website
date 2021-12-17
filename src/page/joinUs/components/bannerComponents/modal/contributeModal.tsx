@@ -58,13 +58,12 @@ const ContributeModal = (props: {
       `${amount}`,
       currentAccount.address,
       currentAccount.meta.source,
-      async (block: string, blockNumber: string, hash: string) => {
+      async (block: string, hash: string) => {
         window.localStorage.setItem(
           "TRADE_HASH",
           JSON.stringify({
             blockHash: block,
             extrinsicHash: hash,
-            blockNumber: blockNumber,
           })
         );
 
