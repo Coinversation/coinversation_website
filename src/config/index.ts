@@ -2,6 +2,6 @@ export default {
   nftAddress: "",
   preLink: "",
   parachanID: 2027,
-  maxBlock: 150,
+  maxBlock: 600,
   isDev: false,
 };
