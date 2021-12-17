@@ -196,10 +196,8 @@ const convertToKSM = (address: any) => {
 };
 export const publickToAdd = (publickey: string) => {
   try {
-    console.log("eeee");
-    return encodeAddress(publickey);
+    return encodeAddress(publickey, 0);
   } catch (e) {
-    console.log("333qw", e, publickey);
     return null;
   }
 };
@@ -340,19 +338,15 @@ export async function contribution(
     const h = await api.rpc.chain.getHeader();
     const res = await api.rpc.chain.getBlock(h.hash);
     setTimeout(async () => {
-      console.log("header.number: ", res.block.header.number.toString());
       const blockhash = await api.rpc.chain.getBlockHash(
         res.block.header.number.toString()
       );
-      console.log(`hash: ${hash}`);
-      console.log(`block: ${blockhash}`);
       if (fn) {
         fn(blockhash, hash); // block, hash
       }
     }, 1000);
   } catch (error: any) {
     // eslint-disable-next-line
-    console.log("Error: ", error);
   }
   return null;
 }
@@ -395,7 +389,6 @@ export const getContributeList = async (): Promise<any> => {
         _data = unique(_data, "extrinsicHash");
         const __data = [];
         for (let i = 0; i < _data.length; i++) {
-          console.log(1111, _data[i].publickey);
           const _address = publickToAdd(
             _data[i].publickey || _data[i].publicKey
           );
@@ -405,9 +398,7 @@ export const getContributeList = async (): Promise<any> => {
             address: _address || _data[i].publicKey,
             amount: +_data[i].value / decimals,
           });
-          console.log(2222);
         }
-        console.log(__data);
 
         return __data.reverse();
       }

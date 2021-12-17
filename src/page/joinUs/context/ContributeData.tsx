@@ -13,7 +13,6 @@ import {
   getMyContribute,
   postContributeAdd,
 } from "../server/api";
-import config from "@/config";
 interface IContributeDataType {
   count: number;
   list: any[];
@@ -37,12 +36,7 @@ export function ContributeDataContextProvider(props: {
   const [alltotal, setAlltotal] = useState<number>();
   const [lastBlock, setLastBlock] = React.useState<number>(0);
   const timer = useRef<NodeJS.Timer>();
-  const [bol, setBol] = useState<boolean>(false);
   useEffect(() => {
-    if (bol) {
-      return;
-    }
-    setBol(true);
     (async () => {
       if (list === undefined) {
         const list = await getContributeList();
@@ -62,23 +56,12 @@ export function ContributeDataContextProvider(props: {
           setTotal(resMy);
         }
       }
-      setBol(false);
     })();
 
     if (timer.current) {
       clearInterval(timer.current);
     }
     timer.current = setInterval(async () => {
-      if (!latestBlock) {
-        return;
-      }
-      const _remain = config.maxBlock - (+latestBlock - +lastBlock);
-      if (_remain < 0) {
-        return;
-      }
-      if (latestBlock <= lastBlock) {
-        return;
-      }
       const list = await getContributeList();
       setList(list);
       if (list && list.length) {
@@ -109,11 +92,11 @@ export function ContributeDataContextProvider(props: {
           setTotal(res);
         }
       }
-    }, 3000);
+    }, 4000);
     return () => {
       clearTimeout(timer.current);
     };
-  }, [bol, alltotal, total, latestBlock, list, lastBlock, currentAccount]);
+  }, [alltotal, total, latestBlock, list, lastBlock, currentAccount]);
   return (
     <ContributeDataContext.Provider
       value={{

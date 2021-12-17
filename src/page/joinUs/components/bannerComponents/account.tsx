@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { u8aToHex } from "@polkadot/util";
-import { decodeAddress } from "@polkadot/util-crypto";
+import { decodeAddress, encodeAddress } from "@polkadot/util-crypto";
 import MIdenticon from "./identicon";
 import { setup } from "../../state/state";
 import toast from "@/components/toast";
@@ -52,10 +52,12 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
         if (r && r.injectedAccounts && r.injectedAccounts.length) {
           const _arr = r.injectedAccounts.map((v) => {
             const publickey = u8aToHex(decodeAddress(v.address, true));
+            const address = encodeAddress(publickey, 0);
             return {
               ...v,
               publickey,
-              sortAddress: sortName(v.address),
+              sortAddress: sortName(address),
+              address: address,
             };
           });
           if (localStorage.getItem("SELECTED_KSM_WALLET")) {
