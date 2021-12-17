@@ -14,6 +14,7 @@ import {
   AccountSetterContext,
   AllAccountsSetterContext,
   AllAccounts,
+  ConnectWalletProvider,
 } from "./context";
 import { ContributeDataContextProvider } from "./context/ContributeData";
 // const WS_PROVIDER = new WsProvider("wss://rpc.plasmnet.io/");
@@ -41,27 +42,29 @@ export default function JoinIndex() {
       <HeaderWidget propsOnKey="ParachainA" />
       <div className="joinIndex_inner">
         <ApiRxContextProvider provider={WS_PROVIDER}>
-          <AccountContext.Provider value={account}>
-            <AllAccounts.Provider value={allAccounts}>
-              <AllAccountsSetterContext.Provider value={setAllAccounts}>
-                <AccountSetterContext.Provider value={setAccount}>
-                  <ContributeDataContextProvider>
-                    <div className="joinIndex_inner_inner">
-                      <Height height={60} />
-                      <JoinBanner />
-                      <Height height={40} />
-                      <Process />
-                      <Height height={40} />
-                      <ListOfWinners />
-                      <Height height={40} />
-                      <PNS />
-                      <Height height={60} />
-                    </div>
-                  </ContributeDataContextProvider>
-                </AccountSetterContext.Provider>
-              </AllAccountsSetterContext.Provider>
-            </AllAccounts.Provider>
-          </AccountContext.Provider>
+          <ConnectWalletProvider>
+            <AccountContext.Provider value={account}>
+              <AllAccounts.Provider value={allAccounts}>
+                <AllAccountsSetterContext.Provider value={setAllAccounts}>
+                  <AccountSetterContext.Provider value={setAccount}>
+                    <ContributeDataContextProvider>
+                      <div className="joinIndex_inner_inner">
+                        <Height height={60} />
+                        <JoinBanner />
+                        <Height height={40} />
+                        <Process />
+                        <Height height={40} />
+                        <ListOfWinners />
+                        <Height height={40} />
+                        <PNS />
+                        <Height height={60} />
+                      </div>
+                    </ContributeDataContextProvider>
+                  </AccountSetterContext.Provider>
+                </AllAccountsSetterContext.Provider>
+              </AllAccounts.Provider>
+            </AccountContext.Provider>
+          </ConnectWalletProvider>
         </ApiRxContextProvider>
       </div>
       <FooterWidget />
