@@ -333,18 +333,21 @@ export async function contribution(
     );
     const hash = await crowdloanEntrinsic.signAndSend(address, {
       signer: injector.signer,
-      nonce: -1,
     });
     const h = await api.rpc.chain.getHeader();
     const res = await api.rpc.chain.getBlock(h.hash);
     setTimeout(async () => {
       const blockhash = await api.rpc.chain.getBlockHash(
-        res.block.header.number.toString()
+        (res.block.header.number.toNumber() + 1).toString()
       );
       if (fn) {
-        fn(blockhash, hash); // block, hash
+        fn(
+          blockhash,
+          (res.block.header.number.toNumber() + 1).toString(),
+          hash
+        ); // block, hash
       }
-    }, 1000);
+    }, 2000);
   } catch (error: any) {
     // eslint-disable-next-line
   }
@@ -452,9 +455,15 @@ export const getContributeTotal = async (): Promise<any> => {
 
 export const postContributeAdd = async (
   blockHash: string,
-  extrinsicHash: string
+  extrinsicHash: string,
+  blockNumber?: string
 ): Promise<any> => {
   try {
+    if (blockNumber) {
+      const api = getApi();
+      const _blockHash = await api.rpc.chain.getBlockHash(blockNumber);
+      blockHash = _blockHash.toString();
+    }
     const response = await fetch(
       `https://www.coinversation.io/api/crowdloan/contribution`,
       {

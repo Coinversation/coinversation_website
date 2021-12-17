@@ -5,7 +5,7 @@ import {
   useConnectWalletContext,
   useConnectWalletContextSet,
 } from "../../context";
-type Phase = "none" | "setup" | "shop" | "battle" | "result";
+// type Phase = "none" | "setup" | "shop" | "battle" | "result";
 const AccountBtn = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
   const { btnOnly, receivePns } = props;
   // const [phase, setPhase] = useState<Phase>(

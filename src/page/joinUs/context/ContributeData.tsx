@@ -75,19 +75,22 @@ export function ContributeDataContextProvider(props: {
       const TRADE_HASH = window.localStorage.getItem("TRADE_HASH");
       if (TRADE_HASH) {
         const TRADE_HASH_JSON = JSON.parse(TRADE_HASH);
-        const resAdd = await postContributeAdd(
-          TRADE_HASH_JSON.blockHash,
-          TRADE_HASH_JSON.extrinsicHash
-        );
-        if (resAdd) {
-          window.localStorage.removeItem("TRADE_HASH");
-          const _res = await getContributeList();
-          setList(_res);
-          const resAlltotal = await getContributeTotal();
-          setAlltotal(resAlltotal.totalStakedFromPage);
-          setCount(resAlltotal.totalAddressesFromPage);
-          const res = await getMyContribute(currentAccount?.publickey);
-          setTotal(res);
+        if (TRADE_HASH_JSON.blockNumber) {
+          const resAdd = await postContributeAdd(
+            TRADE_HASH_JSON.blockHash,
+            TRADE_HASH_JSON.extrinsicHash,
+            TRADE_HASH_JSON.blockNumber
+          );
+          if (resAdd) {
+            window.localStorage.removeItem("TRADE_HASH");
+            const _res = await getContributeList();
+            setList(_res);
+            const resAlltotal = await getContributeTotal();
+            setAlltotal(resAlltotal.totalStakedFromPage);
+            setCount(resAlltotal.totalAddressesFromPage);
+            const res = await getMyContribute(currentAccount?.publickey);
+            setTotal(res);
+          }
         }
       }
     }, 4000);

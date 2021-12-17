@@ -18,7 +18,7 @@ const BannerFr = () => {
     <div className="join_bannerFr">
       <a
         className="reward_rules"
-        href="/"
+        href="https://coinversationofficial.medium.com/coinversation-will-participate-in-batch-2-polkadot-parachain-auction-2c8a76268af0"
         target="_blank"
         rel="noopener noreferrer"
       >
