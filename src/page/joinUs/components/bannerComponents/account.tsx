@@ -132,7 +132,7 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
         disabled={waiting || message ? true : false}
         onClick={() => {
           if (receivePns) {
-            // window.open("https://www.baidu.com/");
+            window.open("https://crowdloan.pns.link/coinversation/preregister");
           } else {
             if (message) {
               return;
@@ -145,8 +145,7 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
           }
         }}
       >
-        {receivePns ? "Coming Soon" : "Contribute Now"}
-        {/* {receivePns ? "Claim on PNS" : "Contribute Now"} */}
+        {receivePns ? "Claim on PNS" : "Contribute Now"}
       </button>
       {waiting ? (
         <h4 className="textH4">
