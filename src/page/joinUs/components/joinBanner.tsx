@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import JoinBannerFl from "./bannerComponents/joinBannerFl";
 import JoinBannerFr from "./bannerComponents/joinBannerFr";
-import { ContributeDataContext } from "../context/ContributeData";
-import { getGrandPrizePool } from "../utils/utils";
 import "./joinBanner.less";
 const JoinBanner = () => {
-  const parachainData = useContext(ContributeDataContext);
   return (
     <div className="join_banner">
       <div className="join_banner_inner">
         <h2 className="join_banner_inner_warn">
-          Share extra {getGrandPrizePool(parachainData?.count)[3]} CTO if no
-          more contribute within 150 blocks after yours
+          During a countdown of about 15 minutes (150 block height), if user A
+          participates in the activity in the last 1 second, the countdown will
+          be reset to the initial 15 minutes. If there is no new voting record
+          in the next 15 minutes (150 block height), user A will win the
+          qualification to share the reward.
         </h2>
         <div className="join_banner_inner_inner">
           <JoinBannerFl />
