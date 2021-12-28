@@ -88,26 +88,30 @@ const BlockTime = (props: { last: number; latest: number }) => {
   }, [remain]);
 
   return (
-    <>
-      <h3>{`${remain <= 0 ? config.maxBlock : remain}`}</h3>
-      <div className="text_p">
-        <p>Block</p>
-        <Tips
-          message={`If the user does not invest in ${config.maxBlock} blocks, the last user who contributes will be able to share the jackpot after Coinversation win the auction`}
-        />
+    <div className="blockTime">
+      <div className="blockTime_fl">
+        <h3>{`${remain <= 0 ? config.maxBlock : remain}`}</h3>
+        <div className="text_p">
+          <p>Block</p>
+          <Tips
+            message={`If the user does not invest in ${config.maxBlock} blocks, the last user who contributes will be able to share the jackpot after Coinversation win the auction`}
+          />
+        </div>
       </div>
-      <h3>
-        {/* {countHours}: */}
-        {remain <= 0
-          ? Math.floor((config.maxBlock * 6) / 60) % 60
-          : countMinutes}
-        :{countSeconds}
-      </h3>
-      <div className="text_p">
-        <p>Countdown</p>
-        <Tips message={"The estimated time based on the block"} />
+      <div className="blockTime_fr">
+        <h3>
+          {/* {countHours}: */}
+          {remain <= 0
+            ? Math.floor((config.maxBlock * 6) / 60) % 60
+            : countMinutes}
+          :{countSeconds}
+        </h3>
+        <div className="text_p">
+          <p>Countdown</p>
+          <Tips message={"The estimated time based on the block"} />
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 export default BlockTime;
