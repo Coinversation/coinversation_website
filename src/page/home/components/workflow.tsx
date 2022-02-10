@@ -31,13 +31,13 @@ export default function Workflow() {
               Based on the stablecoin protocol of interest-bearing assets built
               on the Polkadot, using $DOT and $CTO issued by Coinversation to
               generate interest-bearing tokens, CUSD is synthesized through
-              smart contracts and oracles. Users can mint CUSD by
-              collateralizing tokens that can generate interest, such as CTO and
-              DOT. Bridging USDT, USDC, and BUSD to the Coinversation to form
-              the largest stable currency exchange platform in the Polkadot
-              ecosystem. We will open the API to facilitate all parachains to
-              access our stable currency exchange system and facilitate all
-              chains users can seamlessly use Polkadot's cross-chain protocol.
+              smart contracts. Users can mint CUSD by collateralizing tokens
+              that can generate interest, such as CTO and DOT. Bridging USDT,
+              USDC, and BUSD to the Coinversation to form the largest stable
+              currency exchange platform in the Polkadot ecosystem. We will open
+              the API to facilitate all parachains to access our stable currency
+              exchange system and facilitate all chains users can seamlessly use
+              Polkadot's cross-chain protocol.
             </p>
           </div>
           <div className="parttwo_bg">

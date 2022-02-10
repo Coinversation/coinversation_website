@@ -34,7 +34,7 @@ export default function About() {
               continue to decrease and it will never be liquidated.{" "}
             </p>
           </li>
-          <li>
+          {/* <li>
             <img src={require("../img/2.svg")} alt="logo" />
             <h3>Oracle</h3>
             <p>
@@ -48,9 +48,8 @@ export default function About() {
               into, what products they put into, and what the comprehensive rate
               of return is.
             </p>
-          </li>
-        </ul>
-        <ul className="seconed">
+          </li> */}
+
           <li>
             <img src={require("../img/3.svg")} alt="logo" />
             <h3>Liquidity Mining</h3>
@@ -63,6 +62,8 @@ export default function About() {
               <br /> • Users who stake $CTO
             </p>
           </li>
+        </ul>
+        <ul className="seconed">
           <li>
             <img src={require("../img/4.svg")} alt="logo" />
             <h3>Platform Revenue</h3>
@@ -76,6 +77,7 @@ export default function About() {
               currency exchange will also enter the platform revenue.
             </p>
           </li>
+
           <li>
             <img src={require("../img/5.svg")} alt="logo" />
             <h3>Liquidation</h3>
