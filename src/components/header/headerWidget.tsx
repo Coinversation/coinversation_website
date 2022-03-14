@@ -20,7 +20,7 @@ interface IState {
 const LinkArray: string[] = [
   "Home",
   "About",
-  // "Parachain",
+  "Parachain",
   "Workflow",
   "Road Map",
   "Partners",
