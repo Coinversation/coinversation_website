@@ -22,7 +22,8 @@ const NowTime = () => {
   return (
     <div className="blockTime">
       <div className="blockTime_fl">
-        <h3>{config.maxBlock}</h3>
+        <h3>--</h3>
+        {/* <h3>{config.maxBlock}</h3> */}
         <div className="text_p">
           <p>Block</p>
           <Tips
@@ -31,7 +32,7 @@ const NowTime = () => {
         </div>
       </div>
       <div className="blockTime_fl">
-        <h3>{Math.floor((config.maxBlock * 6) / 60) % 60}:00</h3>
+        <h3>--:--</h3>
         <div className="text_p">
           <p>Countdown</p>
           <Tips message={"The estimated time based on the block"} />

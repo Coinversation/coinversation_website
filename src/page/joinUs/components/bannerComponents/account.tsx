@@ -17,7 +17,7 @@ import {
 import { getAddressBalance } from "../../server/api";
 import { ContributeDataContext } from "../../context/ContributeData";
 import { sortName, getGrandPrizePool, formatNumber } from "../../utils/utils";
-import ContributeModal from "./modal/contributeModal";
+// import ContributeModal from "./modal/contributeModal";
 import SwitchAddress from "./modal/switchAddress";
 const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
   const { btnOnly, receivePns } = props;
@@ -29,7 +29,7 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
   const [waiting, setWaiting] = useState(false);
   const { api } = useContext(ApiRxContext);
 
-  const [contributeModal, setContributeModal] = useState(false);
+  // const [contributeModal, setContributeModal] = useState(false);
   const [switchAddress, setSwitchAddress] = useState(false);
   const [balance, setBalance] = useState<number | undefined>();
 
@@ -123,13 +123,15 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
       )}
       <button
         className={
-          waiting || message || !api
-            ? "disable btn"
-            : btnOnly && !receivePns
-            ? "btn btn_count"
-            : "btn"
+          // waiting || message || !api
+          //   ?
+          "disable btn"
+          // : btnOnly && !receivePns
+          // ? "btn btn_count"
+          // : "btn"
         }
-        disabled={waiting || message ? true : false}
+        disabled={true}
+        // disabled={waiting || message ? true : false}
         onClick={() => {
           if (receivePns) {
             window.open("https://crowdloan.pns.link/coinversation/preregister");
@@ -141,18 +143,19 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
               toast.show(`Getting balance`);
               return;
             }
-            setContributeModal(!contributeModal);
+            // setContributeModal(!contributeModal);
           }
         }}
       >
-        {receivePns ? "Claim on PNS" : "Contribute Now"}
+        {/* {receivePns ? "Claim on PNS" : "Finished"} */}
+        Finished
       </button>
       {waiting ? (
         <h4 className="textH4">
           <i>waiting</i>
         </h4>
       ) : null}
-      {message ? (
+      {/* {message ? (
         <h4 className="textH4">
           {message}
           <a
@@ -163,7 +166,7 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
             Get Polkadot.js extension?
           </a>
         </h4>
-      ) : null}
+      ) : null} */}
       {btnOnly ? null : (
         <div className="now_account">
           <div className="polkadot_icon">
@@ -182,11 +185,11 @@ const Account = (props: { btnOnly?: boolean; receivePns?: boolean }) => {
           ) : null}
         </div>
       )}
-      <ContributeModal
+      {/* <ContributeModal
         visible={contributeModal}
         setVisible={setContributeModal}
         balance={balance}
-      />
+      /> */}
       <SwitchAddress visible={switchAddress} setVisible={setSwitchAddress} />
     </div>
   );

@@ -9,6 +9,8 @@ import type { Hash } from "@polkadot/types/interfaces/runtime";
 import { u8aConcat, u8aToHex } from "@polkadot/util";
 import { BlockHash } from "@polkadot/types/interfaces/chain";
 import { web3FromSource } from "@polkadot/extension-dapp";
+import DATA from "./data.json";
+import WINNERS from "./winners.json";
 import {
   blake2AsU8a,
   encodeAddress,
@@ -391,25 +393,26 @@ export const getContributeList = async (): Promise<any> => {
   try {
     if (config.isDev) {
     } else {
-      const response = await fetch(
-        `https://www.coinversation.io/api/crowdloan/contribution`
-      );
-      if (response.status !== 200) {
-        return null;
-      }
-      const contributeLast = await response.json();
+      // const response = await fetch(
+      //   `https://www.coinversation.io/api/crowdloan/contribution`
+      // );
+      // if (response.status !== 200) {
+      //   return null;
+      // }
+      // const contributeLast = await response.json();
+      const contributeLast = DATA;
       let _data = contributeLast?.data;
       if (_data.length > 0) {
         _data = unique(_data, "extrinsicHash");
         const __data = [];
         for (let i = 0; i < _data.length; i++) {
           const _address = publickToAdd(
-            _data[i].publickey || _data[i].publicKey
+            _data[i]["publickey"] || _data[i]["publicKey"]
           );
           __data.push({
             extrinsicHash: _data[i].extrinsicHash,
             blockNum: _data[i].blockNum,
-            address: _address || _data[i].publicKey,
+            address: _address || _data[i]["publicKey"],
             amount: +_data[i].value / decimals,
           });
         }
@@ -446,13 +449,20 @@ export const getContributeTotal = async (): Promise<any> => {
   try {
     if (config.isDev) {
     } else {
-      const response = await fetch(
-        `https://www.coinversation.io/api/crowdloan/info`
-      );
-      if (response.status !== 200) {
-        return null;
-      }
-      const contributeLast = await response.json();
+      // const response = await fetch(
+      //   `https://www.coinversation.io/api/crowdloan/info`
+      // );
+      // if (response.status !== 200) {
+      //   return null;
+      // }
+      const contributeLast = {
+        status: 200,
+        msg: "ok",
+        data: {
+          totalStakedFromPage: 83536506899384,
+          totalAddressesFromPage: 313,
+        },
+      };
       return {
         totalStakedFromPage:
           +contributeLast.data.totalStakedFromPage / decimals,
@@ -516,18 +526,21 @@ export const getListOfWinners = async (): Promise<any> => {
     if (config.isDev) {
       return [];
     }
-    const response = await fetch(
-      `https://www.coinversation.io/api/crowdloan/winners`
-    );
-    if (response.status !== 200) {
-      return null;
-    }
-    const data = await response.json();
+    // const response = await fetch(
+    //   `https://www.coinversation.io/api/crowdloan/winners`
+    // );
+    // if (response.status !== 200) {
+    //   return null;
+    // }
+    // const data = await response.json();
+    const data = WINNERS;
     const _data = data?.data;
     if (_data.length > 0) {
       const __data = [];
       for (let i = 0; i < _data.length; i++) {
-        const _address = publickToAdd(_data[i].publickey || _data[i].publicKey);
+        const _address = publickToAdd(
+          _data[i]["publickey"] || _data[i]["publicKey"]
+        );
         __data.push({
           extrinsicHash: _data[i].extrinsicHash,
           blockNum: _data[i].blockNum,

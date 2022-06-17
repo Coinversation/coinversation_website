@@ -1,17 +1,10 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  createContext,
-  useRef,
-} from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
 import { ApiRxContext } from "../context";
 import { AccountContext } from "./AccountContext";
 import {
   getContributeList,
   getContributeTotal,
   getMyContribute,
-  postContributeAdd,
 } from "../server/api";
 interface IContributeDataType {
   count: number;
@@ -33,7 +26,6 @@ export function ContributeDataContextProvider(props: {
   const [total, setTotal] = useState<number>();
   const [alltotal, setAlltotal] = useState<number>();
   const [lastBlock, setLastBlock] = React.useState<number>(0);
-  const timer = useRef<NodeJS.Timer>();
   const { api } = React.useContext(ApiRxContext);
   useEffect(() => {
     (async () => {
@@ -57,45 +49,6 @@ export function ContributeDataContextProvider(props: {
         }
       }
     })();
-
-    if (timer.current) {
-      clearInterval(timer.current);
-    }
-    timer.current = setInterval(async () => {
-      const list = await getContributeList();
-      if (list && list.length && lastBlock !== +list[0].blockNum) {
-        setList(list);
-        setLastBlock(+list[0].blockNum);
-      }
-      const resAlltotal = await getContributeTotal();
-      setAlltotal(resAlltotal.totalStakedFromPage);
-      setCount(resAlltotal.totalAddressesFromPage);
-      if (currentAccount && currentAccount.publickey) {
-        const res = await getMyContribute(currentAccount?.publickey);
-        setTotal(res);
-      }
-      const TRADE_HASH = window.localStorage.getItem("TRADE_HASH");
-      if (TRADE_HASH) {
-        const TRADE_HASH_JSON = JSON.parse(TRADE_HASH);
-        const resAdd = await postContributeAdd(
-          TRADE_HASH_JSON.blockHash,
-          TRADE_HASH_JSON.extrinsicHash
-        );
-        if (resAdd) {
-          window.localStorage.removeItem("TRADE_HASH");
-          const _res = await getContributeList();
-          setList(_res);
-          const resAlltotal = await getContributeTotal();
-          setAlltotal(resAlltotal.totalStakedFromPage);
-          setCount(resAlltotal.totalAddressesFromPage);
-          const res = await getMyContribute(currentAccount?.publickey);
-          setTotal(res);
-        }
-      }
-    }, 4000);
-    return () => {
-      clearTimeout(timer.current);
-    };
   }, [api, alltotal, total, list, lastBlock, currentAccount]);
   return (
     <ContributeDataContext.Provider
